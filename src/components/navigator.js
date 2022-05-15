@@ -46,8 +46,8 @@ const navigator = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-            {navItems.map(item => { return(
-              <LinkContainer to={item.route}>
+            {navItems.map((item, index) => { return(
+              <LinkContainer key={index} to={item.route}>
                 <Nav.Link>
                   <span style={{marginRight: "7px", marginTop: "-3px"}}>
                     {item.icon}

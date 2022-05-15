@@ -88,10 +88,10 @@ ReactDOM.render(
       <Nav/>
       <Switch>
 
-      {wiki.flatMap(x => x.entries).map(wikiEntry => {
+      {wiki.flatMap(x => x.entries).map((wikiEntry, index) => {
         console.log(wikiEntry)
           return(
-            <Route path={`/wiki/${wikiEntry.title.replace(/\s+/g, '')}`}>
+            <Route key={index} path={`/wiki/${wikiEntry.title.replace(/\s+/g, '')}`}>
               <Header color="#b7c1ac" text={wikiEntry.title} img={wikiEntry.img}/>
               <Wikientry title={wikiEntry.title} content={wikiEntry.content} />
             </Route>
@@ -99,9 +99,9 @@ ReactDOM.render(
         })}
 
 
-        {routes.map(route => {
+        {routes.map((route, index) => {
           return(
-            <Route exact path={route.path}>
+            <Route key={index} exact path={route.path}>
               <Header color={route.color} text={route.text} img={route.img}/>
               {route.component}
             </Route>
