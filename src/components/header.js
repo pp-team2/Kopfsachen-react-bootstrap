@@ -9,6 +9,7 @@ const header = (props) => {
         height: "250px",
         display: "flex",
         justifyContent: "flex-center",
+        marginBottom: "15px"
     }
 
     const titleStyle = {
@@ -24,15 +25,18 @@ const header = (props) => {
         alignItems: "center"
     }
 
-    return (
-        <div style={headerStyle}>
-            <Container style={containerStyle}>
-                <h1 style={titleStyle}>{props.text}</h1>
-                <img src={props.img} 
-                     alt={props.txt} 
-                     width="200px"/>
-            </Container>
-        </div>
+    return ( <
+        div style = { headerStyle } >
+        <
+        Container style = { containerStyle } >
+        <
+        h1 style = { titleStyle } > { props.text } < /h1> <
+        img src = { props.img }
+        alt = { props.txt }
+        width = "200px" / >
+        <
+        /Container> < /
+        div >
     )
 }
 
