@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, ListGroup } from 'react-bootstrap'
+import { Button, Container, ListGroup } from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
+
 
 const wiki = (props) => {
 
@@ -12,18 +13,20 @@ console.log(props)
 
             <ListGroup >
             {
-                props.list.map(entry => 
+                props.list.map((entry, index) => 
                 <ListGroup.Item
                     className="d-flex justify-content-between align-items-start"
-                    key={entry.letter}>
+                    key={index}>
                     <div className="ms-2 me-auto">
                     <div className="fw-bold">{entry.letter}</div>
                     {
-                        Object.values(entry.entries).map(item => (
-                            <LinkContainer to={`/wiki/${item.title.replace(/\s+/g, '')}`}>
-                            <li key={item.title}>
-                                {item.title}
-                             </li>
+                        Object.values(entry.entries).map((item, index) => (
+                            <LinkContainer key={index} 
+                             style={{backgroundColor: 'white', color: 'black', display: 'block', border: 'none', textAlign: 'left'}}
+                             to={`/wiki/${item.title.replace(/\s+/g, '')}`}>
+                                <Button>
+                                    {item.title}
+                                </Button>
                             </LinkContainer>
                         ))
                     }
