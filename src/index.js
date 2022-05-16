@@ -92,7 +92,7 @@ ReactDOM.render(
         console.log(wikiEntry)
           return(
             <Route key={index} path={`/wiki/${wikiEntry.title.replace(/\s+/g, '')}`}>
-              <Header color="#b7c1ac" text={wikiEntry.title} img={wikiEntry.img}/>
+              <Header color="#f6efe9" text={wikiEntry.title} img={wikiEntry.img}/>
               <Wikientry title={wikiEntry.title} content={wikiEntry.content} />
             </Route>
           )
