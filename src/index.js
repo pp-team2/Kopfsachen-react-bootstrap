@@ -10,6 +10,7 @@ import  Header  from './components/header'
 import  Missing  from './components/missing'
 import  Wiki  from './components/wikiList'
 import Wikientry from './components/wikientry'
+import  Help  from './components/help'
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
@@ -73,6 +74,13 @@ const routes = [{
   color: "#f6efe9",
   text: "Wiki",
   img: "./tagebuch.svg"
+},
+{
+  path: "/notfall",
+  component: <Help />,
+  color: "rgb(225 116 135)",
+  text: "Externe Hilfe",
+  img: "./notfall.svg"
 },
 {
   path: "*",
