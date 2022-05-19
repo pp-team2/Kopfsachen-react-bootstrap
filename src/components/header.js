@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { Container } from 'react-bootstrap'
 
@@ -25,18 +26,20 @@ const header = (props) => {
         alignItems: "center"
     }
 
-    return ( <
-        div style = { headerStyle } >
-        <
-        Container style = { containerStyle } >
-        <
-        h1 style = { titleStyle } > { props.text } < /h1> <
-        img src = { props.img }
-        alt = { props.txt }
-        width = "200px" / >
-        <
-        /Container> < /
-        div >
+    const imgStyle= {
+        maxHeight: "175px"
+    }
+
+    return ( <div style = { headerStyle } >
+            <Container style = { containerStyle } >
+                <h1 style = { titleStyle } > { props.text } </h1> 
+                <img src = { props.img }
+                alt = { props.txt }
+                width = "200px" 
+                style={imgStyle}
+                />
+            </Container> 
+            </div>
     )
 }
 
