@@ -1,0 +1,13 @@
+g#gNetz ellipse {
+/* fill: #c32e04; */
+stroke: #333;
+stroke-width: 0.4;
+}
+
+g#gNetz ellipse:hover {
+fill: #dfac20;
+}
+
+g#gNetz ellipse:active {
+fill: #000000;
+}
