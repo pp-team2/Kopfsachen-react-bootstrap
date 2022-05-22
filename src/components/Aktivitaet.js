@@ -20,26 +20,35 @@ export default class Sicherheitsnetz extends React.Component {
 
 
     selectNewActivity() {
+        // Wenn auf "Weitere Ressourcen hinzufügen" geklickt wurde
         this.save();
         this.props.selectNewActivity();
     }
 
     textChange(elem) {
+        // Wenn der Text im Input-Feld text geändert wurde, dann ändere den state
         this.setState({text: elem.target.value});
     }
 
     pictureChange(elem) {
+        // Macht den Button zu weiteren Ressourcen wieder zugänglich
+        document.querySelector('#weitereRessource').classList.remove('disabled');
+        // Entfernt alle Border von den Bildern die zur Auswahl stehen
         document.querySelectorAll('img').forEach(element => element.style.border = '');
+        // Setzt den Border wieder an dem Bild was ausgewählt wurde
         document.querySelectorAll('.'+elem.target.getAttribute('class')).forEach(element => element.style.border = "black solid");
+        // Speichert das ausgewählte Bild im state
         this.setState({picture: document.querySelector('.'+elem.target.getAttribute('class'))});
         //console.log(document.querySelector('.'+elem.target.getAttribute('class')));
     }
 
     save() {
+        // Ruft die saveActitivty-Funktion in SicherheitsnetzController auf um die Aktivität zu speichern
         this.props.saveActivity(this.state.text, this.state.picture, this.props.clickID);
     }
 
     exit() {
+        // Wenn auf "Das sind alle Ressourcen" geklickt wurde
         this.save();
     }
 
@@ -64,37 +73,20 @@ export default class Sicherheitsnetz extends React.Component {
                 <Row>
                     <Col>
                         <img className="p_1" onClick={this.pictureChange} src="/logo.png" alt="Logo-Bild" style={{width: 30 + '%', height: 30 + '%'}}/>
-                        {/* <svg className="p_1" onClick={this.pictureChange} width="100%" height="100%" viewBox='0 100 500 200'>
-                            <g>
-                                <rect className="p_1" fill="#ffd4aa" height="136" stroke="#000000" strokeWidth="5" transform="matrix(1 0 0 1 0 0)" width="143" x="150" y="120.5"/>
-                                <ellipse className="p_1" cx="220" cy="187.5" fill="#007f00" rx="51" ry="57" stroke="#000000" strokeWidth="5"/>
-                            </g>
-                        </svg> */}
                     </Col>
                     <Col>
                         <img className="p_2" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" style={{width: 30 + '%', height: 30 + '%'}}/>
-                        {/* <svg className="p_2" onClick={this.pictureChange} width="100%" height="100%" viewBox='0 100 500 200'>
-                            <g>
-                                <rect className="p_2" fill="#7f0000" height="136" troke="#000000" strokeWidth="5" transform="matrix(1 0 0 1 0 0)" width="143" x="150" y="120.5"/>
-                                <ellipse className="p_2" cx="220" cy="187.5" fill="#ff7f00" rx="51" ry="57" stroke="#000000" strokeWidth="5"/>
-                            </g>
-                        </svg> */}
                     </Col>
                     <Col>
-                        <svg className="p_3" onClick={this.pictureChange} width="100%" height="100%" viewBox='0 100 500 200'>
-                            <g>
-                                <rect className="p_3" fill="#ffaad4" height="136" stroke="#000000" strokeWidth="5" transform="matrix(1 0 0 1 0 0)" width="143" x="150" y="120.5"/>
-                                <ellipse className="p_3" cx="220" cy="187.5" fill="#000000" rx="51" ry="57" stroke="#000000" strokeWidth="5"/>
-                            </g>
-                        </svg>
+                        <img className="p_3" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" style={{width: 30 + '%', height: 30 + '%'}}/>
                     </Col>    
                 </Row>
                 <Row>
                     <Col>
-                        <Button onClick={this.selectNewActivity}>Weitere Ressourcen hinzufügen</Button>
+                        <Button id="weitereRessource" onClick={this.selectNewActivity} className="disabled">Weitere Ressource hinzufügen</Button>
                     </Col>
                     <Col>
-                        <Button onClick={this.exit} variant="success">Das sind alle Ressourcen</Button>
+                        <Button id="alleRessourcen" onClick={this.exit} variant="success">Das sind alle Ressourcen</Button>
                     </Col>
                 </Row>
             </Container>

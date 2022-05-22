@@ -10,14 +10,21 @@ export default class Sicherheitsnetz extends React.Component {
      constructor(props) {
         super(props);
 
+        this.state = {images: []};
+
         this.addActivities = this.addActivities.bind(this);
         this.uebungBeenden = this.uebungBeenden.bind(this);
     } 
 
     componentDidMount() {
-        let point = document.querySelectorAll("ellipse");
+        // Gespeicherte Aktivitäten hinzufügen
         this.addActivities();
+        // Wenn auf ein Kreis geklickt wird, dann soll man zum Aktivitätsbildschirm kommen
         let addNewActivity = this.props.addNewActivity;
+        // Alle Kreise des SVG-Elements
+        let point = document.querySelectorAll("ellipse");
+        
+        // Für jeden Kreis ein Event-Listener hinzufügen, damit man auf jeden Kreis raufklicken kann
         [...point].forEach(function(elem) {
             elem.addEventListener("click", function(evt) {
                 let id = evt.target.getAttribute("id");
@@ -26,21 +33,41 @@ export default class Sicherheitsnetz extends React.Component {
             }); 
         });
 
+        // Wenn die Übung bereit ist zum beenden (es wurde eine Aktivität hinzugefügt), dann soll der Button dazu sichtbar werden
         if (!this.props.uebungBeenden) {
              document.querySelector('#beendenBtn').style.visibility = 'hidden';
         }
     }
 
     addActivities() {
+        // Alle gespeicherten Aktivitäten abrufen
         let activities = this.props.activities;
+
+        // Wenn noch keine Aktivitäten gespeichert sind, breche die Funktion ab
         if (activities === undefined) {
             return;
         } else {
             activities.forEach(line => {
+                // placeID beschreibt wo das Bild dann platziert werden soll
                 if (line.placeID === '') {
                     return;
                 } else {
-                    console.log(document.getElementById(line.placeID));
+                    // x und y Koordinaten für das Bild
+                    let x = document.getElementById(line.placeID).getAttribute('cx');
+                    let y = document.getElementById(line.placeID).getAttribute('cy');
+
+                    // JSX-Element des Bildes mit Tooltip für den Text
+                    let newImageElement = 
+                    <image key={line.id} x={x} y={y} transform='translate(-40,-40)' href={line.picture.getAttribute('src')} height='80' width='80'>
+                        <title>{line.text}</title>
+                    </image>
+
+                    // neuen State setzen
+                    let images = this.state.images;
+                    images.push(newImageElement);
+                    this.setState({images: images});
+
+                    // macht den ausgewählten Kreis Weiß
                     document.getElementById(line.placeID).setAttribute('fill', '#ffffff');
                     return;
                 }
@@ -55,6 +82,8 @@ export default class Sicherheitsnetz extends React.Component {
 
 
     render() {
+        let images = this.state.images;
+
         return (
             <Container>
                 <Row>
@@ -78,7 +107,9 @@ export default class Sicherheitsnetz extends React.Component {
                                 <line fill="none" id="svg_24" stroke="#000000" strokeWidth="5" x1="288" x2="287" y1="49.499995" y2="386.5"/>
                                 <line fill="none" id="svg_22" stroke="#000000" strokeWidth="5" x1="113" x2="464" y1="218.5" y2="218.5"/>
                                 <ellipse cx="107.000001" cy="220.5" fill="#c32e04" id="svg_4" rx="36.000001" ry="36" stroke="#000000" strokeWidth="5" transform="matrix(1 0 0 1 0 0)"/>
-                                <image x="285.000001" y="52" transform="translate(-50,-50)" href='/tagebuch.jpg' width="100" height="100"></image>
+                                {/* <image x="285.000001" y="52" transform="translate(-50,-50)" href='/tagebuch.jpg' width="100" height="100">
+                                    <title>Das ist ein ganz tolles Bild</title>
+                                </image> */}
                                 <ellipse cx="285.000001" cy="52" fill="#c32e04" id="svg_6" rx="36.000001" ry="36" stroke="#000000" strokeWidth="5" transform="matrix(1 0 0 1 0 0)"/>
                                 <ellipse cx="366.000001" cy="80" fill="#c32e04" id="svg_7" rx="36.000001" ry="36" stroke="#000000" strokeWidth="5" transform="matrix(1 0 0 1 0 0)"/>
                                 <ellipse cx="432.000001" cy="144" fill="#c32e04" id="svg_8" rx="36.000001" ry="36" stroke="#000000" strokeWidth="5" transform="matrix(1 0 0 1 0 0)"/>
@@ -95,6 +126,9 @@ export default class Sicherheitsnetz extends React.Component {
                                 <ellipse cx="289.000001" cy="137" fill="#c32e04" id="svg_19" rx="36.000001" ry="36" stroke="#000000" strokeWidth="5"/>
                                 <ellipse cx="295.000001" cy="297" fill="#c32e04" id="svg_20" rx="36.000001" ry="36" stroke="#000000" strokeWidth="5"/>
                                 <ellipse cx="374.000001" cy="214" fill="#c32e04" id="svg_21" rx="36.000001" ry="36" stroke="#000000" strokeWidth="5" transform="matrix(1 0 0 1 0 0)"/>
+                            </g>
+                            <g>
+                                { images }
                             </g>
                         </svg>
                     </Col>
