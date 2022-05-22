@@ -10,7 +10,9 @@ import  Header  from './components/header'
 import  Missing  from './components/missing'
 import  Wiki  from './components/wikiList'
 import Wikientry from './components/wikientry'
-
+import Starkmacher from './components/starkmacher';
+import NeueStarkmacher from './components/neueStarkmacher';
+import Reframing from './components/starkmacher/reframing';
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
 
@@ -73,6 +75,27 @@ const routes = [{
   color: "#f6efe9",
   text: "Wiki",
   img: "./tagebuch.svg"
+},
+{
+  path: "/starkmacher",
+  component: <Starkmacher/>,
+  color: "#eefcf5",
+  text: "Meine Starkmacher",
+  img: "./logoBig.png"
+},
+{
+  path: "/neueStarkmacher",
+  component: <NeueStarkmacher/>,
+  color: "#eefcf5",
+  text: "Neue Starkmacher",
+  img: "./logoBig.png"
+},
+{
+  path: "/starkmacher/reframing",
+  component: <Reframing/>,
+  color: "#eefcf5",
+  text: "Reframing",
+  img: "./logoBig.png"
 },
 {
   path: "*",
