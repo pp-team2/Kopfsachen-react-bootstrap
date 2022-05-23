@@ -53,7 +53,7 @@ const wiki = [
 }]
 
 console.log(wiki.flatMap(x => x.entries))
- 
+
 
 
 const routes = [{
@@ -88,7 +88,7 @@ const routes = [{
   path: "/profil",
   component: <Profil />,
   color: "#eefcf5",
-  text: "Profile",
+  text: "Profil",
   img: "./tagebuch.svg"
 },
 {
