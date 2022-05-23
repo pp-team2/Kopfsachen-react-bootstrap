@@ -8,13 +8,13 @@ const content = [{
 },{
     title: "krisenchat.de",
     link: "https://krisenchat.de",
-    bulletpoints: ["ber WhatsApp kannst du hier rund um die Uhr mit erfahrenen Krisenberater:innen chatten", "Egal ob es einfach das Bedürfnis ist mit jemandem zu reden, oder ein großes Problem - du kannst einfach schreiben!"]
+    bulletpoints: ["per WhatsApp kannst du hier rund um die Uhr mit erfahrenen Krisenberater:innen chatten", "Egal ob es einfach das Bedürfnis ist mit jemandem zu reden, oder ein großes Problem - du kannst einfach schreiben!"]
 }, {
     title: "bke-jugendberatung.de",
     link: "https://bke-jugendberatung.de",
     bulletpoints: ["Foren, Gruppenchats und Email-Beratung bei erfahrenen Berater:innen und im Austausch mit anderen Jugendlichen."]
 },{
-    title: "Nummer gegen Kummere",
+    title: "Nummer gegen Kummer",
     link: "https://www.nummergegenkummer.de",
     bulletpoints: ["Tel.: 116111", "Montags bis samstags von 14 - 20 Uhr.", "Dein Anruf ist anonym und kostenlos aus dem deutschen Festnetz und vom Handy.", "Auch Online-Beratung per Mail oder Chat unter: https://www.nummergegenkummer.de/"]
 },{
@@ -30,18 +30,18 @@ const Help = () => {
         <Container className="d-grid gap-4">
             <h2>Online-Beratung</h2>
             {
-                content.map(entry => 
+                content.map(entry =>
                     <Card key={entry.title}>
                     <Card.Header as="h5">{entry.title}</Card.Header>
                     <Card.Body>
                         <Card.Text>
-                            
+
                                 {
-                                    entry.bulletpoints.map((bullet, index) => 
+                                    entry.bulletpoints.map((bullet, index) =>
                                         <li key={index}>{bullet}</li>
                                     )
                                 }
-                          
+
                         </Card.Text>
                         <Button href={entry.link} variant="outline-secondary">Mehr erfahren</Button>
                     </Card.Body>
