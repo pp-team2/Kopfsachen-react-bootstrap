@@ -10,6 +10,7 @@ import  Header  from './components/header'
 import  Missing  from './components/missing'
 import  Wiki  from './components/wikiList'
 import Wikientry from './components/wikientry'
+import Profil from './components/profil';
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
@@ -72,6 +73,13 @@ const routes = [{
   component: <Wiki list={wiki} />,
   color: "#f6efe9",
   text: "Wiki",
+  img: "./tagebuch.svg"
+},
+{
+  path: "/profil",
+  component: <Profil />,
+  color: "#eefcf5",
+  text: "Profile",
   img: "./tagebuch.svg"
 },
 {
