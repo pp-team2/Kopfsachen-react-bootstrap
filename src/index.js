@@ -11,6 +11,8 @@ import  Missing  from './components/missing'
 import  Wiki  from './components/wikiList'
 import Wikientry from './components/wikientry'
 import  Help  from './components/help'
+import Profil from './components/profil';
+
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
@@ -81,6 +83,13 @@ const routes = [{
   color: "rgb(225 116 135)",
   text: "Externe Hilfe",
   img: "./notfall.svg"
+},
+{
+  path: "/profil",
+  component: <Profil />,
+  color: "#eefcf5",
+  text: "Profile",
+  img: "./tagebuch.svg"
 },
 {
   path: "*",
