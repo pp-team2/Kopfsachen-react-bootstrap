@@ -1,4 +1,5 @@
 import React from 'react';
+import './aktivitaet.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -28,21 +29,32 @@ export default class Sicherheitsnetz extends React.Component {
     textChange(elem) {
         // Wenn der Text im Input-Feld text geändert wurde, dann ändere den state
         this.setState({text: elem.target.value});
+
+        // Macht den Button zu weiteren Ressourcen zugänglich (wenn Text und Bild vorhanden), ansonsten wieder disabled
+        if (elem.target.value && this.state.picture) {
+            document.querySelector('#weitereRessource').classList.remove('disabled');
+        } else {
+            document.querySelector('#weitereRessource').classList.add('disabled');
+        }
     }
 
     pictureChange(elem) {
-        // Macht den Button zu weiteren Ressourcen wieder zugänglich
-        document.querySelector('#weitereRessource').classList.remove('disabled');
         // Entfernt alle Border von den Bildern die zur Auswahl stehen
         document.querySelectorAll('img').forEach(element => element.style.border = '');
         // Setzt den Border wieder an dem Bild was ausgewählt wurde
-        document.querySelectorAll('.'+elem.target.getAttribute('class')).forEach(element => element.style.border = "black solid");
+        document.querySelector('#'+elem.target.getAttribute('id')).style.border = "black solid";
         // Speichert das ausgewählte Bild im state
-        this.setState({picture: document.querySelector('.'+elem.target.getAttribute('class'))});
+        this.setState({picture: document.querySelector('#'+elem.target.getAttribute('id'))});
         //console.log(document.querySelector('.'+elem.target.getAttribute('class')));
+
+        // Macht den Button zu weiteren Ressourcen zugänglich (wenn Text und Bild vorhanden)
+        if (this.state.text) {
+            document.querySelector('#weitereRessource').classList.remove('disabled');
+        }
     }
 
-    save() {
+
+    save() {  
         // Ruft die saveActitivty-Funktion in SicherheitsnetzController auf um die Aktivität zu speichern
         this.props.saveActivity(this.state.text, this.state.picture, this.props.clickID);
     }
@@ -54,7 +66,7 @@ export default class Sicherheitsnetz extends React.Component {
 
     render() {
         return (
-            <Container style={{textAlign: 'center'}}>
+            <Container id="aktivitaetsAuswahl" style={{textAlign: 'center'}}>
                 <Row>
                     <Col>
                         <p>Das bereitet mir eine Freude:</p>
@@ -72,14 +84,25 @@ export default class Sicherheitsnetz extends React.Component {
                 </Row>
                 <Row>
                     <Col>
-                        <img className="p_1" onClick={this.pictureChange} src="/logo.png" alt="Logo-Bild" style={{width: 30 + '%', height: 30 + '%'}}/>
+                        <img className="ressource" id="p_1" onClick={this.pictureChange} src="/logo.png" alt="Logo-Bild" />
                     </Col>
                     <Col>
-                        <img className="p_2" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" style={{width: 30 + '%', height: 30 + '%'}}/>
+                        <img className="ressource" id="p_2" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                     </Col>
                     <Col>
-                        <img className="p_3" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" style={{width: 30 + '%', height: 30 + '%'}}/>
+                        <img className="ressource" id="p_3" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                     </Col>    
+                </Row>
+                <Row>
+                    <Col>
+                        <img className="ressource" id="p_4" onClick={this.pictureChange} src="/logo.png" alt="Logo-Bild" />
+                    </Col>
+                    <Col>
+                        <img className="ressource" id="p_5" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
+                    </Col>
+                    <Col>
+                        <img className="ressource" id="p_6" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
+                    </Col>  
                 </Row>
                 <Row>
                     <Col>
