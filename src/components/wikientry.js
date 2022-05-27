@@ -2,8 +2,11 @@ import React from 'react'
 import { Button, Container, Card } from 'react-bootstrap'
 import {useHistory} from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import {LinkContainer} from 'react-router-bootstrap'
 
 const Wikientry = (props) => {
+
+    console.log(props)
 
     const history = useHistory();
     return (
@@ -13,9 +16,20 @@ const Wikientry = (props) => {
             </Button>
             <Card>
                 <Card.Body>
-                    <Card.Title>{props.title}</Card.Title>
+                    <Card.Title>{props.object.title}</Card.Title>
                     <Card.Text>
-                        {props.content}
+                    {props.object.contents.map(content => {
+                        if(content.type === "text"){
+                            return content.content
+                        } else{
+                            return <LinkContainer to={`#`}>
+                            <Button variant="link" className="py-0 px-1">
+                                {content.content}
+                            </Button>
+                         </LinkContainer>
+                        }
+                    })}
+                       
                     </Card.Text>
                 </Card.Body>
             </Card>
@@ -25,3 +39,4 @@ const Wikientry = (props) => {
 }
 
 export default Wikientry
+
