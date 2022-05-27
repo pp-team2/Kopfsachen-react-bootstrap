@@ -10,6 +10,7 @@ import  Header  from './components/header'
 import  Missing  from './components/missing'
 import  Wiki  from './components/wikiList'
 import Wikientry from './components/wikientry'
+import SicherheitsnetzController from './components/SicherheitsnetzController'
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
@@ -73,6 +74,12 @@ const routes = [{
   color: "#f6efe9",
   text: "Wiki",
   img: "./tagebuch.svg"
+},
+{
+  path: "/starkmacher",
+  component: <SicherheitsnetzController />,
+  color: "#f6efe9",
+  text: "Sicherheitsnetz"
 },
 {
   path: "*",
