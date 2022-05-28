@@ -11,6 +11,9 @@ import  Missing  from './components/missing'
 import  Wiki  from './components/wikiList'
 import Wikientry from './components/wikientry'
 import SicherheitsnetzController from './components/SicherheitsnetzController'
+import  Help  from './components/help'
+import Profil from './components/profil';
+
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
@@ -51,7 +54,7 @@ const wiki = [
 }]
 
 console.log(wiki.flatMap(x => x.entries))
- 
+
 
 
 const routes = [{
@@ -80,6 +83,20 @@ const routes = [{
   component: <SicherheitsnetzController />,
   color: "#f6efe9",
   text: "Sicherheitsnetz"
+},
+{
+  path: "/notfall",
+  component: <Help />,
+  color: "rgb(225 116 135)",
+  text: "Externe Hilfe",
+  img: "./notfall.svg"
+},
+{
+  path: "/profil",
+  component: <Profil />,
+  color: "#eefcf5",
+  text: "Profil",
+  img: "./tagebuch.svg"
 },
 {
   path: "*",
