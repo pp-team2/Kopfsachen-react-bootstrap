@@ -107,7 +107,7 @@ const routes = [{
   path: "/sicherheitsnetz",
   component: <SicherheitsnetzController />,
   color: "#f6efe9",
-  text: "Sicherheitsnetz"
+  text: "Sicherheitsnetz",
   img: "./logoBig.png"
 },
 {
