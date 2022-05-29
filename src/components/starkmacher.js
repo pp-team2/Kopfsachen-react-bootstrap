@@ -8,12 +8,12 @@ const Starkmacher = (props) => {
     {
         label:"Sicherheitsnetz",
         link:"/starkmacher/sicherheitsnetz",
-        logo:"Platzhalter-1.png"
+        logo:"testbild.jpg"
     },
     {
         label:"Situationskontrolle",
         link:"/starkmacher/situationskontrolle",
-        logo:"Platzhalter-1.png"
+        logo:"testbild.jpg"
     }      
         ]);
     
@@ -21,16 +21,20 @@ const Starkmacher = (props) => {
         <Container>
             <div>Du hast schon so viele Starkmacher für dich entdeckt.</div>
             <div>Wenn du an deinen bestehenden Starkmachern arbeiten willst, klicke einfach auf das entsprechende Symbol! Ansonsten bekommst du nach einem Klick auf “Neue Starkmacher entdecken” eine Auswahl an neuen Übungen vorgeschlagen.</div>
+            <br/>
             <ListGroup>
             {starkmacherListe.map((item,key)=>
                 <LinkContainer to={item.link}>
                 <ListGroup.Item key={item.key}>
-                    <img style={{height:"40px"}} src={item.logo}/> {item.label}
+                    <img style={{height:"100px",width:"200px"}} src={item.logo}/>&nbsp;
+                    <span>{item.label}</span>
                 </ListGroup.Item>
                 </LinkContainer>
             )}
             </ListGroup>
+            <br/>
             <LinkContainer to="/neueStarkmacher"><Button>Neue Starkmacher entdecken</Button></LinkContainer>
+
         </Container>
     )
 }
