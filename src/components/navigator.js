@@ -1,4 +1,4 @@
-import React from 'react'
+import {React, useState, useEffect} from 'react'
 import {Navbar, Nav, Container} from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import Image from 'react-bootstrap/Image'
@@ -34,13 +34,26 @@ const navItems = [{
 }]
 
 
-const navigator = () => {
+const Navigator = () => {
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    window.onscroll = function() {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+  }, []);
+  
     return (
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" fixed="top" style={{ position: "sticky", transition: "0.5s"}} expand="lg" className={scrolled ? 'shadow' : ''}>
         <Container>
         <LinkContainer to="/">
           <Navbar.Brand>
-            <Image height="15" src="/logo.png" />
+            <Image height={scrolled ? '20' : '15'} src="/logo.png" style={{transition: "0.5s"}}  />
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -64,7 +77,7 @@ const navigator = () => {
     )
 }
 
-export default navigator
+export default Navigator
 
 /*
 
