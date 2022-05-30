@@ -7,6 +7,12 @@ import Missing from './missing'
 import Wiki from './wikiList'
 import Wikientry from './wikientry'
 import App from '../App'
+import Starkmacher from './components/starkmacher';
+import NeueStarkmacher from './components/neueStarkmacher';
+import Reframing from './components/starkmacher/reframing';
+import SicherheitsnetzController from './components/SicherheitsnetzController'
+import  Help  from './components/help'
+import Profil from './components/profil';
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
@@ -28,7 +34,7 @@ const Routes = () => {
 
 const data = GetWikiData();
 
-const routess = [{
+const routes = [{
   path: ["/", "/home"],
   component: <App/>,
   color: "#f3f0f8",
@@ -47,6 +53,48 @@ const routess = [{
   component: <Wiki list={data} />,
   color: "#f6efe9",
   text: "Wiki",
+  img: "./tagebuch.svg"
+},
+{
+  path: "/starkmacher",
+  component: <Starkmacher/>,
+  color: "#eefcf5",
+  text: "Meine Starkmacher",
+  img: "./logoBig.png"
+},
+{
+  path: "/neueStarkmacher",
+  component: <NeueStarkmacher/>,
+  color: "#eefcf5",
+  text: "Neue Starkmacher",
+  img: "./logoBig.png"
+},
+{
+  path: "/starkmacher/reframing",
+  component: <Reframing/>,
+  color: "#eefcf5",
+  text: "Reframing",
+  img: "./logoBig.png"
+},
+  {
+  path: "/sicherheitsnetz",
+  component: <SicherheitsnetzController />,
+  color: "#f6efe9",
+  text: "Sicherheitsnetz",
+  img: "./logoBig.png"
+},
+{
+  path: "/notfall",
+  component: <Help />,
+  color: "rgb(225 116 135)",
+  text: "Externe Hilfe",
+  img: "./notfall.svg"
+},
+{
+  path: "/profil",
+  component: <Profil />,
+  color: "#eefcf5",
+  text: "Profil",
   img: "./tagebuch.svg"
 },
 {
@@ -75,7 +123,7 @@ const routess = [{
         }
 
         {
-          routess.map((route, index) => {
+          routes.map((route, index) => {
             return(
               <Route key={index} exact path={route.path}>
                 <Header color={route.color} text={route.text} img={route.img}/>
