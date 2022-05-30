@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import './aktivitaet.css';
 
 
-export default class SicherheitsnetzController extends React.Component {
+export default class AktiviatetHilfe extends React.Component {
     constructor(props) {
         super(props);
 

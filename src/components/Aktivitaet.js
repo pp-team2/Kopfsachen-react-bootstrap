@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 
-export default class Sicherheitsnetz extends React.Component {
+export default class Aktiviatet extends React.Component {
     constructor(props) {
         super(props);
 
