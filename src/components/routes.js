@@ -7,12 +7,12 @@ import Missing from './missing'
 import Wiki from './wikiList'
 import Wikientry from './wikientry'
 import App from '../App'
-import Starkmacher from './components/starkmacher';
-import NeueStarkmacher from './components/neueStarkmacher';
-import Reframing from './components/starkmacher/reframing';
-import SicherheitsnetzController from './components/SicherheitsnetzController'
-import  Help  from './components/help'
-import Profil from './components/profil';
+import Starkmacher from './starkmacher';
+import NeueStarkmacher from './neueStarkmacher';
+import Reframing from './starkmacher/reframing';
+import SicherheitsnetzController from './SicherheitsnetzController'
+import  Help  from './help'
+import Profil from './profil';
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
