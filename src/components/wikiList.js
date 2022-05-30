@@ -1,47 +1,67 @@
-import React from 'react'
-import { Button, Container, ListGroup } from 'react-bootstrap'
+import {React, useState} from 'react'
+
+import { Button, Container, ListGroup, Form, FormControl } from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 
 
-const wiki = (props) => {
+const Wiki = (props) => {
 
+    const [search, setNewSearch] = useState("");
 
-console.log(props)
+    const handleSearchChange = (e) => {
+      setNewSearch(e.target.value);
+    };
+  
+    const filtered = !search
+      ? props.list
+      : props.list.filter((entry) => {
+        return entry.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+ 
+    });
+
     return (
         <Container>
             <h1>Willkommen im Wiki</h1>
 
+            <Form className="d-flex my-3" >
+                <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+                value={search} 
+                onChange={handleSearchChange} 
+                />
+                <Button variant="outline-secondary">Search</Button>
+            </Form>
+
             <ListGroup >
             {
-                props.list.map((entry, index) => 
+                filtered.map((entry, index) => 
                 <ListGroup.Item
                     className="d-flex justify-content-between align-items-start"
                     key={index}>
                     <div className="ms-2 me-auto">
-                    <div className="fw-bold">{entry.letter}</div>
+                    <div className="fw-bold">{entry.title}</div>
                     {
-                        Object.values(entry.entries).map((item, index) => (
+                
                             <LinkContainer key={index} 
                              style={{backgroundColor: 'white', color: 'black', display: 'block', border: 'none', textAlign: 'left'}}
-                             to={`/wiki/${item.title.replace(/\s+/g, '')}`}>
+                             to={`/wiki/${entry.id.replace(/\s+/g, '')}`}>
                                 <Button>
-                                    {item.title}
+                                    {entry.title}
                                 </Button>
                             </LinkContainer>
-                        ))
+                        
                     }
                     </div>
                 </ListGroup.Item>
                 )
             }
             </ListGroup>
-
-         
-                
-         
         </Container>
     )
 }
 
-export default wiki
+export default Wiki
 
