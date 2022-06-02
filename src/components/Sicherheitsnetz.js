@@ -78,13 +78,12 @@ export default class Sicherheitsnetz extends React.Component {
 
                     // JSX-Element des Bildes mit Tooltip für den Text und Popover beim raufklicken
                     let newImageElement = 
-                    <OverlayTrigger key={line.id} trigger="click" overlay={popover}>
+                    <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
                         <image x={x} y={y} transform='translate(-40,-40)' href={line.picture.getAttribute('src')} 
                             height='80' width='80'>
                             <title>{line.text}</title>
                         </image>
                     </OverlayTrigger>
-                    // onClick={this.commentActivity}
 
                     // neuen State setzen
                     let images = this.state.images;
@@ -121,6 +120,7 @@ export default class Sicherheitsnetz extends React.Component {
                 </Row>
                 <Row>
                     <Col>
+                        {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
                         <svg id='svgNetz' width="98%" height="100%" viewBox='0 0 640 600'>
                             <g id='gNetz'>
                                 <line id="svg_56" x1="481.5" x2="560.5" y1="239.5" y2="126.5"/>

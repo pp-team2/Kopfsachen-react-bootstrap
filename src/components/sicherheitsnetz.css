@@ -1,7 +1,7 @@
 g#gNetz circle {
-fill: #53C991;
-stroke: #333;
-stroke-width: 0.4;
+    fill: #53C991;
+    stroke: #333;
+    stroke-width: 0.4;
 }
 
 g#gNetz line {
@@ -11,9 +11,9 @@ g#gNetz line {
 }
 
 g#gNetz circle:hover {
-fill: #FDE802;
+    fill: #FDE802;
 }
 
 g#gNetz circle:active {
-fill: #000000;
+    fill: #000000;
 }
