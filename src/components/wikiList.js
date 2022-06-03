@@ -12,11 +12,21 @@ const Wiki = (props) => {
       setNewSearch(e.target.value);
     };
   
-    const filtered = !search
-      ? props.list.sort((a,b) => a.title[0].localeCompare(b.title[0]))
-      : props.list.filter((entry) => {
-        return entry.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-        }).sort((a,b) => a.title[0].localeCompare(b.title[0]));
+    var filtered = props.list.filter(x => x.title ==='')
+
+    
+
+    if(!search){
+        if(props.list[0] && props.list[0].title[0]){
+            console.log(props.list)
+            filtered = props.list.sort((a,b) => a.title[0].localeCompare(b.title[0]))
+        }
+    } else{
+        filtered = props.list.filter((entry) => {
+            return entry.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+            }).sort((a,b) => a.title[0].localeCompare(b.title[0]));
+    }
+    
 
 
     const data = filtered.reduce((r, e) => {
@@ -28,6 +38,7 @@ const Wiki = (props) => {
     
         return r;
       }, {});
+
       
     const result = Object.values(data);
 
