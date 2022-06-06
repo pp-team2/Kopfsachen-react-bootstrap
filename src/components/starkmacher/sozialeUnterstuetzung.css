@@ -15,16 +15,12 @@ g circle.addPerson:active {
     fill: #000000;
 }
 
-/* g#gNetz ellipse:hover {
-    fill: #FDE802;
-} */
-    
-/* g#gNetz ellipse:active {
-    fill: #000000;
-} */
-
 g circle.addPerson {
     fill: #ffffff;
     stroke: #000000;
     stroke-width: 2.5;
+}
+
+Button#hinzufuegen {
+    margin-top: 10px;
 }

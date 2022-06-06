@@ -10,13 +10,14 @@ import App from '../App'
 import Starkmacher from './starkmacher';
 import NeueStarkmacher from './neueStarkmacher';
 import Reframing from './starkmacher/reframing';
-import SicherheitsnetzController from './SicherheitsnetzController'
-import  Help  from './help'
+import SicherheitsnetzController from './SicherheitsnetzController';
+import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzungController';
+import  Help  from './help';
 import Profil from './profil';
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
-function GetWikiData(){
+/* function GetWikiData(){
     const [wikii, setWiki] = useState([])
 
       useEffect(() => {
@@ -28,11 +29,12 @@ function GetWikiData(){
       console.log(wikii)
 
      return wikii
-}
+} */
 
 const Routes = () => {
 
-const data = GetWikiData();
+// const data = GetWikiData();
+const data = [];
 
 const routes = [{
   path: ["/", "/home"],
@@ -48,13 +50,13 @@ const routes = [{
   text: "Stimmungstagebuch",
   img: "./tagebuch.svg"
 },
-{
+/* {
   path: "/wiki",
   component: <Wiki list={data} />,
   color: "#f6efe9",
   text: "Wiki",
   img: "./tagebuch.svg"
-},
+}, */
 {
   path: "/starkmacher",
   component: <Starkmacher/>,
@@ -74,6 +76,13 @@ const routes = [{
   component: <Reframing/>,
   color: "#eefcf5",
   text: "Reframing",
+  img: "./logoBig.png"
+},
+{
+  path: "/starkmacher/SozialeUnterstuetzung",
+  component: <SozialeUnterstuetzungController />,
+  color: "#eefcf5",
+  text: "Soziale Unterstützung",
   img: "./logoBig.png"
 },
   {

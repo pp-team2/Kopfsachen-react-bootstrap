@@ -8,34 +8,127 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
 export default class SozialeUnterstuetzung extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-        this.state = {circleID: '', personas: {name: '', symbols: []}};
+        this.state = {circleID: '', text: '', pictures: [], showText: [{x: '', y: '', text: ''}]};
 
         this.clickCircle = this.clickCircle.bind(this);
+        this.newPerson = this.newPerson.bind(this);
+        this.textChange = this.textChange.bind(this);
+        this.addPersonas = this.addPersonas.bind(this);
+        this.pictureChange = this.pictureChange.bind(this);
     }
 
     componentDidMount() {
+        // Alle Kreise unsichtbar schalten
         document.querySelectorAll('.addPerson').forEach(line => line.setAttribute('visibility', 'hidden'));
+
+        // Initiale Kreise sichtbar schalten
         document.getElementById('svg_6').setAttribute('visibility','');
         document.getElementById('svg_18').setAttribute('visibility','');
         document.getElementById('svg_32').setAttribute('visibility','');
+
+        this.addPersonas();
     }
 
     clickCircle(elem) {
         this.setState({circleID: elem.target.getAttribute('id')});
     }
 
+    addPersonas() {
+        let personas = this.props.personas;
+
+        let belegteKreise = personas.map(line => line.circleID);
+
+
+        let kreisTypen = [];
+        personas.forEach(line => {
+            let belegterKreis = document.getElementById(line.circleID);
+            belegterKreis.setAttribute('visibility', 'hidden');
+
+            let angezeigteTexte = this.state.showText;
+            angezeigteTexte.push({x: belegterKreis.getAttribute('cx'), y: belegterKreis.getAttribute('cy'), text: line.name});
+            this.setState({showText: angezeigteTexte});
+
+            kreisTypen.push(document.getElementById(line.circleID).classList[1]);
+            return line;
+        });
+
+        // In kreisTypen stehen alle Kreise in die bisher ein Name geschrieben wurde
+        kreisTypen = kreisTypen.filter((i,p,s) => s.indexOf(i) == p);
+
+        console.log(kreisTypen);
+        kreisTypen.forEach(line => {
+            let kreise = document.querySelectorAll('.'+line);
+
+            while (true) {
+                // Zufälligen Kreis auswählen
+                let kreis = kreise[Math.floor(Math.random()*kreise.length)];
+
+                // Prüfen ob zufälliger Kreis nicht bereits belegt ist (mit einem Namen) 
+                // -> Wenn ja, dann muss ein neuer zufälliger Kreis bestimmt werden
+                if (!belegteKreise.some(line => line === kreis.id.toString())) {
+                    // Macht den zufälligen Kreis sichtbar
+                    kreis.removeAttribute('visibility');
+                    break;
+                }
+                // TODO: Wenn alle Kreise belegt sind, sollte auch aus der Schleife herausgegangen werden
+            }
+        });
+    }
+
+    newPerson() {
+        let newPerson = this.props.newPerson;
+
+        newPerson(this.state.text, this.state.circleID, this.state.pictures);
+    }
+
+    textChange(elem) {
+        this.setState({text: elem.target.value});
+    }
+
+    pictureChange(elem) {
+        let bild = document.querySelector('#'+elem.target.getAttribute('id'));
+        let pictures = this.state.pictures;
+
+        if (bild.classList.contains('checked')) {
+            // Border entfernen und Bild aus state entfernen
+            bild.style.border = "";
+            bild.classList.remove('checked');
+            pictures = pictures.filter(line => line.id !== bild.id);
+
+        } else {
+            // Border hinzufügen und Bild dem state hinzufügen
+            bild.style.border = "black solid";
+            bild.classList.add('checked');
+            pictures.push(bild);
+        }
+
+        this.setState({pictures: pictures});
+
+    }
+
     render() {
         let clickCircle = this.clickCircle;
+
+        // Texte vorbereiten die dann eingefügt werden sollen
+        let angezeigteTexte = this.state.showText;
+        angezeigteTexte = angezeigteTexte.map((line, index) => {
+            return <text key={index} x={line.x} y={line.y}>{line.text}</text>;
+        });
 
         const popover = (
             <Popover>
                 <Popover.Body>
                     <p>Eintrag hinzufügen:</p>
-                    <input type="text"></input>
-                    <Button>Hinzfügen</Button>
+                    <input onChange={this.textChange} type="text"></input>
+                    <div>
+                        <img className="ressource" id="bild1" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
+                        <img className="ressource" id="bild2" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
+                        <img className="ressource" id="bild3" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
+                    </div>
+                    <Button id="hinzufuegen" onClick={this.newPerson}>Hinzfügen</Button>
                 </Popover.Body>
             </Popover>
         );
@@ -100,6 +193,9 @@ export default class SozialeUnterstuetzung extends React.Component {
                             </g>
                             <g>
                                 { circlesArrayWithOverlay }
+                            </g>
+                            <g>
+                                { angezeigteTexte }
                             </g>
                         </svg>
                         
