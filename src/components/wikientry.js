@@ -18,11 +18,11 @@ const Wikientry = (props) => {
                 <Card.Body>
                     <Card.Title>{props.object.title}</Card.Title>
                     <Card.Text>
-                    {props.object.contents.map(content => {
+                    {props.object.contents.map((content,index) => {
                         if(content.type === "text"){
                             return content.content
                         } else{
-                            return <LinkContainer to={`#`}>
+                            return <LinkContainer to={`#`} key={index}>
                             <Button variant="link" className="py-0 px-1">
                                 {content.content}
                             </Button>
