@@ -24,3 +24,8 @@ g circle.addPerson {
 Button#hinzufuegen {
     margin-top: 10px;
 }
+
+image, img.symbol {
+    height: 3%;
+    width: 3%;
+}

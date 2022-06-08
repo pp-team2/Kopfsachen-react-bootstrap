@@ -11,13 +11,15 @@ export default class SozialeUnterstuetzung extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {circleID: '', text: '', pictures: [], showText: [{x: '', y: '', text: ''}]};
+        this.state = {circleID: '', text: '', pictures: [], showText: [{x: '', y: '', text: ''}], showPictures: [{x: 0, y: 0, src: undefined}]};
 
         this.clickCircle = this.clickCircle.bind(this);
         this.newPerson = this.newPerson.bind(this);
         this.textChange = this.textChange.bind(this);
         this.addPersonas = this.addPersonas.bind(this);
         this.pictureChange = this.pictureChange.bind(this);
+        this.textUndBilder = this.textUndBilder.bind(this);
+        this.kollisionsAbfrage = this.kollisionsAbfrage.bind(this);
     }
 
     componentDidMount() {
@@ -36,21 +38,15 @@ export default class SozialeUnterstuetzung extends React.Component {
         this.setState({circleID: elem.target.getAttribute('id')});
     }
 
+    // Fügt alle bestehenden Personen in das SVG ein (wird aufgerufen beim initialen Laden der Seite)
     addPersonas() {
         let personas = this.props.personas;
 
-        let belegteKreise = personas.map(line => line.circleID);
-
-
         let kreisTypen = [];
         personas.forEach(line => {
-            let belegterKreis = document.getElementById(line.circleID);
-            belegterKreis.setAttribute('visibility', 'hidden');
+            this.textUndBilder(line.circleID, line.name);
 
-            let angezeigteTexte = this.state.showText;
-            angezeigteTexte.push({x: belegterKreis.getAttribute('cx'), y: belegterKreis.getAttribute('cy'), text: line.name});
-            this.setState({showText: angezeigteTexte});
-
+            // Damit man weiß welche Kreistypen alles schon belegt sind
             kreisTypen.push(document.getElementById(line.circleID).classList[1]);
             return line;
         });
@@ -58,34 +54,93 @@ export default class SozialeUnterstuetzung extends React.Component {
         // In kreisTypen stehen alle Kreise in die bisher ein Name geschrieben wurde
         kreisTypen = kreisTypen.filter((i,p,s) => s.indexOf(i) == p);
 
-        console.log(kreisTypen);
         kreisTypen.forEach(line => {
-            let kreise = document.querySelectorAll('.'+line);
-
-            while (true) {
-                // Zufälligen Kreis auswählen
-                let kreis = kreise[Math.floor(Math.random()*kreise.length)];
-
-                // Prüfen ob zufälliger Kreis nicht bereits belegt ist (mit einem Namen) 
-                // -> Wenn ja, dann muss ein neuer zufälliger Kreis bestimmt werden
-                if (!belegteKreise.some(line => line === kreis.id.toString())) {
-                    // Macht den zufälligen Kreis sichtbar
-                    kreis.removeAttribute('visibility');
-                    break;
-                }
-                // TODO: Wenn alle Kreise belegt sind, sollte auch aus der Schleife herausgegangen werden
-            }
+            this.kollisionsAbfrage(line);
         });
+    }
+
+    // Fügt Texte und Bilder dem State hinzu, damit diese dann angezeigt werden können
+    textUndBilder(circleID, text) {
+        // Belegten Kreis unsichtbar schalten
+        let belegterkreis = document.getElementById(circleID);
+        belegterkreis.setAttribute('visibility', 'hidden');
+
+        // Statt dem Kreis Text generieren
+        let angezeigteTexte = this.state.showText;
+        angezeigteTexte.push({x: (+belegterkreis.getAttribute('cx'))-20, y: belegterkreis.getAttribute('cy'), text: text});
+        this.setState({showText: angezeigteTexte});
+
+        // Bilder (Symbole) hinzufügen
+        let angezeigteBilder = this.state.showPictures;
+        let x = - 30;
+        this.state.pictures.forEach(bild => {
+            angezeigteBilder.push({x: (+belegterkreis.getAttribute('cx'))+x, y: (+belegterkreis.getAttribute('cy'))+5, src: bild.getAttribute('src')});
+            x = x + 20;
+        });
+        this.setState({showPictures: angezeigteBilder});
+    }
+
+    // Macht einen neuen zufälligen Kreis sichtbar innerhalb eines Kreistyps der noch nicht belegt ist
+    kollisionsAbfrage(kreisTyp) {
+        let kreise = document.querySelectorAll('.'+kreisTyp);
+        let personas = this.props.personas;
+        let belegteKreise = personas.map(line => line.circleID);
+        belegteKreise.push(this.state.circleID);
+
+        while (true) {
+            // Zufälligen Kreis auswählen
+            let kreis = kreise[Math.floor(Math.random()*kreise.length)];
+
+            // Prüfen ob zufälliger Kreis nicht bereits belegt ist (mit einem Namen) 
+            // -> Wenn ja, dann muss ein neuer zufälliger Kreis bestimmt werden
+            if (!belegteKreise.some(line => line === kreis.id.toString())) {
+                // Macht den zufälligen Kreis sichtbar
+                kreis.removeAttribute('visibility');
+                break;
+            }
+
+            // Wenn alle Kreise belegt sind, sollte auch aus der Schleife herausgegangen werden
+            let belegteKreiseTypen = belegteKreise.map(line => {
+                if (line != '') {
+                    return document.getElementById(line).classList[1];
+                }
+            });
+            if (belegteKreiseTypen.filter(kreistyp => kreistyp === kreisTyp).length >= kreise.length) {
+                break;
+            }
+        }
+    }
+
+    // Es wird eine neue Person hinzugefügt (wird aufgerufen wenn auf Hinzufügen geklickt wird)
+    addOnePerson() {
+        this.textUndBilder(this.state.circleID, this.state.text);
+
+        let belegterkreis = document.getElementById(this.state.circleID);
+        
+        let kreisTyp = belegterkreis.classList[1];
+        this.kollisionsAbfrage(kreisTyp);
+        
+        // Damit das Popover verschwindet
+        document.body.click();
+        this.setState({circleID: '', text: '', pictures: []});
     }
 
     newPerson() {
         let newPerson = this.props.newPerson;
 
+        this.addOnePerson();    
         newPerson(this.state.text, this.state.circleID, this.state.pictures);
     }
 
     textChange(elem) {
         this.setState({text: elem.target.value});
+
+        // Toggelt die Aktiviertheit des Hinzufügen-Buttons, je nachdem ob Text geschrieben wurde oder nicht
+        if (elem.target.value.length) {
+            document.querySelector('#hinzufuegen').classList.remove('disabled');
+        } else {
+            document.querySelector('#hinzufuegen').classList.add('disabled');
+        }
     }
 
     pictureChange(elem) {
@@ -118,6 +173,17 @@ export default class SozialeUnterstuetzung extends React.Component {
             return <text key={index} x={line.x} y={line.y}>{line.text}</text>;
         });
 
+        // Bilder vorbereiten die dann eingefügt werden sollen
+        let angezeigteBilder = this.state.showPictures;
+        console.log(angezeigteBilder);
+        angezeigteBilder = angezeigteBilder.map((line, index) => {
+            if (line.src == undefined) {
+                return;
+            } else {
+                return <image key={index} x={line.x} y={line.y} href={line.src}></image>;
+            }
+        })
+
         const popover = (
             <Popover>
                 <Popover.Body>
@@ -128,7 +194,7 @@ export default class SozialeUnterstuetzung extends React.Component {
                         <img className="ressource" id="bild2" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                         <img className="ressource" id="bild3" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                     </div>
-                    <Button id="hinzufuegen" onClick={this.newPerson}>Hinzfügen</Button>
+                    <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
                 </Popover.Body>
             </Popover>
         );
@@ -196,6 +262,9 @@ export default class SozialeUnterstuetzung extends React.Component {
                             </g>
                             <g>
                                 { angezeigteTexte }
+                            </g>
+                            <g>
+                                { angezeigteBilder }
                             </g>
                         </svg>
                         

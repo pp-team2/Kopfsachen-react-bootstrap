@@ -1,5 +1,6 @@
 import React from 'react';
 import SozialeUnterstuetzung from './SozialeUnterstuetzung';
+import SozialeUnterstuetzungInfoText from './sozialeUnterstuetzungInfoText';
 
 export default class SozialeUnterstuetzungController extends React.Component {
     constructor() {
@@ -15,15 +16,16 @@ export default class SozialeUnterstuetzungController extends React.Component {
         let personas = this.state.personas;
         personas.push({name: name, circleID: circleID, symbols: symbols});
         this.setState({personas: personas});
-        console.log(this.state.personas);
     }
 
     render() {
         let personas = this.state.personas;
-        console.log(personas);
 
         return (
-            <SozialeUnterstuetzung newPerson={this.newPerson} personas={personas}></SozialeUnterstuetzung>
+            <div>
+                <SozialeUnterstuetzungInfoText></SozialeUnterstuetzungInfoText>
+                <SozialeUnterstuetzung newPerson={this.newPerson} personas={personas}></SozialeUnterstuetzung>
+            </div>
         );
     }
 }
