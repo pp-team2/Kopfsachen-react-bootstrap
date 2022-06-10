@@ -52,7 +52,7 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                         <Row>
                             <Col>
                                 <p>
-                                    <img className="symbol" src='/tagebuch.jpg' alt='Bild vom Tagebuch'></img> = Emotionale Unterstützung 
+                                    <img className="symbol" src='/herz.png' alt='Bild vom Tagebuch'></img> = Emotionale Unterstützung 
 
                                     Manchmal tut es einfach nur gut über die eigenen Gefühle sprechen zu können und sich verstanden und akzeptiert zu fühlen: 
                                     Manchmal braucht man vielleicht auch nur eine mitfühlende Umarmung, Aufmunterung oder das Wissen, dass überhaupt jemand da ist. 
@@ -62,7 +62,7 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                         <Row>
                             <Col>
                                 <p>
-                                    <img className="symbol" src='/tagebuch.jpg' alt='Bild vom Tagebuch'></img> = Informationale Unterstützung 
+                                    <img className="symbol" src='/buecher.png' alt='Bild vom Tagebuch'></img> = Informationale Unterstützung 
 
                                     Zwei Köpfe sind nicht selten besser als Einer. 
                                     Wissen, Ratschläge und Meinungen anderer können hilfreich sein, wenn wir uns mit Dingen nicht so sicher fühlen. 
@@ -74,7 +74,7 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                         <Row>
                             <Col>
                                 <p>
-                                    <img className="symbol" src='/tagebuch.jpg' alt='Bild vom Tagebuch'></img> = Instrumentale Unterstützung
+                                    <img className="symbol" src='/oberarm.png' alt='Bild vom Tagebuch'></img> = Instrumentale Unterstützung
 
                                     Bei so manchem Problem, das uns Kopfzerbrechen bereitet, kann praktische Hilfe Anderer - in Form von Taten 
                                     oder materiellen Dingen - einiges dazu beitragen die Situation zu lösen oder zumindest besser zu machen. 
@@ -94,7 +94,8 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                         <Row>
                             <Col>
                                 <p>
-                                Noch nicht implementiert! 
+                                Fordere dich selbst heraus – markiere in jedem der 3 Kreise eine Person und schaue in den nächsten 2 Wochen,
+                                ob du sie vielleicht auf die eine oder andere Weise unterstützen kannst und wie es dir dabei geht.
                                 </p>
                             </Col>
                         </Row>

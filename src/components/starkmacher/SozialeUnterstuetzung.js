@@ -6,12 +6,13 @@ import './sozialeUnterstuetzung.css';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 export default class SozialeUnterstuetzung extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {circleID: '', text: '', pictures: [], showText: [{x: '', y: '', text: ''}], showPictures: [{x: 0, y: 0, src: undefined}]};
+        this.state = {circleID: '', text: '', checked: '', pictures: [], showText: [{x: '', y: '', text: ''}], showPictures: [{x: 0, y: 0, src: undefined}]};
 
         this.clickCircle = this.clickCircle.bind(this);
         this.newPerson = this.newPerson.bind(this);
@@ -177,7 +178,7 @@ export default class SozialeUnterstuetzung extends React.Component {
 
         // Bilder vorbereiten die dann eingefügt werden sollen
         let angezeigteBilder = this.state.showPictures;
-        console.log(angezeigteBilder);
+
         angezeigteBilder = angezeigteBilder.map((line, index) => {
             if (line.src == undefined) {
                 return;
@@ -186,7 +187,17 @@ export default class SozialeUnterstuetzung extends React.Component {
             }
         })
 
-        const popover = (
+        const popoverLvl1 = (
+            <Popover>
+                <Popover.Body>
+                    <p>Eintrag hinzufügen:</p>
+                    <input onChange={this.textChange} type="text"></input>
+                    <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
+                </Popover.Body>
+            </Popover>
+        );
+
+        const popoverLvl2 = (
             <Popover>
                 <Popover.Body>
                     <p>Eintrag hinzufügen:</p>
@@ -196,7 +207,34 @@ export default class SozialeUnterstuetzung extends React.Component {
                         <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
                         <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
                     </div>
-                    <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
+                        <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
+                </Popover.Body>
+            </Popover>
+        );
+
+        const popoverLvl3 = (
+            <Popover>
+                <Popover.Body>
+                    <p>Eintrag hinzufügen:</p>
+                    <input onChange={this.textChange} type="text"></input>
+                    <div>
+                        <img className="ressource" id="bild1" onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
+                        <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
+                        <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
+                    </div>
+                    <div>
+                        <ToggleButton
+                            className="mb-2"
+                            id="toggleCheck"
+                            type="checkbox"
+                            variant="outline-info"
+                            checked={this.state.checked}
+                            value="1"
+                            onChange={() => this.setState({checked: !this.state.checked})}>
+                            Markieren
+                        </ToggleButton>
+                    </div>
+                        <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
                 </Popover.Body>
             </Popover>
         );
@@ -241,7 +279,7 @@ export default class SozialeUnterstuetzung extends React.Component {
 
         let circlesArrayWithOverlay = [];
         circlesArray = circlesArray.forEach(function(elem, index) {
-            circlesArrayWithOverlay.push(<OverlayTrigger key={index} trigger="click" overlay={popover} rootClose>{ elem }</OverlayTrigger>);
+            circlesArrayWithOverlay.push(<OverlayTrigger key={index} trigger="click" overlay={popoverLvl3} rootClose>{ elem }</OverlayTrigger>);
         });
 
         return (
