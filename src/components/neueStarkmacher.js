@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, ListGroup,Carousel } from 'react-bootstrap'
+import { Button, Container,Carousel } from 'react-bootstrap'
 import { useState } from 'react';
 import {LinkContainer} from 'react-router-bootstrap'
 
@@ -9,6 +9,12 @@ const NeueStarkmacher = (props) => {
         label:"Reframing",
         link:"/starkmacher/reframing",
         description:"Beim Reframing geht es darum deine eigene Einschätzung der Situation zu überprüfen und gegebenenfalls. zu einer anderen, für dich angenehmeren Interpretation zu kommen.",
+        logo:"testbild.jpg"
+    },
+    {
+        label:"Soziale Unterstützung",
+        link:"/starkmacher/sozialeUnterstuetzung",
+        description:"Bei der Sozialen Unterstützung geht es darum, zu überlegen welche anderen Personen dir helfen können zurechtzukommen.",
         logo:"testbild.jpg"
     },
     {
@@ -25,7 +31,7 @@ const NeueStarkmacher = (props) => {
             <br/>
             <Carousel>
             {neueStarkmacherListe.map((item,key)=>                
-                <Carousel.Item key={item.key}>
+                <Carousel.Item key={key}>
                 	<img style={{width:"100%",height:"500px"}} src={item.logo}/>
                 	<Carousel.Caption>
                     <h1>{item.label}</h1>

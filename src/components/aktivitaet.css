@@ -1,6 +1,6 @@
-img.ressource {
+img.ressource, image {
     width: 30%;
-    height: 30%;
+    height: 90%;
 }
 
 input {
