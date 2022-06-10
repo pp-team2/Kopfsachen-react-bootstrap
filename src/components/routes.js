@@ -16,23 +16,21 @@ import Profil from './profil';
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
-function GetWikiData(){
-    const [wikii, setWiki] = useState([])
-
-      useEffect(() => {
-        fetch('http://127.0.0.1:4010/wiki/quiadfd')
-        .then(res => res.json())
-        .then(data => setWiki(data))
-      }, [])
-
-      console.log(wikii)
-
-     return wikii
-}
 
 const Routes = () => {
 
-const data = GetWikiData();
+const [wikii, setWiki] = useState([])
+
+useEffect(() => {
+  fetch('http://127.0.0.1:4010/wiki/quiadfd')
+  .then(res => res.json())
+  //.then(x => x.filter(a => a.title !== ''))
+  //.then(x => console.log(x))
+  .then(data => setWiki(data))
+
+}, [])
+
+
 
 const routes = [{
   path: ["/", "/home"],
@@ -50,7 +48,7 @@ const routes = [{
 },
 {
   path: "/wiki",
-  component: <Wiki list={data} />,
+  component: <Wiki list={wikii.filter(a => a.title !== '')} />,
   color: "#f6efe9",
   text: "Wiki",
   img: "./tagebuch.svg"
@@ -110,7 +108,7 @@ const routes = [{
       <Nav/>
       <Switch>
         {
-          data.map(wikiEntry => {
+          wikii.filter(a => a.id !== '').map(wikiEntry => {
             console.log(`/wiki/${wikiEntry.id.replace(/\s+/g, '')}`)
             return(
                 <Route key={wikiEntry.id} path={`/wiki/${wikiEntry.id.replace(/\s+/g, '')}`}>
