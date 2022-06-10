@@ -27,6 +27,11 @@ useEffect(() => {
   //.then(x => x.filter(a => a.title !== ''))
   //.then(x => console.log(x))
   .then(data => setWiki(data))
+  .catch(
+    (error) => {
+      setWiki([]);
+    }
+  )
 
 }, [])
 
