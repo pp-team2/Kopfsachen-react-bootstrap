@@ -10,28 +10,34 @@ import App from '../App'
 import Starkmacher from './starkmacher';
 import NeueStarkmacher from './neueStarkmacher';
 import Reframing from './starkmacher/reframing';
-import SicherheitsnetzController from './SicherheitsnetzController';
+import SicherheitsnetzController from './starkmacher/SicherheitsnetzController';
 import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzungController';
 import  Help  from './help';
 import Profil from './profil';
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
-/* function GetWikiData(){
-    const [wikii, setWiki] = useState([])
-
-      useEffect(() => {
-        fetch('http://127.0.0.1:4010/wiki/quiadfd')
-        .then(res => res.json())
-        .then(data => setWiki(data))
-      }, [])
-
-      console.log(wikii)
-
-     return wikii
-} */
+ function GetWikiData(){
+    const [wikii, setWiki] = useState([])}
 
 const Routes = () => {
+
+const [wikii, setWiki] = useState([])
+
+useEffect(() => {
+  fetch('http://127.0.0.1:4010/wiki/quiadfd')
+  .then(res => res.json())
+  //.then(x => x.filter(a => a.title !== ''))
+  //.then(x => console.log(x))
+  .then(data => setWiki(data))
+  .catch(
+    (error) => {
+      setWiki([]);
+    }
+  )
+
+}, [])
+
 
 // const data = GetWikiData();
 const data = [];
@@ -52,7 +58,7 @@ const routes = [{
 },
 /* {
   path: "/wiki",
-  component: <Wiki list={data} />,
+  component: <Wiki list={wikii.filter(a => a.title !== '')} />,
   color: "#f6efe9",
   text: "Wiki",
   img: "./tagebuch.svg"
@@ -86,7 +92,7 @@ const routes = [{
   img: "./logoBig.png"
 },
   {
-  path: "/sicherheitsnetz",
+  path: "/starkmacher/sicherheitsnetz",
   component: <SicherheitsnetzController />,
   color: "#f6efe9",
   text: "Sicherheitsnetz",
@@ -119,7 +125,7 @@ const routes = [{
       <Nav/>
       <Switch>
         {
-          data.map(wikiEntry => {
+          wikii.filter(a => a.id !== '').map(wikiEntry => {
             console.log(`/wiki/${wikiEntry.id.replace(/\s+/g, '')}`)
             return(
                 <Route key={wikiEntry.id} path={`/wiki/${wikiEntry.id.replace(/\s+/g, '')}`}>

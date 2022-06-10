@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import {LinkContainer} from 'react-router-bootstrap'
 
 
 export default class Aktiviatet extends React.Component {
@@ -97,21 +98,24 @@ export default class Aktiviatet extends React.Component {
                     <Col>
                         <img className="ressource" id="p_4" onClick={this.pictureChange} src="/sonstiges.png" alt="Sonstige Aktivität" />
                     </Col>
-                    <Col>
+                   {/*  <Col>
                         <img className="ressource" id="p_5" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                     </Col>
                     <Col>
                         <img className="ressource" id="p_6" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
-                    </Col>  
+                    </Col> */}  
                 </Row>
                 <Row>
                     <Col>
                         <Button id="weitereRessource" onClick={this.selectNewActivity} className="disabled">Weitere Ressource hinzufügen</Button>
                     </Col>
                     <Col>
-                        <Button id="alleRessourcen" onClick={this.exit} variant="success">Das sind alle Ressourcen</Button>
+                        <LinkContainer to="/home">
+                            <Button id="alleRessourcen" onClick={this.exit} variant="success">Das sind alle Ressourcen</Button>
+                        </LinkContainer>
                     </Col>
                 </Row>
+                
             </Container>
         )
     }

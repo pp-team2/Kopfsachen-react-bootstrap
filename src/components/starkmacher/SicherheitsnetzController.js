@@ -4,8 +4,6 @@ import Aktiviatet from './Aktivitaet';
 import Feedback from './Feedack';
 import AktiviatetHilfe from './AktivitaetHilfe';
 
-
-
 export default class SicherheitsnetzController extends React.Component {
     constructor() {
         super();
