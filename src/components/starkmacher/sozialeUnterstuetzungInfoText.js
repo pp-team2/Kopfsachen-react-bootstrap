@@ -6,12 +6,13 @@ import './sozialeUnterstuetzung.css';
 
 
 export default class SozialeUnterstuetzungInfoText extends React.Component {
-    /* constructor(props) {
+     constructor(props) {
         super(props);
 
-    } */
+    } 
 
     render() {
+        let level = this.props.level;
         let lvl1Text = <Container>
                         <Row>
                             <Col>
@@ -88,9 +89,33 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                             </Col>
                         </Row>
                     </Container>
+        
+        let lvl3Text = <Container>
+                        <Row>
+                            <Col>
+                                <p>
+                                Noch nicht implementiert! 
+                                </p>
+                            </Col>
+                        </Row>
+                        </Container>
+
+        let toShow;
+        switch (level) {
+            case 1: 
+                toShow = lvl1Text;
+                break;
+            case 2:
+                toShow = lvl2Text;
+                break;
+            case 3:
+                toShow = lvl3Text;
+                break;
+            default: toShow = lvl1Text;
+        }
         return (
             <div>
-                { lvl1Text }
+                { toShow }
             </div>
                
         );
