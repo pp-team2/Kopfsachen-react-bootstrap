@@ -192,9 +192,9 @@ export default class SozialeUnterstuetzung extends React.Component {
                     <p>Eintrag hinzufügen:</p>
                     <input onChange={this.textChange} type="text"></input>
                     <div>
-                        <img className="ressource" id="bild1" onClick={this.pictureChange} src="/Bücher.png" alt="Bücherstapel" />
-                        <img className="ressource" id="bild2" onClick={this.pictureChange} src="/Herz.png" alt="Herz" />
-                        <img className="ressource" id="bild3" onClick={this.pictureChange} src="/Oberarm.png" alt="Oberarm" />
+                        <img className="ressource" id="bild1" onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
+                        <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
+                        <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
                     </div>
                     <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
                 </Popover.Body>
