@@ -44,11 +44,13 @@ export default class SozialeUnterstuetzung extends React.Component {
 
         let kreisTypen = [];
         personas.forEach(line => {
-            this.textUndBilder(line.circleID, line.name);
+            if (!line.circleID == undefined) {
+                this.textUndBilder(line.circleID, line.name);
 
-            // Damit man weiß welche Kreistypen alles schon belegt sind
-            kreisTypen.push(document.getElementById(line.circleID).classList[1]);
-            return line;
+                // Damit man weiß welche Kreistypen alles schon belegt sind
+                kreisTypen.push(document.getElementById(line.circleID).classList[1]);
+                return line;
+            }
         });
 
         // In kreisTypen stehen alle Kreise in die bisher ein Name geschrieben wurde
