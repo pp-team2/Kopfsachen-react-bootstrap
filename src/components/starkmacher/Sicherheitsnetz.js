@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import { LinkContainer } from 'react-router-bootstrap';
 
 
 export default class Sicherheitsnetz extends React.Component {
@@ -103,7 +104,7 @@ export default class Sicherheitsnetz extends React.Component {
     }
 
     uebungBeenden() {
-        this.props.uebungBeenden(); 
+        //this.props.uebungBeenden(); 
     }
 
 
@@ -115,7 +116,7 @@ export default class Sicherheitsnetz extends React.Component {
                 <Row>
                     <Col>
                         <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
-                        <Button id="beendenBtn" onClick={this.uebungBeenden}>Übung beenden</Button>
+                        <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Übung beenden</Button></LinkContainer>
                     </Col>
                 </Row>
                 <Row>

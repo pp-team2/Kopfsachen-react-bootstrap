@@ -85,25 +85,25 @@ export default class Aktiviatet extends React.Component {
                 </Row>
                 <Row>
                     <Col>
-                        <img className="ressource" id="p_1" onClick={this.pictureChange} src="/logo.png" alt="Logo-Bild" />
+                        <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Logo-Bild" />
                     </Col>
                     <Col>
-                        <img className="ressource" id="p_2" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
+                        <img className="ressource" id="p_2" onClick={this.pictureChange} src="/tier.png" alt="Tagebuch-Bild" />
                     </Col>
                     <Col>
-                        <img className="ressource" id="p_3" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
+                        <img className="ressource" id="p_3" onClick={this.pictureChange} src="/kreativ.png" alt="Tagebuch-Bild" />
                     </Col>    
                 </Row>
                 <Row>
                     <Col>
-                        <img className="ressource" id="p_4" onClick={this.pictureChange} src="/logo.png" alt="Logo-Bild" />
+                        <img className="ressource" id="p_4" onClick={this.pictureChange} src="/sonstiges.png" alt="Logo-Bild" />
                     </Col>
-                    <Col>
+                   {/*  <Col>
                         <img className="ressource" id="p_5" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                     </Col>
                     <Col>
                         <img className="ressource" id="p_6" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
-                    </Col>  
+                    </Col> */}  
                 </Row>
                 <Row>
                     <Col>
