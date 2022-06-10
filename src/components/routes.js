@@ -10,7 +10,7 @@ import App from '../App'
 import Starkmacher from './starkmacher';
 import NeueStarkmacher from './neueStarkmacher';
 import Reframing from './starkmacher/reframing';
-import SicherheitsnetzController from './SicherheitsnetzController'
+import SicherheitsnetzController from './starkmacher/SicherheitsnetzController';
 import  Help  from './help'
 import Profil from './profil';
 
@@ -77,7 +77,7 @@ const routes = [{
   img: "./logoBig.png"
 },
   {
-  path: "/sicherheitsnetz",
+  path: "/starkmacher/sicherheitsnetz",
   component: <SicherheitsnetzController />,
   color: "#f6efe9",
   text: "Sicherheitsnetz",

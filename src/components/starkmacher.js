@@ -25,10 +25,10 @@ const Starkmacher = (props) => {
             <ListGroup>
             {starkmacherListe.map((item,key)=>
                 <LinkContainer to={item.link}>
-                <ListGroup.Item key={item.key}>
-                    <img style={{height:"100px",width:"200px"}} src={item.logo}/>&nbsp;
-                    <span>{item.label}</span>
-                </ListGroup.Item>
+                    <ListGroup.Item key={key}>
+                        <img style={{height:"100px",width:"200px"}} src={item.logo}/>&nbsp;
+                        <span>{item.label}</span>
+                    </ListGroup.Item>
                 </LinkContainer>
             )}
             </ListGroup>
