@@ -13,7 +13,16 @@ import Wikientry from './components/wikientry'
 import Starkmacher from './components/starkmacher';
 import NeueStarkmacher from './components/neueStarkmacher';
 import Reframing from './components/starkmacher/reframing';
+<<<<<<< HEAD
 import Login from './components/login';
+=======
+import SicherheitsnetzController from './components/SicherheitsnetzController'
+import  Help  from './components/help'
+import Profil from './components/profil';
+
+
+
+>>>>>>> 11f45a5223ff78c1417c56377bf5de9c70d5c970
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
 
@@ -53,7 +62,7 @@ const wiki = [
 }]
 
 console.log(wiki.flatMap(x => x.entries))
- 
+
 
 
 const routes = [{
@@ -104,6 +113,27 @@ const routes = [{
   color: "#eefcf5",
   text: "Anmeldung",
   img: "./logoBig.png"
+},
+  {
+  path: "/sicherheitsnetz",
+  component: <SicherheitsnetzController />,
+  color: "#f6efe9",
+  text: "Sicherheitsnetz"
+  img: "./logoBig.png"
+},
+{
+  path: "/notfall",
+  component: <Help />,
+  color: "rgb(225 116 135)",
+  text: "Externe Hilfe",
+  img: "./notfall.svg"
+},
+{
+  path: "/profil",
+  component: <Profil />,
+  color: "#eefcf5",
+  text: "Profil",
+  img: "./tagebuch.svg"
 },
 {
   path: "*",
