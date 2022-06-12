@@ -15,7 +15,7 @@ const NeueStarkmacher = (props) => {
     {
         label:"Situationskontrolle",
         link:"/starkmacher/...",
-        description:"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        description:"Lorem ipsum dolor sit amet, consetetur sadipscing elit voluptua.",
         logo:"situationskontrolle.png",
         color:"#cae2e2"
     }      
@@ -30,7 +30,7 @@ const NeueStarkmacher = (props) => {
             <Carousel>
             {neueStarkmacherListe.map((item,key)=>                
                 <Carousel.Item key={item.key}>
-                	<Carousel.Caption  style={{backgroundColor:item.color,position:"static",color:"black"}}>
+                	<Carousel.Caption  style={{backgroundColor:item.color,position:"static",color:"black",minHeight:"500px"}}>
                     <div style={{width:"80%",margin:"auto",marginBottom:"2em"}}>
                         <h2>{item.label}</h2>
                         <b>{item.description}</b>

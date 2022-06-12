@@ -13,18 +13,13 @@ import Wikientry from './components/wikientry'
 import Starkmacher from './components/starkmacher';
 import NeueStarkmacher from './components/neueStarkmacher';
 import Reframing from './components/starkmacher/reframing';
-<<<<<<< HEAD
 import Login from './components/login';
-=======
-import SicherheitsnetzController from './components/SicherheitsnetzController'
-import  Help  from './components/help'
+import  Help  from './components/help';
 import Profil from './components/profil';
-
-
-
->>>>>>> 11f45a5223ff78c1417c56377bf5de9c70d5c970
-//https://www.flatuicolorpicker.com/colors/sauvignon/
-
+import { message} from 'antd';
+message.config({
+  top: 50
+});
 
 const wiki = [
   {letter: "A",
@@ -112,13 +107,6 @@ const routes = [{
   component: <Login/>,
   color: "#eefcf5",
   text: "Anmeldung",
-  img: "./logoBig.png"
-},
-  {
-  path: "/sicherheitsnetz",
-  component: <SicherheitsnetzController />,
-  color: "#f6efe9",
-  text: "Sicherheitsnetz"
   img: "./logoBig.png"
 },
 {

@@ -2,11 +2,11 @@ import React from 'react'
 import { Button, Alert, Tab,Tabs,Container,ButtonGroup,ProgressBar , ListGroup ,InputGroup,FormControl} from 'react-bootstrap'
 import { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import { Rate  ,message} from 'antd';
+import { Rate  ,message,Input} from 'antd';
 import 'antd/dist/antd.css';
 
 const Reframing = () => {
-	const [situations,setSituations] = useState(["...","","",""]);
+	const [situations,setSituations] = useState(["","","",""]);
 
 	const [currentTab,setCurrentTab] = useState("1");
 	const history = useHistory();
@@ -79,7 +79,8 @@ const Reframing = () => {
 			  </Tab>
 			  <Tab eventKey="3" title="3" disabled>
 			   <Alert>Wie hat dir die Übung gefallen?</Alert>
-			<p><Rate /></p>
+		    <Input/>
+			<p style={{textAlign:"center"}}><Rate /></p>
 			<Button onClick={() => finish()}>Done</Button>
 			<br/>
 			  </Tab>
