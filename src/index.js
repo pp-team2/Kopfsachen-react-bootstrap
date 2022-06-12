@@ -13,6 +13,7 @@ import Wikientry from './components/wikientry'
 import Starkmacher from './components/starkmacher';
 import NeueStarkmacher from './components/neueStarkmacher';
 import Reframing from './components/starkmacher/reframing';
+import Login from './components/login';
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
 
@@ -81,20 +82,27 @@ const routes = [{
   component: <Starkmacher/>,
   color: "#eefcf5",
   text: "Meine Starkmacher",
-  img: "./logoBig.png"
+  img: "./starkmacher.png"
 },
 {
   path: "/neueStarkmacher",
   component: <NeueStarkmacher/>,
   color: "#eefcf5",
   text: "Neue Starkmacher",
-  img: "./logoBig.png"
+  img: "./starkmacher.png"
 },
 {
   path: "/starkmacher/reframing",
   component: <Reframing/>,
-  color: "#eefcf5",
+  color: "#f2c7d0",
   text: "Reframing",
+  img: "/reframing.png"
+},
+{
+  path: "/login",
+  component: <Login/>,
+  color: "#eefcf5",
+  text: "Anmeldung",
   img: "./logoBig.png"
 },
 {

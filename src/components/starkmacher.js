@@ -8,26 +8,26 @@ const Starkmacher = (props) => {
     {
         label:"Sicherheitsnetz",
         link:"/starkmacher/sicherheitsnetz",
-        logo:"testbild.jpg"
+        logo:"sicherheitsnetz.png"
     },
     {
         label:"Situationskontrolle",
         link:"/starkmacher/situationskontrolle",
-        logo:"testbild.jpg"
+        logo:"situationskontrolle.png"
     }      
         ]);
     
     return (
         <Container>
-            <div>Du hast schon so viele Starkmacher für dich entdeckt.</div>
-            <div>Wenn du an deinen bestehenden Starkmachern arbeiten willst, klicke einfach auf das entsprechende Symbol! Ansonsten bekommst du nach einem Klick auf “Neue Starkmacher entdecken” eine Auswahl an neuen Übungen vorgeschlagen.</div>
+            <b>Du hast schon so viele Starkmacher für dich entdeckt.</b><br/>
+            <b>Wenn du an deinen bestehenden Starkmachern arbeiten willst, klicke einfach auf das entsprechende Symbol! Ansonsten bekommst du nach einem Klick auf “Neue Starkmacher entdecken” eine Auswahl an neuen Übungen vorgeschlagen.</b>
             <br/>
             <ListGroup>
             {starkmacherListe.map((item,key)=>
-                <LinkContainer to={item.link}>
+                <LinkContainer to={item.link} style={{cursor:"pointer"}}>
                 <ListGroup.Item key={item.key}>
-                    <img style={{height:"100px",width:"200px"}} src={item.logo}/>&nbsp;
-                    <span>{item.label}</span>
+                    <img style={{width:"100px"}} src={item.logo}/>&nbsp;
+                    <b>{item.label}</b>
                 </ListGroup.Item>
                 </LinkContainer>
             )}
