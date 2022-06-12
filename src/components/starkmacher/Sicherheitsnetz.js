@@ -81,7 +81,7 @@ export default class Sicherheitsnetz extends React.Component {
                     let newImageElement = 
                     <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
                         <image x={x} y={y} transform='translate(-40,-40)' href={line.picture.getAttribute('src')} 
-                            height='80' width='80'>
+                            height='80' width='80' className="ressource">
                             <title>{line.text}</title>
                         </image>
                     </OverlayTrigger>

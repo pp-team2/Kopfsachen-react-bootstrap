@@ -85,18 +85,18 @@ export default class Aktiviatet extends React.Component {
                 </Row>
                 <Row>
                     <Col>
-                        <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Logo-Bild" />
+                        <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Personen" />
                     </Col>
                     <Col>
-                        <img className="ressource" id="p_2" onClick={this.pictureChange} src="/tier.png" alt="Tagebuch-Bild" />
+                        <img className="ressource" id="p_2" onClick={this.pictureChange} src="/tier.png" alt="Tier" />
                     </Col>
                     <Col>
-                        <img className="ressource" id="p_3" onClick={this.pictureChange} src="/kreativ.png" alt="Tagebuch-Bild" />
+                        <img className="ressource" id="p_3" onClick={this.pictureChange} src="/kreativ.png" alt="Kreative Aktivität" />
                     </Col>    
                 </Row>
                 <Row>
                     <Col>
-                        <img className="ressource" id="p_4" onClick={this.pictureChange} src="/sonstiges.png" alt="Logo-Bild" />
+                        <img className="ressource" id="p_4" onClick={this.pictureChange} src="/sonstiges.png" alt="Sonstige Aktivität" />
                     </Col>
                    {/*  <Col>
                         <img className="ressource" id="p_5" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
