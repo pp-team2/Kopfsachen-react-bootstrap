@@ -16,6 +16,7 @@ import Reframing from './components/starkmacher/reframing';
 import Login from './components/login';
 import  Help  from './components/help';
 import Profil from './components/profil';
+import Sicherheitsnetz from './components/Sicherheitsnetz';
 import { message} from 'antd';
 message.config({
   top: 50
@@ -121,6 +122,13 @@ const routes = [{
   component: <Profil />,
   color: "#eefcf5",
   text: "Profil",
+  img: "./tagebuch.svg"
+},
+{
+  path: "/sicherheitsnetz",
+  component: <Sicherheitsnetz />,
+  color: "#eefcf5",
+  text: "Sicherheitsnetz",
   img: "./tagebuch.svg"
 },
 {
