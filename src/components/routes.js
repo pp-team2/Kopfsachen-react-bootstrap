@@ -15,6 +15,10 @@ import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzung
 import  Help  from './help';
 import Profil from './profil';
 import Login from './login';
+import { message} from 'antd';
+message.config({
+  top: 50
+});
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
@@ -57,33 +61,33 @@ const routes = [{
   text: "Stimmungstagebuch",
   img: "./tagebuch.svg"
 },
-/* {
+{
   path: "/wiki",
   component: <Wiki list={wikii.filter(a => a.title !== '')} />,
   color: "#f6efe9",
   text: "Wiki",
   img: "./tagebuch.svg"
-}, */
+}, 
 {
   path: "/starkmacher",
   component: <Starkmacher/>,
   color: "#eefcf5",
   text: "Meine Starkmacher",
-  img: "./logoBig.png"
+  img: "./starkmacher.png"
 },
 {
   path: "/neueStarkmacher",
   component: <NeueStarkmacher/>,
   color: "#eefcf5",
   text: "Neue Starkmacher",
-  img: "./logoBig.png"
+  img: "./starkmacher.png"
 },
 {
   path: "/starkmacher/reframing",
   component: <Reframing/>,
   color: "#eefcf5",
   text: "Reframing",
-  img: "./logoBig.png"
+  img: "/reframing.png"
 },
 {
   path: "/starkmacher/SozialeUnterstuetzung",
@@ -97,7 +101,7 @@ const routes = [{
   component: <SicherheitsnetzController />,
   color: "#f6efe9",
   text: "Sicherheitsnetz",
-  img: "./logoBig.png"
+  img: "/sicherheitsnetz.png"
 },
 {
   path: "/notfall",
@@ -118,7 +122,7 @@ const routes = [{
   component: <Login />,
   color: "#eefcf5",
   text: "Anmeldung",
-  img: "./tagebuch.svg"
+  img: "./logoBig.png"
 },
 {
   path: "*",
