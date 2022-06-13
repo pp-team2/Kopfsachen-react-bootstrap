@@ -14,6 +14,7 @@ import SicherheitsnetzController from './starkmacher/SicherheitsnetzController';
 import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzungController';
 import  Help  from './help';
 import Profil from './profil';
+import Login from './login';
 
 //https://www.flatuicolorpicker.com/colors/sauvignon/
 
@@ -110,6 +111,13 @@ const routes = [{
   component: <Profil />,
   color: "#eefcf5",
   text: "Profil",
+  img: "./tagebuch.svg"
+},
+{
+  path: "/login",
+  component: <Login />,
+  color: "#eefcf5",
+  text: "Anmeldung",
   img: "./tagebuch.svg"
 },
 {
