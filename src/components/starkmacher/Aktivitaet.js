@@ -109,11 +109,11 @@ export default class Aktiviatet extends React.Component {
                     <Col>
                         <Button id="weitereRessource" onClick={this.selectNewActivity} className="disabled">Weitere Ressource hinzufügen</Button>
                     </Col>
-                    <Col>
+                    {/* <Col>
                         <LinkContainer to="/home">
                             <Button id="alleRessourcen" onClick={this.exit} variant="success">Das sind alle Ressourcen</Button>
                         </LinkContainer>
-                    </Col>
+                    </Col> */}
                 </Row>
                 
             </Container>

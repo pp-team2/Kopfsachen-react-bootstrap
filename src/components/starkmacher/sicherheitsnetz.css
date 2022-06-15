@@ -17,3 +17,8 @@ g#gNetz circle:hover {
 g#gNetz circle:active {
     fill: #000000;
 }
+
+image.ressource {
+    width: 11%;
+    height: 11%;
+}

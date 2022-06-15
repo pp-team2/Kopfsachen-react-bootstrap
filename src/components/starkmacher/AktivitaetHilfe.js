@@ -78,16 +78,19 @@ export default class AktiviatetHilfe extends React.Component {
                         <input id="comment1" placeholder='...' onChange={this.textChange} type="text"></input>
                     </Col>
                 </Row>
+                <br></br>
                 <Row>
                     <Col>
                         <input id="comment2" placeholder='...' onChange={this.textChange} type="text"></input>
                     </Col>
                 </Row>
+                <br></br>
                 <Row>
                     <Col>
                         <input id="comment3" placeholder='...' onChange={this.textChange} type="text"></input>
                     </Col>
                 </Row>
+                <br></br>
                 <Row>
                     <Col>
                         <Button onClick={this.ressourceKommentiert}>Dann los!</Button>

@@ -116,7 +116,7 @@ export default class Sicherheitsnetz extends React.Component {
                 <Row>
                     <Col>
                         <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
-                        <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Übung beenden</Button></LinkContainer>
+                        <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button></LinkContainer>
                     </Col>
                 </Row>
                 <Row>
