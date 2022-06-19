@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react'
 import {LinkContainer} from 'react-router-bootstrap'
 import { Button, ButtonGroup } from 'react-bootstrap';
+import Registration from './components/Registration';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
       Ich möchte an meinen offenen Aufgaben weiterarbeiten
     </Button>
   </ButtonGroup>
+
+  <Registration></Registration>
 
 
     </div>
