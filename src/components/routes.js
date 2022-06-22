@@ -16,6 +16,7 @@ import  Help  from './help';
 import Profil from './profil';
 import Login from './login';
 import { message} from 'antd';
+import SituationskontrolleController from './starkmacher/SituationskontrolleController';
 message.config({
   top: 50
 });
@@ -88,6 +89,13 @@ const routes = [{
   color: "#eefcf5",
   text: "Reframing",
   img: "/reframing.png"
+},
+{
+  path: "/starkmacher/Situationskontrolle",
+  component: <SituationskontrolleController />,
+  color: "#eefcf5",
+  text: "Situationskontrolle",
+  img: "./situationskontrolle.png"
 },
 {
   path: "/starkmacher/SozialeUnterstuetzung",
