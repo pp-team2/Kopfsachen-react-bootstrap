@@ -6,7 +6,7 @@ export default class SozialeUnterstuetzungController extends React.Component {
     constructor() {
         super();
 
-        this.state = {level: 3, personas: [{name: '', circleID: '', symbols: [], markiert: false}]};
+        this.state = {level: 1, personas: [{name: '', circleID: '', symbols: [], markiert: false}]};
 
         this.newPerson = this.newPerson.bind(this);
     }

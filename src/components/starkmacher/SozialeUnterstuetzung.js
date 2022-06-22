@@ -6,7 +6,7 @@ import './sozialeUnterstuetzung.css';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+import Form from 'react-bootstrap/Form';
 
 export default class SozialeUnterstuetzung extends React.Component {
     constructor(props) {
@@ -145,8 +145,7 @@ export default class SozialeUnterstuetzung extends React.Component {
     newPerson() {
         let newPerson = this.props.newPerson;
         let showChecked = this.state.showChecked;
-        console.log(this.state.text);
-        console.log(this.state.pictures);
+
         // Wenn der Text und die Pictures leer sind, werden nur Namen markiert (Level 3)
         if (this.state.text === '' && this.state.pictures.length == 0) {
             if (this.state.checked === false && showChecked.find(line => line.circleID === this.state.circleID)) {
@@ -206,15 +205,14 @@ export default class SozialeUnterstuetzung extends React.Component {
         }
     }
 
+    // Wenn bei der Auswahl der Bilder ein Bild angewählt oder abgewählt wird
     pictureChange(elem) {
         let bild = document.querySelector('#'+elem.target.getAttribute('id'));
         let pictures = this.state.pictures;
     
-        //console.log(pictures);
+        console.log(pictures);
         this.state.vorhandenePictures.forEach(line => {
             if (elem.target.src.includes(line.href.baseVal)) {
-                //console.log(line.href.baseVal);
-                //console.log(elem.target.src);
                 return;
             }
         });
@@ -350,16 +348,9 @@ export default class SozialeUnterstuetzung extends React.Component {
                         <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
                     </div>
                     <div>
-                        <ToggleButton
-                            className="mb-2"
-                            id="toggleCheck"
-                            type="checkbox"
-                            variant="outline-info"
-                            checked={this.state.checked}
-                            value="1"
-                            onChange={() => this.setState({checked: !this.state.checked})}>
-                            Markieren
-                        </ToggleButton>
+                        <Form.Check type="checkbox" id="toggleCheck" 
+                        checked={this.state.checked} label="Markieren"
+                        onChange={() => this.setState({checked: !this.state.checked})} />
                     </div>
                     <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
                 </Popover.Body>
@@ -384,16 +375,9 @@ export default class SozialeUnterstuetzung extends React.Component {
             <Popover id="popover-basicLvl3Only">
                 <Popover.Body>
                     <div>
-                        <ToggleButton
-                            className="mb-2"
-                            id="toggleCheck"
-                            type="checkbox"
-                            variant="outline-info"
-                            checked={this.state.checked}
-                            value="1"
-                            onChange={() => this.setState({checked: !this.state.checked})}>
-                            Markieren
-                        </ToggleButton>
+                        <Form.Check type="checkbox" id="toggleCheck" 
+                            checked={this.state.checked} label="Markieren"
+                            onChange={() => this.setState({checked: !this.state.checked})} />
                     </div>
                     <Button id="aenderungen" onClick={this.newPerson}>Änderung abspeichern</Button>
                 </Popover.Body>
