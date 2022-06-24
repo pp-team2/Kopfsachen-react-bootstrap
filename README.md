@@ -1,3 +1,22 @@
-# Basic Example with React-Router-Bootstrap
+# Kopfsachen Web-App
 
-A simple [create-react-app](CRA-README.md) setup, showcasing how it works with React-Router-Bootstrap
+
+### React-Bootstrap:
+
+    npm install react-bootstrap bootstrap
+    
+bzw.
+
+    yarn add react-bootstrap
+    
+---------------------------------------
+
+### Ant Design:
+
+    npm install antd
+    
+bzw.
+
+    yarn add antd
+
+---------------------------------------
