@@ -28,7 +28,6 @@ const Help = () => {
 
     return (
         <Container className="d-grid gap-4">
-            <h2>Online-Beratung</h2>
             {
                 content.map(entry =>
                     <Card key={entry.title}>
@@ -43,7 +42,7 @@ const Help = () => {
                                 }
 
                         </Card.Text>
-                        <Button href={entry.link} variant="outline-secondary">Mehr erfahren</Button>
+                        <Button href={entry.link} variant="fill-black">Mehr erfahren</Button>
                     </Card.Body>
                     </Card>
                 )

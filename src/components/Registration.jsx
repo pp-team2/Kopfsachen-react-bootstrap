@@ -1,13 +1,34 @@
-import React, { useState, useCallback, useContext, useReducer } from "react";
+import React, { useState, useEffect, useCallback, useContext, useReducer } from "react";
 import { Button, ButtonGroup, Stack } from 'react-bootstrap';
 import API from "./API";
 
-export default function Registration() {
+export default function Registration(props) {
   
   const [pending, setPending] = useState(false);
   const [accountKey, setAccountKey] = useState("");
   const [preLines, dispatch] = useReducer(lineReducer, []);
   
+
+
+  /*
+  const [sessionActive, setSessionActive] = useState(false);
+
+  const checkSession = async () => {
+      const jsonRes = await API.checkSession();
+      const isSessionActive = !(jsonRes.hasOwnProperty("error"));
+      setSessionActive(isSessionActive);
+
+      console.log(jsonRes)
+      console.log("active:" + sessionActive)
+  }
+
+
+  useEffect(checkSession);
+  
+  */
+  
+
+
   const register = async() => {
     reset();
     setPending(true);
@@ -15,15 +36,20 @@ export default function Registration() {
     
     try {
       // Fetch flow
-      const registrationAction = await API.initRegistration();
+      
+      const reg = await API.initRegistration();
+      const registrationAction = reg.ui.action
       const actionUrl = new URL(registrationAction)
+
+      console.log(reg)
+      console.log(registrationAction)
 
       dispatch(addLineAction(`Got flowID: ${actionUrl.searchParams.get("flow")}`));
    
       dispatch(addLineAction("Submitting registration with flowId..."));
-      const registration = await API.submitRegistration(actionUrl);
+      const registration = await API.submitRegistration(reg);
 
- console.log(registration)
+
       dispatch(addLineAction("Received registration response:"));
       dispatch(addLineAction(`AccountKey: ${registration.identity.traits.accountKey}`))
 
@@ -37,6 +63,30 @@ export default function Registration() {
       dispatch(addLineAction(e.toString()));
     }
     setPending(false);
+
+    
+    console.log(props)
+    console.log(props.check)
+    props.check()
+  };
+
+
+  const logout = async() => {
+    
+      
+      const out = await API.initLogout();
+      const token = out.logout_token;
+      
+      const l = await API.submitLogout(token);
+      console.log(l)
+
+      reset();
+      setPending(true);
+      dispatch(addLineAction("Erfolgreich ausgeloggt"));
+      props.check()
+
+      //setSessionActive(false);
+
   };
 
   const reset = () => {
@@ -50,8 +100,11 @@ export default function Registration() {
 <div id="registration">
 <ButtonGroup className="mb-2">
 <Stack gap={2} className="col-md-5 mx-auto">
-  <Button variant="success" size="lg" disabled={pending} onClick={register}>
+  <Button variant="success" size="lg" onClick={register} style={{display: props.sessionActive ? "none" : "block"}}>
   Neues Benutzerkonto erstellen
+  </Button>
+  <Button variant="success" size="lg" onClick={logout}  style={{display: !props.sessionActive ? "none" : "block"}}>
+  Ausloggen
   </Button>
   <pre>
     {preLines.map(s => s + "\n")}
@@ -59,6 +112,9 @@ export default function Registration() {
   <p style={{fontWeight: 'bold'}}></p>
   </Stack>
 </ButtonGroup>
+
+
+
 
 
 </div>

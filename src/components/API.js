@@ -1,21 +1,85 @@
-const baseUrl = "https://auth.api.live.mindtastic.lol/";
-
+//const baseUrl = "https://auth.api.live.mindtastic.lol";
+const baseUrl = "";
 export default {
 
     baseUrl: baseUrl,
 
     initRegistration: async() => {
 
-        const response = await _fetch('/self-service/registration/api');
+        const response = await fetch(baseUrl + '/self-service/registration/browser', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+
+        });
         const r = await response.json();
-        return r.ui.action;
+        console.log(r)
+        return r;
     },
 
-    submitRegistration: async(actionUrl) => {
-        const response = await fetch(actionUrl, { method: 'POST', appendBaseUrl: false });
+    submitRegistration: async(re) => {
+        const response = await fetch("/self-service/registration?flow=" + new URL(re.ui.action).searchParams.get("flow"), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+
+            },
+            body: JSON.stringify({
+                "method": "password",
+                "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0]
+            })
+        });
         const r = await response.json();
+        console.log(r)
         return r
     },
+
+    initLogout: async() => {
+
+        const response = await fetch(baseUrl + '/self-service/logout/browser', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            },
+
+        });
+        const r = await response.json();
+        console.log(r)
+        return r;
+    },
+
+    submitLogout: async(token) => {
+
+        const response = await fetch(baseUrl + '/self-service/logout?token=' + token, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            },
+
+        });
+        const r = await response;
+        return r;
+    },
+
+
+    checkSession: async() => {
+
+        const response = await fetch('/sessions/whoami', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+
+        });
+        const r = await response.json();
+        return r;
+    },
+
+
 
     initLogin: async() => {
         const response = await _fetch("/self-service/login/api");

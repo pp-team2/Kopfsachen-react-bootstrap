@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react'
-import {Navbar, Nav, Container} from 'react-bootstrap'
+import {Navbar, Nav, Container, Row, Col } from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import Image from 'react-bootstrap/Image'
 import { FiHome, FiBookOpen, FiUser } from "react-icons/fi";
@@ -9,32 +9,38 @@ import { MdOutlineLocalHospital } from "react-icons/md";
 
 const navItems = [{
   route: "/Home",
-  icon: <FiHome />,
-  label: "Home"
+  icon: <FiHome size={18} />,
+  label: "Home",
+  requiresSession: false
 },{
   route: "/tagebuch",
-  icon: <FiBookOpen />,
-  label: "Stimmungstagebuch"      
+  icon: <FiBookOpen size={18} />,
+  label: "Stimmungstagebuch",
+  requiresSession: true     
 },{
   route: "/wiki",
-  icon: <BiBrain />,
-  label: "Wiki"      
+  icon: <BiBrain size={18}  />,
+  label: "Wiki",
+  requiresSession: false  
 },{
   route: "/starkmacher",
-  icon: <GiWeightLiftingUp />,
-  label: "Starkmacher"      
+  icon: <GiWeightLiftingUp size={18}  />,
+  label: "Starkmacher",
+  requiresSession: true      
 },{
   route: "/notfall",
-  icon: <MdOutlineLocalHospital />,
-  label: "Notfallnummern"      
+  icon: <MdOutlineLocalHospital size={18} />,
+  label: "Notfallnummern",
+  requiresSession: false      
 },{
   route: "/profil",
-  icon: <FiUser />,
-  label: "Profil"      
+  icon: <FiUser size={18} />,
+  label: "Profil"      ,
+  requiresSession: true
 }]
 
 
-const Navigator = () => {
+const Navigator = (props) => {
 
   const [scrolled, setScrolled] = useState(false);
 
@@ -47,9 +53,11 @@ const Navigator = () => {
       }
     };
   }, []);
+
+
   
     return (
-      <Navbar bg="light" fixed="top" style={{ position: "sticky", transition: "0.5s"}} expand="lg" className={scrolled ? 'shadow' : ''}>
+      <Navbar fixed="top" style={{ position: "sticky", transition: "0.5s", backgroundColor: "#fff"}} expand="lg" className={scrolled ? 'shadowNav' : ''}>
         <Container>
         <LinkContainer to="/">
           <Navbar.Brand>
@@ -60,12 +68,15 @@ const Navigator = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
             {navItems.map((item, index) => { return(
-              <LinkContainer key={index} to={item.route}>
-                <Nav.Link>
-                  <span style={{marginRight: "7px", marginTop: "-3px"}}>
-                    {item.icon}
-                  </span>
-                  {item.label}
+              <LinkContainer key={index} to={item.route} style={{display: (item.requiresSession && !props.sessionActive) ? "none" : "block"}}>
+                <Nav.Link >
+                <Row>
+                  <Col xs={2} lg={12}>{item.icon}</Col>
+                  <Col xs={2} lg={12} className="navLabel">{item.label}</Col>
+                </Row>
+
+
+        
                 </Nav.Link>
               </LinkContainer>)
               })

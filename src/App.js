@@ -4,7 +4,7 @@ import {LinkContainer} from 'react-router-bootstrap'
 import { Button, ButtonGroup } from 'react-bootstrap';
 import Registration from './components/Registration';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <h1>Schön, dass du da bist!</h1>
@@ -24,7 +24,7 @@ function App() {
     </Button>
   </ButtonGroup>
 
-  <Registration></Registration>
+  <Registration sessionActive={props.sessionActive} check={props.check}></Registration>
 
 
     </div>
