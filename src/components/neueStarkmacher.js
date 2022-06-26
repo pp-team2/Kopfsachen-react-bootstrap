@@ -13,6 +13,13 @@ const NeueStarkmacher = (props) => {
         color:"#f2c7d0"
     },
     {
+        label:"Soziale Unterstützung",
+        link:"/starkmacher/sozialeUnterstuetzung",
+        description:"In diesem Starkmacher geht es daum, zu überlegen welche Menschen es in deinem Umfeld gibt und wie sie dich unterstützen können.",
+        logo:"situationskontrolle.png",
+        color:"#cae2e2"
+    },
+    {
         label:"Situationskontrolle",
         link:"/starkmacher/...",
         description:"Lorem ipsum dolor sit amet, consetetur sadipscing elit voluptua.",

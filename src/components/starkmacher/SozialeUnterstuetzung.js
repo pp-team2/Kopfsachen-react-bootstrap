@@ -6,13 +6,16 @@ import './sozialeUnterstuetzung.css';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+import Form from 'react-bootstrap/Form';
 
 export default class SozialeUnterstuetzung extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {circleID: '', text: '', checked: '', pictures: [], showText: [{x: '', y: '', text: ''}], showPictures: [{x: 0, y: 0, src: undefined}]};
+        this.state = {circleID: '', text: '', checked: false, pictures: [], vorhandenePictures: [], ausgeblendetePictures: [], 
+        showText: [{circleID: '', x: '', y: '', text: ''}], 
+        showPictures: [{x: 0, y: 0, src: undefined, circleID: undefined}],
+        showChecked: [{circleID: undefined, checked: false}]};
 
         this.clickCircle = this.clickCircle.bind(this);
         this.newPerson = this.newPerson.bind(this);
@@ -21,6 +24,11 @@ export default class SozialeUnterstuetzung extends React.Component {
         this.pictureChange = this.pictureChange.bind(this);
         this.textUndBilder = this.textUndBilder.bind(this);
         this.kollisionsAbfrage = this.kollisionsAbfrage.bind(this);
+        this.setCircleID = this.setCircleID.bind(this);
+        this.hidePictures = this.hidePictures.bind(this);
+        this.clearPicturesInState = this.clearPicturesInState.bind(this);
+        this.setCircleIDOnly = this.setCircleIDOnly.bind(this);
+        this.setCheckedState = this.setCheckedState.bind(this);
     }
 
     componentDidMount() {
@@ -68,20 +76,30 @@ export default class SozialeUnterstuetzung extends React.Component {
         let belegterkreis = document.getElementById(circleID);
         belegterkreis.setAttribute('visibility', 'hidden');
 
-        // Statt dem Kreis Text generieren
-        let angezeigteTexte = this.state.showText;
-        angezeigteTexte.push({x: (+belegterkreis.getAttribute('cx'))-20, y: belegterkreis.getAttribute('cy'), text: text});
-        this.setState({showText: angezeigteTexte});
+        if (text !== '') {
+            // Statt dem Kreis Text generieren
+            let angezeigteTexte = this.state.showText;
+            angezeigteTexte.push({circleID: circleID, x: (+belegterkreis.getAttribute('cx'))-20, y: belegterkreis.getAttribute('cy'), text: text});
+            this.setState({showText: angezeigteTexte});
+        }
+        
+        let angezeigteBilder = this.state.showPictures;
+        let x = -30;
+
+        // Für jedes Symbol was es schon gibt, wird der Wert für x erhöht
+        angezeigteBilder.forEach(line => {
+            if (line.circleID === circleID) {
+                x = x+20;
+            }
+        });
 
         // Bilder (Symbole) hinzufügen
-        let angezeigteBilder = this.state.showPictures;
-        let x = - 30;
         this.state.pictures.forEach(bild => {
-            angezeigteBilder.push({x: (+belegterkreis.getAttribute('cx'))+x, y: (+belegterkreis.getAttribute('cy'))+5, src: bild.getAttribute('src')});
+            angezeigteBilder.push({circleID: circleID, x: (+belegterkreis.getAttribute('cx'))+x, y: (+belegterkreis.getAttribute('cy'))+5, src: bild.getAttribute('src')});
             x = x + 20;
         });
         this.setState({showPictures: angezeigteBilder});
-    }
+    } 
 
     // Macht einen neuen zufälligen Kreis sichtbar innerhalb eines Kreistyps der noch nicht belegt ist
     kollisionsAbfrage(kreisTyp) {
@@ -122,17 +140,58 @@ export default class SozialeUnterstuetzung extends React.Component {
         
         let kreisTyp = belegterkreis.classList[1];
         this.kollisionsAbfrage(kreisTyp);
-        
-        // Damit das Popover verschwindet
-        document.body.click();
-        this.setState({circleID: '', text: '', pictures: []});
     }
 
     newPerson() {
         let newPerson = this.props.newPerson;
+        let showChecked = this.state.showChecked;
 
-        this.addOnePerson();    
-        newPerson(this.state.text, this.state.circleID, this.state.pictures);
+        // Wenn der Text und die Pictures leer sind, werden nur Namen markiert (Level 3)
+        if (this.state.text === '' && this.state.pictures.length == 0) {
+            if (this.state.checked === false && showChecked.find(line => line.circleID === this.state.circleID)) {
+                showChecked = showChecked.filter(line => line.circleID !== this.state.circleID);
+            }
+
+            if (this.state.checked) {
+                newPerson(undefined, this.state.circleID, undefined, Date.now());
+            } else {
+                newPerson(undefined, this.state.circleID, undefined, false);
+            }
+        }
+        // Wenn der Text leer ist, heißt das, dass nur Symbole hinzugefügt werden (Level 2)
+        else if (this.state.text === '') {
+            this.textUndBilder(this.state.circleID, '');
+            if (this.state.checked) {
+                newPerson(undefined, this.state.circleID, this.state.pictures, Date.now());
+            } else {
+                newPerson(undefined, this.state.circleID, this.state.pictures, false);
+            }
+        } 
+        // Wenn eine neue Person hinzugefügt wird (alle Level)
+        else {
+            this.addOnePerson();
+            if (this.state.checked) {
+                newPerson(this.state.text, this.state.circleID, this.state.pictures, Date.now());
+            } else {
+                newPerson(this.state.text, this.state.circleID, this.state.pictures, false);
+            }
+        }
+        
+        // Wenn "markiert" gesetzt wurde, dann soll das im state gespeichert werden
+        if (this.state.checked === true) {
+            let circleID = this.state.circleID;
+            let checked = this.state.checked;
+            // Damit nicht zwei Kreise doppelt vorkommen
+            if (!showChecked.find(line => line.circleID === circleID)) {
+                let obj = new Object({circleID: circleID, checked: checked});
+                showChecked.push(obj);
+            } 
+        }
+
+        // Damit das Popover verschwindet
+        document.body.click();
+        // State aufräumen
+        this.setState({circleID: '', text: '', checked: false, pictures: [], vorhandenePictures: [], ausgeblendetePictures: [], pictures: [], showChecked: showChecked});
     }
 
     textChange(elem) {
@@ -146,49 +205,115 @@ export default class SozialeUnterstuetzung extends React.Component {
         }
     }
 
+    // Wenn bei der Auswahl der Bilder ein Bild angewählt oder abgewählt wird
     pictureChange(elem) {
         let bild = document.querySelector('#'+elem.target.getAttribute('id'));
         let pictures = this.state.pictures;
+    
+        console.log(pictures);
+        this.state.vorhandenePictures.forEach(line => {
+            if (elem.target.src.includes(line.href.baseVal)) {
+                return;
+            }
+        });
+        
+        if (pictures.length === 0) {
+            pictures = [];
+        }
 
         if (bild.classList.contains('checked')) {
             // Border entfernen und Bild aus state entfernen
             bild.style.border = "";
             bild.classList.remove('checked');
             pictures = pictures.filter(line => line.id !== bild.id);
-
         } else {
             // Border hinzufügen und Bild dem state hinzufügen
             bild.style.border = "black solid";
             bild.classList.add('checked');
             pictures.push(bild);
+            document.querySelector('#hinzufuegen').classList.remove('disabled');
         }
 
         this.setState({pictures: pictures});
 
     }
 
-    render() {
-        let clickCircle = this.clickCircle;
-
-        // Texte vorbereiten die dann eingefügt werden sollen
-        let angezeigteTexte = this.state.showText;
-        angezeigteTexte = angezeigteTexte.map((line, index) => {
-            return <text key={index} x={line.x} y={line.y}>{line.text}</text>;
+    // Wenn auf ein Text geklickt wird um Symbole hinzuzufügen (Level 2)
+    setCircleID(elem) {
+        // ID des Kreises "in welchem" sich der Text befindet
+        let circleID = elem.target.classList[0];
+        // Bilder die schon gesetzt worden sind
+        let vorhandenePictures = document.querySelectorAll('image.'+circleID);
+        
+        let ausgeblendetePictures = [];
+        const symbols = ['/buecher.png','/herz.png','/oberarm.png'];
+        // Für jedes Symbol gucken ob es bereits angezeigt wird oder nicht
+        vorhandenePictures.forEach(line => {
+            if (symbols.some(symbol => symbol === line.href.baseVal)) {
+                switch (line.href.baseVal) {
+                    case '/buecher.png':
+                        if (ausgeblendetePictures.some(line => line === 'bild1')) {
+                            break;
+                        } else {
+                            ausgeblendetePictures.push('bild1');
+                        }
+                        break;
+                    case '/herz.png':
+                        if (ausgeblendetePictures.some(line => line === 'bild2')) {
+                            break;
+                        } else {
+                            ausgeblendetePictures.push('bild2');
+                        }
+                        break;
+                    case '/oberarm.png':
+                        if (ausgeblendetePictures.some(line => line === 'bild3')) {
+                            break;
+                        } else {
+                            ausgeblendetePictures.push('bild3');
+                        }
+                        break;
+                    default:
+                        ausgeblendetePictures.push('bild1');
+               }
+            }
         });
 
-        // Bilder vorbereiten die dann eingefügt werden sollen
-        let angezeigteBilder = this.state.showPictures;
+        this.setState({circleID: circleID, vorhandenePictures: vorhandenePictures, ausgeblendetePictures: ausgeblendetePictures});
+    }
 
-        angezeigteBilder = angezeigteBilder.map((line, index) => {
-            if (line.src == undefined) {
-                return;
-            } else {
-                return <image key={index} x={line.x} y={line.y} href={line.src}></image>;
-            }
+    setCircleIDOnly(elem) {
+        let circleID = elem.target.classList[0];
+        this.setState({circleID: circleID});
+    }
+
+    // Versteckt die Bilder die nicht mehr hinzugefügt werden sollen weil sie schon gesetzt worden sind
+    hidePictures() {
+        let picturesIds = this.state.ausgeblendetePictures;
+        picturesIds.forEach(line => {
+            document.getElementById(line).style.display = 'none';
         })
+    }
+
+    clearPicturesInState() {
+        this.setState({ausgeblendetePictures: [], vorhandenePictures: []});
+    }
+
+    // Wenn auf ein Text geklickt wird (Level 3)
+    setCheckedState() {
+        let showChecked = this.state.showChecked;
+        if(showChecked.find(line => line.circleID === this.state.circleID)) {
+            this.setState({checked: true});
+        } else {
+            this.setState({checked: false});
+        }
+    }
+
+    render() {
+        let clickCircle = this.clickCircle;
+        let level = this.props.level;
 
         const popoverLvl1 = (
-            <Popover>
+            <Popover id="popover-basicLvl1">
                 <Popover.Body>
                     <p>Eintrag hinzufügen:</p>
                     <input onChange={this.textChange} type="text"></input>
@@ -198,7 +323,7 @@ export default class SozialeUnterstuetzung extends React.Component {
         );
 
         const popoverLvl2 = (
-            <Popover>
+            <Popover id="popover-basicLvl2">
                 <Popover.Body>
                     <p>Eintrag hinzufügen:</p>
                     <input onChange={this.textChange} type="text"></input>
@@ -213,7 +338,7 @@ export default class SozialeUnterstuetzung extends React.Component {
         );
 
         const popoverLvl3 = (
-            <Popover>
+            <Popover id="popover-basicLvl3">
                 <Popover.Body>
                     <p>Eintrag hinzufügen:</p>
                     <input onChange={this.textChange} type="text"></input>
@@ -223,21 +348,85 @@ export default class SozialeUnterstuetzung extends React.Component {
                         <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
                     </div>
                     <div>
-                        <ToggleButton
-                            className="mb-2"
-                            id="toggleCheck"
-                            type="checkbox"
-                            variant="outline-info"
-                            checked={this.state.checked}
-                            value="1"
-                            onChange={() => this.setState({checked: !this.state.checked})}>
-                            Markieren
-                        </ToggleButton>
+                        <Form.Check type="checkbox" id="toggleCheck" 
+                        checked={this.state.checked} label="Markieren"
+                        onChange={() => this.setState({checked: !this.state.checked})} />
+                    </div>
+                    <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
+                </Popover.Body>
+            </Popover>
+        );
+
+        const popoverLvl2Only = (
+            <Popover id="popover-basicLvl2Only">
+                <Popover.Body>
+                    <p>Symbol hinzufügen:</p>
+                    <div>
+                        <img className="ressource" id="bild1" onLoad={this.hidePictures} onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
+                        <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
+                        <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
                     </div>
                         <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
                 </Popover.Body>
             </Popover>
         );
+
+        const popoverLvl3Only = (
+            <Popover id="popover-basicLvl3Only">
+                <Popover.Body>
+                    <div>
+                        <Form.Check type="checkbox" id="toggleCheck" 
+                            checked={this.state.checked} label="Markieren"
+                            onChange={() => this.setState({checked: !this.state.checked})} />
+                    </div>
+                    <Button id="aenderungen" onClick={this.newPerson}>Änderung abspeichern</Button>
+                </Popover.Body>
+            </Popover>
+        );
+
+        // Texte vorbereiten die dann eingefügt werden sollen
+        let angezeigteTexte = this.state.showText;
+        switch (level) {
+            case 1: 
+                angezeigteTexte = angezeigteTexte.map((line, index) => {
+                    return <text className={line.circleID} key={index} x={line.x} y={line.y}>{line.text}</text>;
+                });
+                break;
+            case 2:
+                angezeigteTexte = angezeigteTexte.map((line, index) => {
+                    return (
+                    <OverlayTrigger onHide={this.clearPicturesInState} key={index} trigger="click" overlay={popoverLvl2Only} onEntered={this.hidePictures} rootClose>
+                        <text className={line.circleID} key={index} x={line.x} y={line.y} onClick={this.setCircleID}>{line.text}</text>
+                    </OverlayTrigger>
+                    )});
+                break;
+            case 3:
+                angezeigteTexte = angezeigteTexte.map((line, index) => {
+                    return (
+                    <OverlayTrigger key={index} trigger="click" overlay={popoverLvl3Only} onEnter={this.setCheckedState} rootClose>
+                        <text className={line.circleID} key={index} x={line.x} y={line.y} onClick={this.setCircleIDOnly}>{line.text}</text>
+                    </OverlayTrigger>
+                    )});
+                break;
+            default:
+                angezeigteTexte = angezeigteTexte.map((line, index) => {
+                    return <text className={line.circleID} key={index} x={line.x} y={line.y}>{line.text}</text>;
+                });
+        }
+       
+
+        // Bilder vorbereiten die dann eingefügt werden sollen
+        let angezeigteBilder = this.state.showPictures;
+
+        angezeigteBilder = angezeigteBilder.map((line, index) => {
+            if (line.src == undefined) {
+                return;
+            } else {
+                return <image className={line.circleID} key={index} x={line.x} y={line.y} href={line.src}></image>;
+            }
+        })
+
+        
 
         let circlesArray = [<circle className='addPerson kreis1' cx="280" cy="164" id="svg_6" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis1' cx="331" cy="152" id="svg_7" r="22.472204" onClick={clickCircle} />,
@@ -279,7 +468,18 @@ export default class SozialeUnterstuetzung extends React.Component {
 
         let circlesArrayWithOverlay = [];
         circlesArray = circlesArray.forEach(function(elem, index) {
-            circlesArrayWithOverlay.push(<OverlayTrigger key={index} trigger="click" overlay={popoverLvl3} rootClose>{ elem }</OverlayTrigger>);
+            switch(level) {
+                case 1:
+                    circlesArrayWithOverlay.push(<OverlayTrigger key={index} trigger="click" overlay={popoverLvl1} rootClose>{ elem }</OverlayTrigger>);
+                    break;
+                case 2:
+                    circlesArrayWithOverlay.push(<OverlayTrigger key={index} trigger="click" overlay={popoverLvl2} rootClose>{ elem }</OverlayTrigger>);
+                    break;
+                case 3:
+                    circlesArrayWithOverlay.push(<OverlayTrigger key={index} trigger="click" overlay={popoverLvl3} rootClose>{ elem }</OverlayTrigger>);
+                    break;
+                default: circlesArrayWithOverlay.push(<OverlayTrigger key={index} trigger="click" overlay={popoverLvl1} rootClose>{ elem }</OverlayTrigger>);
+            }
         });
 
         return (
@@ -289,13 +489,11 @@ export default class SozialeUnterstuetzung extends React.Component {
                         {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
                         <svg id='svgNetz' width="100%" height="100%" viewBox='0 0 600 600'>
                             <g id='gNetz' className="layer">
-                            
                                 <ellipse id="kreis3" cx="316" cy="240.000007" fill="#7F49C3" rx="230" ry="230" transform="matrix(1 0 0 1 0 0)"/>
                                 <ellipse id="kreis2" cx="316" cy="240.500004" display="inline" fill="#F2C8D0" rx="175" ry="175" />
                                 <ellipse id="kreis1" cx="316" cy="241.999996" fill="#F3903E" rx="120" ry="120" transform="matrix(1 0 0 1 0 0)"/>
                                 <circle id="kreis0" cx="316" cy="236.5" fill="#FDE802" r="40" />
                                 <text id="textICH" fill="#000000" fontFamily="serif" fontSize="24" fontWeight="bold" stroke="#000000" strokeWidth="0" textAnchor="middle" x="316" y="243.5">ICH</text>
-                                
                             </g>
                             <g>
                                 { circlesArrayWithOverlay }

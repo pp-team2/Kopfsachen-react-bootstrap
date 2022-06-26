@@ -29,3 +29,7 @@ image, img.symbol {
     height: 3%;
     width: 3%;
 }
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
