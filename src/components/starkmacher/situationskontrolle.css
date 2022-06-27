@@ -2,6 +2,19 @@ span.alpenHighlight {
     color: #53C991;
 }
 
-.step {
-    border: 1px solid black;
+ul {
+    list-style-type: none;
+}
+
+p.listHeader {
+    margin-bottom: 0px;
+}
+
+#textAufgabeInput, #textLaengeInput, #textPufferInput {
+    width: 80%;
+    margin: auto;
+}
+
+.nachkontrolleScreen {
+    margin: 20px;
 }

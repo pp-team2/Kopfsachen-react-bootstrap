@@ -4,16 +4,32 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './situationskontrolle.css';
 import Button from 'react-bootstrap/Button';
+import FormControl from 'react-bootstrap/FormControl';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import { LinkContainer } from 'react-router-bootstrap';
+import Alert from 'react-bootstrap/Alert';
 
 export default class SituationskontrolleAlpenMethode extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {textAufgabe: '', textLaenge: '', textPuffer: '',
-            texte: [{textAufgabe: '', textLaenge: '', textPuffer: ''}]};
+            texte: [{textAufgabe: '', textLaenge: '', textPuffer: '', markiert: false},
+            {textAufgabe: 'Aufräumen', textLaenge: '', textPuffer: '', markiert: false},
+            {textAufgabe: 'Wäsche waschen', textLaenge: '', textPuffer: '', markiert: false},
+            {textAufgabe: 'Hausaufgaben machen', textLaenge: '', textPuffer: '', markiert: false}],
+            time: {}, seconds: 900, screen: 8};
+        this.timer = 0;
 
         this.textChange = this.textChange.bind(this);
         this.addText = this.addText.bind(this);
-        this.textEingabeBeendet = this.textEingabeBeendet.bind(this);
+        this.aufgabenEingabeBeendet = this.aufgabenEingabeBeendet.bind(this);
+        this.secondsToTime = this.secondsToTime.bind(this);
+        this.startTimer = this.startTimer.bind(this);
+        this.countDown = this.countDown.bind(this);
+        this.aufgabenPriorisiert = this.aufgabenPriorisiert.bind(this);
+        this.erinnerungSetzen = this.erinnerungSetzen.bind(this);
     }
 
     textChange(elem) {
@@ -35,30 +51,69 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
 
     // Fügt eine neue Aufgabe hinzu
     addText() {
-        if (this.state.textAufgabe === '') {
-            return;
-        }
-        let newAufgabeElement = document.createElement('li');
-        newAufgabeElement.innerHTML = this.state.textAufgabe;
-        let newLaengeElement = document.createElement('li');
-        newLaengeElement.innerHTML = this.state.textLaenge;
-        let newPufferElement = document.createElement('li');
-        newPufferElement.innerHTML = this.state.textPuffer;
-
-        document.querySelector('#textAufgabeOutput').appendChild(newAufgabeElement);
-        document.querySelector('#textLaengeOutput').appendChild(newLaengeElement);
-        document.querySelector('#textPufferOutput').appendChild(newPufferElement);
-
         let texte = this.state.texte;
         texte.push({textAufgabe: this.state.textAufgabe, textLaenge: this.state.textLaenge, textPuffer: this.state.textPuffer});
         console.log(this.state.textAufgabe);
         console.log(this.state.textLaenge);
         console.log(this.state.textPuffer);
+        document.getElementById('textAufgabeInput').value = '';
+        document.getElementById('textLaengeInput').value = '';
+        document.getElementById('textPufferInput').value = '';
         this.setState({textAufgabe: '', textLaenge: '', textPuffer: '', texte: texte});
     }
 
-    textEingabeBeendet() {
+    // Alle Aufgaben wurden eingegeben
+    aufgabenEingabeBeendet() {
         console.log(this.state.texte);
+        this.setState({screen: 10});
+    }
+
+    // Die Aufgaben wurden priorisiert
+    aufgabenPriorisiert() {
+        this.props.texteSpeichern(this.state.texte);
+        this.setState({screen: 11});
+    }
+
+    // Es wurde auf den Button "Bitte erinner mich nachher" geklickt
+    erinnerungSetzen() {
+        this.props.setErinnerung();
+    }
+
+    // https://stackoverflow.com/questions/40885923/countdown-timer-in-react (Fabian Schultz und Brynner Ferreira)
+    componentDidMount() {
+        let timeLeftVar = this.secondsToTime(this.state.seconds);
+        this.setState({time: timeLeftVar});
+    }
+
+    // Erstellt aus den übergebenen Sekunden ein Objekt mit Stunden, Minuten und Sekunden
+    secondsToTime(secs) {
+        let hours = Math.floor(secs / (60*60));
+        let divisor_for_minutes = secs % (60*60);
+        let minutes = Math.floor(divisor_for_minutes / 60);
+        let divisor_for_seconds = divisor_for_minutes % 60;
+        let seconds = Math.ceil(divisor_for_seconds);
+        let obj = {
+            "h": hours,
+            "m": minutes,
+            "s": seconds
+        };
+        return obj;
+    }
+
+    // Startet den Timer
+    startTimer() {
+        if (this.timer == 0 && this.state.seconds > 0) {
+            this.timer = setInterval(this.countDown, 1000);
+        }
+    }
+
+    // Zählt jede Sekunden runter, bis der Timer bei 0 angekommen ist
+    countDown() {
+        let seconds = this.state.seconds - 1;
+        this.setState({time: this.secondsToTime(seconds), seconds: seconds});
+        if (seconds == 0) {
+            clearInterval(this.timer);
+        }
     }
 
     render() {
@@ -68,19 +123,19 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                     <p>Wenn du Situationskontrolle üben möchtest, kann dir die <b>ALPEN</b>-Methode helfen.</p>
                 </Row>
                 <Row>
-                    <p><span class="alpenHighlight">A</span> ufgabe notieren</p>
+                    <p><span className="alpenHighlight">A</span> ufgabe notieren</p>
                 </Row>
                 <Row>
-                    <p><span class="alpenHighlight">L</span> änge schätzen</p>
+                    <p><span className="alpenHighlight">L</span> änge schätzen</p>
                 </Row>
                 <Row>
-                    <p><span class="alpenHighlight">P</span> ufferzeiten einplanen</p>
+                    <p><span className="alpenHighlight">P</span> ufferzeiten einplanen</p>
                 </Row>
                 <Row>
-                    <p><span class="alpenHighlight">E</span> ntscheidungen treffen</p>
+                    <p><span className="alpenHighlight">E</span> ntscheidungen treffen</p>
                 </Row>
                 <Row>
-                    <p><span class="alpenHighlight">N</span> achkontrolle</p>
+                    <p><span className="alpenHighlight">N</span> achkontrolle</p>
                 </Row>
                 <Row>
                     <Button>Let's go!</Button>
@@ -89,60 +144,151 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
 
         let screen9 = 
             <Container>
-                <div class="step">
                     <Row>
-                        <p>Stell dir einen Timer auf 15 Minuten.<br />
-                        Die folgenden Schritte durchläufst du für jede Aufgabe, die du zu tun hast.</p>
+                        <Col sm="8" >
+                                <p>Stell dir einen Timer auf 15 Minuten.</p>
+                                <Button onClick={this.startTimer}>Timer starten</Button> <span>{this.state.time.m}:{this.state.time.s}</span>
+                                <br /><br />
+                                <p>Die folgenden Schritte durchläufst du für jede Aufgabe, die du zu tun hast.</p>
+                                <br />
+                            <div className="step">
+                                <p className="listHeader"><span className="alpenHighlight">A</span> ufgabe notieren:</p>
+                                <ul>
+                                    <li>a. Was nehme ich mir vor (Schulaufgaben UND Hobbys)?</li>
+                                    <li>b. Was ist wichtig, was eher unwichtig?</li>
+                                </ul>
+                                <FormControl value={this.state.textAufgabe} onChange={this.textChange} id="textAufgabeInput"
+                                placeholder='...' className="textEingabe" />
+                                <br />
+                            </div>
+                            <br />
+                            <div className="step">
+                                <p className="listHeader"><span className="alpenHighlight">L</span> änge schätzen</p>
+                                <ul>   
+                                    <li>a. Wie lange brauche ich?</li>
+                                    <li>b. Wann muss ich fertig sein?</li>
+                                </ul>
+                                <FormControl value={this.state.textLaenge} onChange={this.textChange} id="textLaengeInput"
+                                placeholder='...' className="textEingabe" />
+                                <br />
+                            </div>
+                            <br />
+                            <div className="step">
+                                <p className="listHeader"><span className="alpenHighlight">P</span> ufferzeiten einplanen</p>
+                                <ul>   
+                                    <li>a. Faustregel: Etwa 1/3 des geschätzten Zeitaufwandes als Reserve einplanen.</li>
+                                </ul>
+                                <FormControl value={this.state.textPuffer} onChange={this.textChange} id="textPufferInput"
+                                placeholder='...' className="textEingabe" />
+                                <br />
+                            </div>
+                        </Col>
+                        <Col sm="4">
+                            <div className="step">
+                                <p>Übersicht über bereits hinzugefügte Aufgaben</p>
+                                <ListGroup>
+                                    {this.state.texte.map((line, index) => {
+                                        if (line.textAufgabe !== '') {
+                                        let popover = (
+                                            <Popover>
+                                                <Popover.Header>{line.textAufgabe}</Popover.Header>
+                                                <Popover.Body>
+                                                    <p className="listHeader"><u>Länge</u></p>
+                                                    <p>{line.textLaenge}</p>
+                                                    <p className="listHeader"><u>Pufferzeit</u></p>
+                                                    <p>{line.textPuffer}</p>
+                                                </Popover.Body>
+                                            </Popover>
+                                        )
+                                    return <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
+                                                <ListGroup.Item key={index}>{line.textAufgabe}</ListGroup.Item>
+                                            </OverlayTrigger>
+                                        }
+                                     })
+                                    }
+                                </ListGroup>
+                            </div>
+                        </Col>
                     </Row>
-                    <Row>
-                        <p><span class="alpenHighlight">A</span> ufgabe notieren:</p>
-                        <p>a.	Was nehme ich mir vor (Schulaufgaben UND Hobbys)?</p>
-                        <p>b.	Was ist wichtig, was eher unwichtig?</p>
-                    </Row>
-                    <Row>
-                        <ol id="textAufgabeOutput">
-                        </ol>
-                        <input id="textAufgabeInput" type="text" onChange={this.textChange}></input>
-                    </Row>
-                </div>
-                <br />
-                <div class="step">
-                    <Row>
-                        <p><span class="alpenHighlight">L</span> änge schätzen</p>
-                        <p>a.	Wie lange brauche ich?</p>
-                        <p>b.	Wann muss ich fertig sein?</p>
-                    </Row>
-                    <Row>
-                        <ol id="textLaengeOutput">
-                        </ol>
-                        <input id="textLaengeInput" type="text" onChange={this.textChange}></input>
-                        </Row>
-                </div>
-                <br />
-                <div class="step">
-                    <Row>
-                        <p><span class="alpenHighlight">P</span> ufferzeiten einplanen</p>
-                        <p>a.	Faustregel: Etwa 1/3 des geschätzten Zeitaufwandes als Reserve einplanen.</p>
-                    </Row>
-                    <Row>
-                        <ol id="textPufferOutput">
-                        </ol>
-                        <input id="textPufferInput" type="text" onChange={this.textChange}></input>
-                    </Row>
-                </div>
                     <Row>
                         <Col>
-                            <br />
                             <Button onClick={this.addText}>Aufgabe hinzufügen</Button>
-                            <Button onClick={this.textEingabeBeendet}>Das sind alle Aufgaben</Button>
+                        </Col>
+                        <Col>
+                            <Button onClick={this.aufgabenEingabeBeendet}>Das sind alle Aufgaben</Button>
                         </Col>
                     </Row>
             </Container>
-        
+
+            let screen10 = 
+                    <Container>
+                        <Row>
+                            <Col>
+                                <p>Jetzt geht es darum die Aufgaben nach der Wichtigkeit zu sortieren.</p>
+                                <p>Du kannst die Aufgaben einfach in die gewünschte Reihenfolge verschieben.</p>
+                                <p className="listHeader"><span className="alpenHighlight">E</span> ntscheidungen treffen:</p>
+                                <ul>
+                                    <li>a. Das Wichtigste zuerst</li>
+                                    <li>b. Es ist okay, wenn du nicht alles schaffst!</li>
+                                </ul>
+                                <ListGroup>
+                                    {this.state.texte.map((line, index) => {
+                                         if (line.textAufgabe !== '') {
+                                            return <ListGroup.Item key={index}>{line.textAufgabe}</ListGroup.Item>
+                                         }
+                                        })
+                                    }
+                                </ListGroup>
+                                <Button onClick={this.aufgabenPriorisiert}>Meine Aufgaben sind priorisiert</Button>
+                            </Col>
+                        </Row>
+                    </Container>
+
+            let screen11 = 
+                    <Container>
+                        <Row>
+                            <Col>
+                                <p>Der letzte Schritt der <span className="alpenHighlight">ALPEN</span>-Methode ist die Nachkontrolle.</p>
+                                <p><span className="alpenHighlight">N</span> achkontrolle</p>
+                                <ul>
+                                    <li>a. Was habe ich geschafft, was nicht? </li>
+                                </ul>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Alert variant='success'>Wenn du möchtest, erhälst Du am Ende des Tages eine Benachrichtigung, 
+                                    um einzutragen was du geschafft hast. 
+                                    Danach ist die Situationskontrolle Teil deiner Starkmacher!</Alert>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <LinkContainer to='/home'><Button onClick={this.erinnerungSetzen}>Bitte erinner mich nachher</Button></LinkContainer>
+                            </Col>
+                            <Col>
+                                <LinkContainer to='/home'><Button>Lieber beim nächsten Mal</Button></LinkContainer>
+                            </Col>
+                        </Row>
+                    </Container>
+
+            let toShow;
+            switch(this.state.screen) {
+                case 8: toShow = screen8;
+                    break;
+                case 9: toShow = screen9;
+                    break;
+                case 10: toShow = screen10;
+                    break;
+                case 11: toShow = screen11;
+                    break;
+                default: toShow = screen8; 
+            }
 
         return (
+            
             <div>
-                { screen9 }
+                { toShow }
             </div>
         )
     }
