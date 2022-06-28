@@ -13,11 +13,12 @@ export default class Sicherheitsnetz extends React.Component {
      constructor(props) {
         super(props);
 
-        this.state = {images: []};
+        this.state = {images: [], mapIDtoPicture: [{id: '', placeID: '', pictureID: ''}]};
 
         this.addActivities = this.addActivities.bind(this);
         this.uebungBeenden = this.uebungBeenden.bind(this);
         this.commentActivity = this.commentActivity.bind(this);
+        this.deleteActivity = this.deleteActivity.bind(this);
     } 
 
     componentDidMount() {
@@ -59,11 +60,15 @@ export default class Sicherheitsnetz extends React.Component {
                     // x und y Koordinaten für das Bild
                     let x = document.getElementById(line.placeID).getAttribute('cx');
                     let y = document.getElementById(line.placeID).getAttribute('cy');
-
+                    
+                    
                     // Popover für die einzelnen Kommentare
                     const popover = (
                         <Popover>
-                            <Popover.Header>{line.text}</Popover.Header>
+                            <Popover.Header>
+                                {line.text}
+                                <Button onClick={this.deleteActivity} className={line.id + " " + line.placeID} id="deleteActivity" variant="danger">X</Button>
+                            </Popover.Header>
                             <Popover.Body>
                                 
                                 <ul>
@@ -77,10 +82,11 @@ export default class Sicherheitsnetz extends React.Component {
                         </Popover>
                     )
 
+                    let idForPicture = "showImage_" + line.id;
                     // JSX-Element des Bildes mit Tooltip für den Text und Popover beim raufklicken
                     let newImageElement = 
                     <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
-                        <image x={x} y={y} transform='translate(-40,-40)' href={line.picture.getAttribute('src')} 
+                        <image x={x} y={y} id={idForPicture} transform='translate(-40,-40)' href={line.picture.getAttribute('src')} 
                             height='80' width='80' className="ressource">
                             <title>{line.text}</title>
                         </image>
@@ -89,7 +95,9 @@ export default class Sicherheitsnetz extends React.Component {
                     // neuen State setzen
                     let images = this.state.images;
                     images.push(newImageElement);
-                    this.setState({images: images});
+                    let mapIDtoPicture = this.state.mapIDtoPicture;
+                    mapIDtoPicture.push({id: line.id, placeID: line.placeID ,pictureID: idForPicture});
+                    this.setState({images: images, mapIDtoPicture: mapIDtoPicture});
 
                     // verdeckt den ausgewählten Kreis damit dieser nicht hinter dem Bild angezeigt wird
                     document.getElementById(line.placeID).setAttribute('visibility', 'hidden');
@@ -97,6 +105,19 @@ export default class Sicherheitsnetz extends React.Component {
                 }
             });
         }
+    }
+
+    // Löscht eine Aktivität aus dem Sicherheitsnetz und blendet sie aus
+    deleteActivity(elem) {
+        let id = elem.target.classList[0];
+        // Löscht die Aktivität komplett, sodass sie beim nächsten Mal nicht mitgerendert wird
+        this.props.deleteActivity(id);
+        // Versteckt das Bild, weil es gelöscht wurde (aber noch nicht neu gerendert wurde)
+        document.getElementById(this.state.mapIDtoPicture.filter(line => +line.id === +id).map(line => line.pictureID)[0]).setAttribute('visibility','hidden');
+        // Damit das Popover verschwindet
+        document.body.click();
+        // Kreis wieder sichtbar schalten
+        document.getElementById(this.state.mapIDtoPicture.filter(line => +line.id === +id).map(line => line.placeID)[0]).removeAttribute('visibility');
     }
 
     commentActivity(elem) {

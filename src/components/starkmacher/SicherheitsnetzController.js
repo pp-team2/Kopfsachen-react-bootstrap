@@ -16,6 +16,7 @@ export default class SicherheitsnetzController extends React.Component {
         this.uebungBeenden = this.uebungBeenden.bind(this);
         this.commentActivity = this.commentActivity.bind(this);
         this.addComment = this.addComment.bind(this);
+        this.deleteActivity = this.deleteActivity.bind(this);
     }
 
     saveActivity(text, picture, placeID) {
@@ -47,6 +48,13 @@ export default class SicherheitsnetzController extends React.Component {
         this.selectNewActivity();
     }
 
+    deleteActivity(id) {
+        let activities = this.state.activities;
+        activities = activities.filter(line => line.id !== +id);
+        console.log(activities);
+        this.setState({activities: activities});
+    }
+
     addNewActivity(id) {
         // Zeigt den Bildschirm einer neuen Aktivität hinzufügen an
         this.setState({site: 1, clickID: id});
@@ -72,7 +80,7 @@ export default class SicherheitsnetzController extends React.Component {
         let toShow;
         
         switch (this.state.site) {
-            case 0: toShow = <Sicherheitsnetz uebungBeenden={this.uebungBeenden} activities={this.state.activities} addNewActivity={this.addNewActivity} commentActivity={this.commentActivity}></Sicherheitsnetz>
+            case 0: toShow = <Sicherheitsnetz uebungBeenden={this.uebungBeenden} activities={this.state.activities} addNewActivity={this.addNewActivity} deleteActivity={this.deleteActivity} commentActivity={this.commentActivity}></Sicherheitsnetz>
                 break;
             case 1: toShow = <Aktiviatet selectNewActivity={this.selectNewActivity} saveActivity={this.saveActivity} clickID={this.state.clickID}></Aktiviatet>
                 break;
