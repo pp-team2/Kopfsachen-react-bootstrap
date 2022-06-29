@@ -52,16 +52,31 @@ export default class Sicherheitsnetz extends React.Component {
         if (activities === undefined) {
             return;
         } else {
+            // Zählt die Anzahl der Bilder die nicht mehr ins Netz passen
+            let extraImages = 0;
             activities.forEach(line => {
                 // placeID beschreibt wo das Bild dann platziert werden soll
                 if (line.placeID === '') {
                     return;
                 } else {
-                    // x und y Koordinaten für das Bild
-                    let x = document.getElementById(line.placeID).getAttribute('cx');
-                    let y = document.getElementById(line.placeID).getAttribute('cy');
+
+                    let x;
+                    let y;
                     
-                    
+                    // Es gibt genau 18 Plätze im Netz
+                    if (+line.placeID.substring(4) <= 18) {
+                        // x und y Koordinaten für das Bild
+                        x = document.getElementById(line.placeID).getAttribute('cx');
+                        y = document.getElementById(line.placeID).getAttribute('cy');
+
+                        // verdeckt den ausgewählten Kreis damit dieser nicht hinter dem Bild angezeigt wird
+                        document.getElementById(line.placeID).setAttribute('visibility', 'hidden');
+                    } else {
+                       // Bilder die nicht mehr ins Netz passen werden unter dem Netz dargestellt
+                        x = 48 + ((extraImages*2)*48);
+                        y = 525;
+                        extraImages = extraImages + 1;
+                    }
                     // Popover für die einzelnen Kommentare
                     const popover = (
                         <Popover>
@@ -72,8 +87,8 @@ export default class Sicherheitsnetz extends React.Component {
                             <Popover.Body>
                                 
                                 <ul>
-                                    {line.feedback.map(feedback => {  
-                                        return (<li key={feedback.timestamp}>{feedback.comment}</li>)
+                                    {line.strategies.map((strategy, index) => {  
+                                        return (<li key={index}>{strategy}</li>)
                                     })}
                                 </ul>
                                 
@@ -86,7 +101,7 @@ export default class Sicherheitsnetz extends React.Component {
                     // JSX-Element des Bildes mit Tooltip für den Text und Popover beim raufklicken
                     let newImageElement = 
                     <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
-                        <image x={x} y={y} id={idForPicture} transform='translate(-40,-40)' href={line.picture.getAttribute('src')} 
+                        <image x={x} y={y} id={idForPicture} transform='translate(-40,-40)' href={line.picture} 
                             height='80' width='80' className="ressource">
                             <title>{line.text}</title>
                         </image>
@@ -96,11 +111,9 @@ export default class Sicherheitsnetz extends React.Component {
                     let images = this.state.images;
                     images.push(newImageElement);
                     let mapIDtoPicture = this.state.mapIDtoPicture;
-                    mapIDtoPicture.push({id: line.id, placeID: line.placeID ,pictureID: idForPicture});
+                    mapIDtoPicture.push({id: line.id, placeID: line.placeID, pictureID: idForPicture});
                     this.setState({images: images, mapIDtoPicture: mapIDtoPicture});
 
-                    // verdeckt den ausgewählten Kreis damit dieser nicht hinter dem Bild angezeigt wird
-                    document.getElementById(line.placeID).setAttribute('visibility', 'hidden');
                     return;
                 }
             });
@@ -202,7 +215,6 @@ export default class Sicherheitsnetz extends React.Component {
                                 <circle cx="452" cy="422" id="svg_16" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
                                 <circle cx="552" cy="348" id="svg_17" r="43.462631" />
                                 <circle cx="375" cy="241" id="svg_18" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-
                             </g>
                             <g>
                                 { images }

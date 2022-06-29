@@ -45,7 +45,7 @@ export default class AktiviatetHilfe extends React.Component {
         this.setState({comment1: '', comment2: '', comment3: ''});
 
         // Funktion in SicherheitsnetzController die die alten und neuen Kommentare zusammenfügt
-        this.props.addComment(+this.state.id, newComments);
+        this.props.addStrategy(+this.state.id, newComments.map(line => line.comment));
         
     }
 

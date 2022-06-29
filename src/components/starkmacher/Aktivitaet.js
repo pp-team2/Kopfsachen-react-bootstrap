@@ -48,8 +48,7 @@ export default class Aktiviatet extends React.Component {
         // Setzt den Border wieder an dem Bild was ausgewählt wurde
         document.querySelector('#'+elem.target.getAttribute('id')).style.border = "black solid";
         // Speichert das ausgewählte Bild im state
-        this.setState({picture: document.querySelector('#'+elem.target.getAttribute('id'))});
-        //console.log(document.querySelector('.'+elem.target.getAttribute('class')));
+        this.setState({picture: document.querySelector('#'+elem.target.getAttribute('id')).getAttribute('src')});
 
         // Macht den Button zu weiteren Ressourcen zugänglich (wenn Text und Bild vorhanden)
         if (this.state.text) {
