@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import {LinkContainer} from 'react-router-bootstrap'
 
 
 export default class Aktiviatet extends React.Component {
@@ -18,8 +17,12 @@ export default class Aktiviatet extends React.Component {
         this.pictureChange = this.pictureChange.bind(this);
         this.exit = this.exit.bind(this);
         this.save = this.save.bind(this);
+        this.backButtonClicked = this.backButtonClicked.bind(this);
     }
 
+    backButtonClicked() {
+        this.props.selectNewActivity();
+    }
 
     selectNewActivity() {
         // Wenn auf "Weitere Ressourcen hinzufügen" geklickt wurde
@@ -68,6 +71,11 @@ export default class Aktiviatet extends React.Component {
     render() {
         return (
             <Container id="aktivitaetsAuswahl" style={{textAlign: 'center'}}>
+                <Row>
+                    <Col>
+                        <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <p>Das bereitet mir eine Freude:</p>

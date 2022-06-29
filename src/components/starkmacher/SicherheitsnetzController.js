@@ -84,7 +84,7 @@ export default class SicherheitsnetzController extends React.Component {
                 break;
             case 1: toShow = <Aktiviatet selectNewActivity={this.selectNewActivity} saveActivity={this.saveActivity} clickID={this.state.clickID}></Aktiviatet>
                 break;
-            case 2: toShow = <AktiviatetHilfe activity={this.state.activities.filter(line => line.id === this.state.clickID)} addComment={this.addComment}></AktiviatetHilfe>
+            case 2: toShow = <AktiviatetHilfe activity={this.state.activities.filter(line => line.id === this.state.clickID)} addComment={this.addComment} selectNewActivity={this.selectNewActivity}></AktiviatetHilfe>
                 break;
             case 3: toShow = <Feedback></Feedback>
                 break;

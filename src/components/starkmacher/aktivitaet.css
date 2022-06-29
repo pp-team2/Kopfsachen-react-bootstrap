@@ -16,3 +16,6 @@ Button {
     margin: 10px;
 }
 
+#backButton {
+    float: left;
+}

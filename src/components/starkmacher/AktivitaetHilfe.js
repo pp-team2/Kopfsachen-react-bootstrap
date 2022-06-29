@@ -18,6 +18,7 @@ export default class AktiviatetHilfe extends React.Component {
 
         this.ressourceKommentiert = this.ressourceKommentiert.bind(this);
         this.textChange = this.textChange.bind(this);
+        this.backButtonClicked = this.backButtonClicked.bind(this);
     }
 
     ressourceKommentiert() {
@@ -65,9 +66,18 @@ export default class AktiviatetHilfe extends React.Component {
         }
     }
 
+    backButtonClicked() {
+        this.props.selectNewActivity();
+    }
+
     render() {
         return (
             <Container style={{textAlign: 'center'}}>
+                <Row>
+                    <Col>
+                        <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <p>Trage drei Wege ein, auf denen dir {this.state.text} gerade helfen kann:</p>
