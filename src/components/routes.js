@@ -187,7 +187,7 @@ const routes = [{
               <Route key={index} exact path={route.path} >
                 <Header color={route.color} text={route.text} img={route.img}/>
                 {
-                (route.requiresSession && !sessionActive)? <Zugriff/> : route.component
+                (route.requiresSession && !sessionActive)? <Zugriff sessionActive={sessionActive} check={checkSession}/> : route.component
                 }
               </Route>
             )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext, useReducer } from "react";
-import { Button, ButtonGroup, Stack } from 'react-bootstrap';
+import { Button, ButtonGroup, Stack, Toast } from 'react-bootstrap';
 import API from "./API";
 
 export default function Registration(props) {
@@ -7,6 +7,13 @@ export default function Registration(props) {
   const [pending, setPending] = useState(false);
   const [accountKey, setAccountKey] = useState("");
   const [preLines, dispatch] = useReducer(lineReducer, []);
+
+  const [showA, setShowA] = useState(false);
+  const [showB, setShowB] = useState(false);
+
+  const toggleShowA = () => setShowA(!showA);
+  const toggleShowB = () => setShowB(!showB);
+
   
 
 
@@ -106,11 +113,29 @@ export default function Registration(props) {
   <Button variant="success" size="lg" onClick={logout}  style={{display: !props.sessionActive ? "none" : "block"}}>
   Ausloggen
   </Button>
-  <pre>
-    {preLines.map(s => s + "\n")}
-  </pre>
-  <p style={{fontWeight: 'bold'}}></p>
+
+  <Button onClick={toggleShowA} className="mb-2"  style={{display: !props.sessionActive ? "none" : "block"}}>
+          <strong>Expertenansicht: </strong> Registrierungsdetails
+  </Button>
+  <Toast show={showA} onClose={toggleShowA} >
+    <Toast.Header>
+      <img
+        src="holder.js/20x20?text=%20"
+        className="rounded me-2"
+        alt=""
+      />
+      <strong className="me-auto">Registrierung</strong>
+    </Toast.Header>
+    <Toast.Body>
+    <pre>
+      {preLines.map(s => s + "\n")}
+    </pre>
+    </Toast.Body>
+  </Toast>
+
+
   </Stack>
+
 </ButtonGroup>
 
 
