@@ -1,6 +1,6 @@
 # Kopfsachen Web-App
 
-### Node Packet Manager installieren:
+### Node Package Manager installieren:
 
     npm install
     
@@ -30,4 +30,4 @@ bzw.
 
     npm start
 
-Im Browser öffnet die Webseite unter der URL: http://localhost:3000/
+Im Browser öffnet sich die Webseite unter der URL: http://localhost:3000/
