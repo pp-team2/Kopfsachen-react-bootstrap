@@ -15,7 +15,6 @@ import SicherheitsnetzController from './starkmacher/SicherheitsnetzController';
 import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzungController';
 import  Help  from './help';
 import Profil from './profil';
-import Login from './login';
 import { message} from 'antd';
 import API from "./API";
 message.config({
@@ -146,14 +145,6 @@ const routes = [{
   text: "Profil",
   img: "./tagebuch.svg",
   requiresSession: true
-},
-{
-  path: "/login",
-  component: <Login />,
-  color: "#eeebea",
-  text: "Anmeldung",
-  img: "./logoBig.png",
-  requiresSession: false
 },
 {
   path: "*",

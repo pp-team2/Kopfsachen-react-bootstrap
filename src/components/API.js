@@ -1,4 +1,5 @@
 //const baseUrl = "https://auth.api.live.mindtastic.lol";
+import MD5 from "crypto-js/md5"
 const baseUrl = "";
 export default {
 
@@ -29,6 +30,40 @@ export default {
             body: JSON.stringify({
                 "method": "password",
                 "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0]
+            })
+        });
+        const r = await response.json();
+        console.log(r)
+        return r
+    },
+
+    initLogin: async() => {
+
+        const response = await fetch(baseUrl + '/self-service/login/browser', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+
+        });
+        const r = await response.json();
+        console.log(r)
+        return r;
+    },
+
+    submitLogin: async(re, key) => {
+        const response = await fetch('/self-service/login?flow=' + new URL(re.ui.action).searchParams.get("flow"), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+
+            },
+            body: JSON.stringify({
+                "method": "password",
+                "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0],
+                "identifier": key,
+                "password": MD5(key).toString()
             })
         });
         const r = await response.json();
@@ -81,6 +116,7 @@ export default {
 
 
 
+    /*
     initLogin: async() => {
         const response = await _fetch("/self-service/login/api");
         const r = await response.json();
@@ -96,6 +132,8 @@ export default {
         const r = await response.json()
         return r;
     },
+
+    */
 
     queryEcho: async(sessionToken) => {
         const response = await _fetch("https://echo.api.live.mindtastic.lol/", {
