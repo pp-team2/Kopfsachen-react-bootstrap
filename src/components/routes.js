@@ -30,7 +30,7 @@ message.config({
 const Routes = () => {
 
 
-  
+  const [expertView, setExpertView] = useState([])
   const [sessionActive, setSessionActive] = useState(false);
 
   const checkSession = async () => {
@@ -68,7 +68,7 @@ const data = [];
 
 const routes = [{
   path: ["/", "/home"],
-  component: <App sessionActive={sessionActive} check={checkSession}/>,
+  component: <App sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView} />,
   color: "#eeebea",
   text: "Herzlich Willkommen!",
   img: "./logoBig.png",
@@ -178,7 +178,7 @@ const routes = [{
               <Route key={index} exact path={route.path} >
                 <Header color={route.color} text={route.text} img={route.img}/>
                 {
-                (route.requiresSession && !sessionActive)? <Zugriff sessionActive={sessionActive} check={checkSession}/> : route.component
+                (route.requiresSession && !sessionActive)? <Zugriff sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView} /> : route.component
                 }
               </Route>
             )

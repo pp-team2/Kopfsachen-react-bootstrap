@@ -1,12 +1,14 @@
 import React from 'react'
-import Registration from './Registration'
+import Access from './Access';
+
 
 const zugriff = (props) => {
     return (
-        <div>
-            <h1>Zugriff verweigert!!! </h1>
-            <Registration sessionActive={props.sessionActive} check={props.check} />
-        </div>
+
+    <div className="App">
+       <h1>Zugriff verweigert!!! </h1>
+        <Access sessionActive={props.sessionActive} check={props.check} setExpertView={props.setExpertView} expertView={props.expertView}/>
+    </div>
     )
 }
 

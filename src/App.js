@@ -4,13 +4,12 @@ import {LinkContainer} from 'react-router-bootstrap'
 import { Button, ButtonGroup, Stack } from 'react-bootstrap';
 import Registration from './components/Registration';
 import Login from './components/Login';
-import { useState } from 'react';
 import Expertensicht from "./components/Expertensicht"
 import Logout from './components/Logout';
+import Access from './components/Access';
 
 function App(props) {
 
-  const [expertView, setExpertView] = useState([])
 
   return (
     <div className="App">
@@ -28,14 +27,7 @@ function App(props) {
         Ich möchte an meinen offenen Aufgaben weiterarbeiten
         </Button>
 
-        <Registration sessionActive={props.sessionActive} check={props.check} setExpertView={setExpertView} />  
-
-        <br></br>
-        <Login sessionActive={props.sessionActive} check={props.check} setExpertView={setExpertView}  />
-
-        <Logout sessionActive={props.sessionActive} check={props.check} setExpertView={setExpertView} />
-
-        <Expertensicht preLines={expertView} sessionActive={props.sessionActive} />
+        <Access sessionActive={props.sessionActive} check={props.check} setExpertView={props.setExpertView} expertView={props.expertView}/>
 
         </Stack>
       </ButtonGroup>
