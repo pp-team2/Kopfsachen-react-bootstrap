@@ -18,7 +18,7 @@ const navItems = [{
   label: "Stimmungstagebuch",
   requiresSession: true     
 },{
-  route: "/wiki",
+  route: "/wikilist",
   icon: <BiBrain size={18}  />,
   label: "Wiki",
   requiresSession: false  

@@ -68,7 +68,7 @@ const Wiki = (props) => {
                         entry.record.map((titleentry, i) => 
                             <LinkContainer key={i} 
                              style={{backgroundColor: 'white', color: 'black', display: 'block', border: 'none', textAlign: 'left'}}
-                             to={`/wiki/${titleentry.id.replace(/\s+/g, '')}`}>
+                             to={`/wikientry/${titleentry.title.replace(/\s+/g, '')}`}>
                                 <Button>
                                     {titleentry.title}
                                 </Button>
