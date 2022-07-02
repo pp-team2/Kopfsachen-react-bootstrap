@@ -27,11 +27,11 @@ export default function Registration(props) {
       }
 
 
-    props.setExpertView([   {"Got flowID": actionUrl.searchParams.get("flow")}, 
-                            {"AccountKey": registration.identity.traits.accountKey},
-                            {"Auto-Login succeeded": ""},
-                            {"SessionToken": registration.session_token + " (expiring: " + session.expires_at + ")"}
-                        ])
+    props.setExpertView({"Got flowID": actionUrl.searchParams.get("flow"), 
+                            "AccountKey": registration.identity.traits.accountKey,
+                            "Auto-Login succeeded": "",
+                            "SessionToken": registration.session_token + " (expiring: " + session.expires_at + ")"
+                         })
     props.check()
   };
 

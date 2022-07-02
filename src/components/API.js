@@ -6,167 +6,73 @@ export default {
     baseUrl: baseUrl,
 
     initRegistration: async() => {
-
-        const response = await fetch(baseUrl + '/self-service/registration/browser', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-
-        });
-        const r = await response.json();
-        console.log(r)
-        return r;
+        return _fetchGET(baseUrl + '/self-service/registration/browser', true)
     },
 
     submitRegistration: async(re) => {
-        const response = await fetch("/self-service/registration?flow=" + new URL(re.ui.action).searchParams.get("flow"), {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                "Content-Type": "application/json"
 
-            },
-            body: JSON.stringify({
-                "method": "password",
-                "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0]
-            })
-        });
-        const r = await response.json();
-        console.log(r)
-        return r
+        return _fetchPOST('/self-service/registration?flow=' + new URL(re.ui.action).searchParams.get("flow"), {
+            "method": "password",
+            "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0]
+        })
     },
 
     initLogin: async() => {
-
-        const response = await fetch(baseUrl + '/self-service/login/browser', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-
-        });
-        const r = await response.json();
-        console.log(r)
-        return r;
+        return _fetchGET(baseUrl + '/self-service/login/browser', true)
     },
 
     submitLogin: async(re, key) => {
-        const response = await fetch('/self-service/login?flow=' + new URL(re.ui.action).searchParams.get("flow"), {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                "Content-Type": "application/json"
-
-            },
-            body: JSON.stringify({
-                "method": "password",
-                "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0],
-                "identifier": key,
-                "password": MD5(key).toString()
-            })
-        });
-        const r = await response.json();
-        console.log(r)
-        return r
+        return _fetchPOST('/self-service/login?flow=' + new URL(re.ui.action).searchParams.get("flow"), {
+            "method": "password",
+            "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0],
+            "identifier": key,
+            "password": MD5(key).toString()
+        })
     },
 
     initLogout: async() => {
-
-        const response = await fetch(baseUrl + '/self-service/logout/browser', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                "Content-Type": "application/json"
-            },
-
-        });
-        const r = await response.json();
-        console.log(r)
-        return r;
+        return _fetchGET(baseUrl + '/self-service/logout/browser', true)
     },
 
     submitLogout: async(token) => {
-
-        const response = await fetch(baseUrl + '/self-service/logout?token=' + token, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                "Content-Type": "application/json"
-            },
-
-        });
-        const r = await response;
-        return r;
+        return _fetchGET(baseUrl + '/self-service/logout?token=' + token, false)
     },
 
 
     checkSession: async() => {
-
-        const response = await fetch('/sessions/whoami', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            },
-
-        });
-        const r = await response.json();
-        return r;
+        return _fetchGET(baseUrl + '/sessions/whoami', true)
     },
-
-
-
-    /*
-    initLogin: async() => {
-        const response = await _fetch("/self-service/login/api");
-        const r = await response.json();
-        return r.ui.action;
-    },
-
-    submitLogin: async(actionUrl) => {
-        debugger;
-        const response = await fetch(actionUrl, {
-            method: 'POST',
-            appendBaseUrl: false
-        });
-        const r = await response.json()
-        return r;
-    },
-
-    */
-
-    queryEcho: async(sessionToken) => {
-        const response = await _fetch("https://echo.api.live.mindtastic.lol/", {
-            appendBaseUrl: false,
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${sessionToken}`,
-            },
-            body: `Hello`,
-        })
-
-        return response.text();
-    }
 
 };
 
-async function _fetch(path, options = {}) {
-    const appendUrl = options.appendBaseUrl ? false : true;
-    if (appendUrl) {
-        path = baseUrl + path;
-    }
-
-    console.log(path)
-    const response = await fetch(path, {
+async function _fetchGET(path, res) {
+    const response = await fetch(baseUrl + path, {
         method: 'GET',
-        ...options,
-    })
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
 
-
-    if (!response.ok) {
-        //const error = (data && data.message) || response.status;
-        //throw new Error(error);
+    if (res) {
+        const r = await response.json();
+        console.log(r)
+        return r;
     }
+};
 
-    return response;
+
+async function _fetchPOST(path, bodyobj) {
+    const response = await fetch(baseUrl + path, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+
+        },
+        body: JSON.stringify(bodyobj)
+    });
+    const r = await response.json();
+    console.log(r)
+    return r
 };

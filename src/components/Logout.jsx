@@ -12,7 +12,7 @@ export default function Logout(props) {
       
       const l = await API.submitLogout(token);
    
-      props.setExpertView([{"Erfolgreich ausgeloggt": ""}])
+      props.setExpertView({"Erfolgreich ausgeloggt": ""})
       props.check()
   };
 

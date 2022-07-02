@@ -19,7 +19,8 @@ export default function Expertensicht(props) {
         </Toast.Header>
         <Toast.Body>
         <pre>
-          {props.preLines.map(x => JSON.stringify(x) + "\n")}
+          {/*props.preLines.map(x => JSON.stringify(x) + "\n")*/}
+          {JSON.stringify(props.preLines).replaceAll(',', '\n').replaceAll('}', "").replaceAll('{', "").replaceAll('"', "").replaceAll(':', ': ')}
         </pre>
         </Toast.Body>
       </Toast>

@@ -21,11 +21,11 @@ export default function Login(props) {
       }
 
 
-      props.setExpertView([ {"Got flowID": actionUrl.searchParams.get("flow")}, 
-                            {"AccountKey": accountKey},
-                            {"Auto-Login succeeded": ""},
-                            {"SessionToken": loggingIn.session_token + " (expiring: " + session.expires_at + ")"}
-                        ])
+      props.setExpertView({"Got flowID": actionUrl.searchParams.get("flow"), 
+                            "AccountKey": accountKey,
+                            "Auto-Login succeeded": "",
+                            "SessionToken": loggingIn.session_token + " (expiring: " + session.expires_at + ")"
+                          })
       props.check()
   };
 
