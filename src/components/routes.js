@@ -10,6 +10,7 @@ import Wikientry from './wikientry'
 import App from '../App'
 import Starkmacher from './starkmacher';
 import NeueStarkmacher from './neueStarkmacher';
+import {StarkmacherOptimismus } from './starkmacher/Optimismus';
 import Reframing from './starkmacher/reframing';
 import SicherheitsnetzController from './starkmacher/SicherheitsnetzController';
 import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzungController';
@@ -103,6 +104,14 @@ const routes = [{
   color: "#eeebea",
   text: "Reframing",
   img: "/reframing.png",
+  requiresSession: true
+},
+{
+  path: "/starkmacher/optimismus",
+  component: <StarkmacherOptimismus/>,
+  color: "#fde802",
+  text: "Optimismus",
+  img: "/optimismus.png",
   requiresSession: true
 },
 {
