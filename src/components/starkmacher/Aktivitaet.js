@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import {LinkContainer} from 'react-router-bootstrap'
 
 
 export default class Aktiviatet extends React.Component {
@@ -18,8 +17,12 @@ export default class Aktiviatet extends React.Component {
         this.pictureChange = this.pictureChange.bind(this);
         this.exit = this.exit.bind(this);
         this.save = this.save.bind(this);
+        this.backButtonClicked = this.backButtonClicked.bind(this);
     }
 
+    backButtonClicked() {
+        this.props.selectNewActivity();
+    }
 
     selectNewActivity() {
         // Wenn auf "Weitere Ressourcen hinzufügen" geklickt wurde
@@ -45,8 +48,7 @@ export default class Aktiviatet extends React.Component {
         // Setzt den Border wieder an dem Bild was ausgewählt wurde
         document.querySelector('#'+elem.target.getAttribute('id')).style.border = "black solid";
         // Speichert das ausgewählte Bild im state
-        this.setState({picture: document.querySelector('#'+elem.target.getAttribute('id'))});
-        //console.log(document.querySelector('.'+elem.target.getAttribute('class')));
+        this.setState({picture: document.querySelector('#'+elem.target.getAttribute('id')).getAttribute('src')});
 
         // Macht den Button zu weiteren Ressourcen zugänglich (wenn Text und Bild vorhanden)
         if (this.state.text) {
@@ -68,6 +70,11 @@ export default class Aktiviatet extends React.Component {
     render() {
         return (
             <Container id="aktivitaetsAuswahl" style={{textAlign: 'center'}}>
+                <Row>
+                    <Col>
+                        <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <p>Das bereitet mir eine Freude:</p>

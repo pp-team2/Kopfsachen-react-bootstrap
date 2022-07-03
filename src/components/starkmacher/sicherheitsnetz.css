@@ -22,3 +22,7 @@ image.ressource {
     width: 11%;
     height: 11%;
 }
+
+#deleteActivity {
+    float: right;
+}

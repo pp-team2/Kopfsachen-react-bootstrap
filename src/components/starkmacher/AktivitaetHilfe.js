@@ -18,6 +18,7 @@ export default class AktiviatetHilfe extends React.Component {
 
         this.ressourceKommentiert = this.ressourceKommentiert.bind(this);
         this.textChange = this.textChange.bind(this);
+        this.backButtonClicked = this.backButtonClicked.bind(this);
     }
 
     ressourceKommentiert() {
@@ -44,7 +45,7 @@ export default class AktiviatetHilfe extends React.Component {
         this.setState({comment1: '', comment2: '', comment3: ''});
 
         // Funktion in SicherheitsnetzController die die alten und neuen Kommentare zusammenfügt
-        this.props.addComment(+this.state.id, newComments);
+        this.props.addStrategy(+this.state.id, newComments.map(line => line.comment));
         
     }
 
@@ -65,9 +66,18 @@ export default class AktiviatetHilfe extends React.Component {
         }
     }
 
+    backButtonClicked() {
+        this.props.selectNewActivity();
+    }
+
     render() {
         return (
             <Container style={{textAlign: 'center'}}>
+                <Row>
+                    <Col>
+                        <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <p>Trage drei Wege ein, auf denen dir {this.state.text} gerade helfen kann:</p>
