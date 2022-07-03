@@ -57,6 +57,17 @@ useEffect(() => {
   fetchData();
 }, []); 
 
+
+useEffect(() => {
+  async function fetchData() {
+    const jsonRes = await API.getUser();
+
+    console.log("Test: ")
+    console.log(jsonRes)
+  }
+  fetchData();
+}); 
+
 const routes = [{
   path: ["/", "/home"],
   component: <App sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView} />,

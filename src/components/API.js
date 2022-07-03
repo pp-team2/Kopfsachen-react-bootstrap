@@ -46,6 +46,10 @@ const apiCalls = {
         return _fetchGET(baseUrl + '/wiki', true)
     },
 
+    getUser: async() => {
+        return _fetchGET(baseUrl + '/user', true)
+    },
+
 };
 
 export default apiCalls
