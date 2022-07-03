@@ -1,7 +1,7 @@
 //const baseUrl = "https://auth.api.live.mindtastic.lol";
 import MD5 from "crypto-js/md5"
 const baseUrl = "";
-export default {
+const apiCalls = {
 
     baseUrl: baseUrl,
 
@@ -13,7 +13,7 @@ export default {
 
         return _fetchPOST('/self-service/registration?flow=' + new URL(re.ui.action).searchParams.get("flow"), {
             "method": "password",
-            "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0]
+            "csrf_token": await re.ui.nodes.filter(x => x.attributes.name === "csrf_token").map(x => x.attributes.value)[0]
         })
     },
 
@@ -24,7 +24,7 @@ export default {
     submitLogin: async(re, key) => {
         return _fetchPOST('/self-service/login?flow=' + new URL(re.ui.action).searchParams.get("flow"), {
             "method": "password",
-            "csrf_token": await re.ui.nodes.filter(x => x.attributes.name == "csrf_token").map(x => x.attributes.value)[0],
+            "csrf_token": await re.ui.nodes.filter(x => x.attributes.name === "csrf_token").map(x => x.attributes.value)[0],
             "identifier": key,
             "password": MD5(key).toString()
         })
@@ -38,12 +38,17 @@ export default {
         return _fetchGET(baseUrl + '/self-service/logout?token=' + token, false)
     },
 
-
     checkSession: async() => {
         return _fetchGET(baseUrl + '/sessions/whoami', true)
     },
 
+    getWiki: async() => {
+        return _fetchGET(baseUrl + '/wiki', true)
+    },
+
 };
+
+export default apiCalls
 
 async function _fetchGET(path, res) {
     const response = await fetch(baseUrl + path, {
