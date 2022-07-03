@@ -44,30 +44,18 @@ const Routes = () => {
   
   
 
-
 const [wikii, setWiki] = useState([])
 
 useEffect(() => {
-  fetch('/wiki', {
-    method: 'GET',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-   })
-  .then(res => res.json())
-  .then(data => setWiki(data.entries))
-  .then(res => console.log(res))
-  .catch(
-    () => {
-      setWiki([]);
-    }
-  )
+  async function fetchData() {
+    const jsonRes = await API.getWiki();
+   
+    setWiki(jsonRes.entries)
 
-}, [])
-
-
-
+    console.log(jsonRes)
+  }
+  fetchData();
+}, []); 
 
 const routes = [{
   path: ["/", "/home"],
@@ -164,10 +152,8 @@ const routes = [{
       <Switch>
         {
           wikii.filter(a => a.id !== '').map(wikiEntry => {
-            console.log(`/wikientry/${wikiEntry.title.replace(/\s+/g, '')}`)
             return(
-                <Route key={wikiEntry.id} path={`/wikientry/${wikiEntry.title.replace(/\s+/g, '')}`}>
-                
+                <Route key={wikiEntry.id} path={`/wikientry/${wikiEntry.title.replace(/\s+/g, '')}`}>   
                   <Header color="#f6efe9" text={wikiEntry.title} img=""/>
                   <Wikientry object={wikiEntry} />
                 </Route>
