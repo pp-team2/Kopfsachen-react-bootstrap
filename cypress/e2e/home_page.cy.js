@@ -5,5 +5,7 @@ describe('The Home Page', () => {
     cy.contains('Wiki').click()
     cy.contains('Willkommen im Wiki')
     cy.contains('Abc Modell')
+    cy.visit('/starkmacher')
+    cy.contains('Mit Accountkey anmelden:')
   })
 })
