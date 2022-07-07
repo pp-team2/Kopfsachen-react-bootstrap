@@ -10,7 +10,7 @@ import Wikientry from './wikientry'
 import App from '../App'
 import Starkmacher from './starkmacher';
 import NeueStarkmacher from './neueStarkmacher';
-import {StarkmacherOptimismus } from './starkmacher/Optimismus';
+import {StarkmacherOptimismus } from './starkmacher/optimismus';
 import Reframing from './starkmacher/reframing';
 import SicherheitsnetzController from './starkmacher/SicherheitsnetzController';
 import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzungController';
