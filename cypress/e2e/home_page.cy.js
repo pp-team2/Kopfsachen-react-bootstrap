@@ -7,5 +7,7 @@ describe('The Home Page', () => {
     cy.contains('Abc Modell')
     cy.visit('/starkmacher')
     cy.contains('Mit Accountkey anmelden:')
+    cy.contains('Neues Benutzerkonto erstellen').click()
+    cy.contains('Meine Starkmacher')
   })
 })
