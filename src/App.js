@@ -27,7 +27,7 @@ function App(props) {
         Ich möchte an meinen offenen Aufgaben weiterarbeiten
         </Button>
 
-        <Access sessionActive={props.sessionActive} check={props.check} setExpertView={props.setExpertView} expertView={props.expertView}/>
+        <Access accountKey={props.accountKey} sessionActive={props.sessionActive} check={props.check} setExpertView={props.setExpertView} expertView={props.expertView}/>
 
         </Stack>
       </ButtonGroup>

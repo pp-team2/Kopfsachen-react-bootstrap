@@ -6,6 +6,8 @@ import { FiHome, FiBookOpen, FiUser } from "react-icons/fi";
 import { BiBrain } from "react-icons/bi";
 import { GiWeightLiftingUp } from "react-icons/gi";
 import { MdOutlineLocalHospital } from "react-icons/md";
+import LoginModal from "./LoginModal"
+import Logout from "./Logout"
 
 const navItems = [{
   route: "/Home",
@@ -66,7 +68,7 @@ const Navigator = (props) => {
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <Nav className="me-auto">
             {navItems.map((item, index) => { return(
               <LinkContainer key={index} to={item.route} style={{display: (item.requiresSession && !props.sessionActive) ? "none" : "block"}}>
                 <Nav.Link >
@@ -82,6 +84,10 @@ const Navigator = (props) => {
               })
             }
             </Nav>
+            <Nav>
+            <LoginModal accountKey={props.accountKey} preLines={props.expertView} sessionActive={props.sessionActive} setExpertView={props.setExpertView} />
+            <Logout sessionActive={props.sessionActive} check={props.check} setExpertView={props.setExpertView} />
+         </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

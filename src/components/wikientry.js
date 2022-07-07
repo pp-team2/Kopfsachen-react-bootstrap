@@ -9,7 +9,7 @@ const Wikientry = (props) => {
     const history = useHistory();
     return (
         <Container>
-            <Button variant="outline-secondary" className="my-2" onClick={history.goBack}>
+            <Button variant="success" className="my-2" onClick={history.goBack}>
                 <FiArrowLeft/>Zurück zur Übersicht
             </Button>
             <Card>

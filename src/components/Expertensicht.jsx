@@ -10,7 +10,7 @@ export default function Expertensicht(props) {
 
   return (
     <>
-      <Button onClick={toggleShowA} className="mb-2"  style={{display: !props.sessionActive ? "none" : "block"}}>
+      <Button  variant="secondary" onClick={toggleShowA} className="mb-2"  style={{display: !props.sessionActive ? "none" : "block"}}>
         <strong>Expertenansicht: </strong> Accountdetails
       </Button>
       <Toast show={showA} onClose={toggleShowA} style={{"width": "100%"}}>
