@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './aktivitaet.css';
+import Form from 'react-bootstrap/Form';
 
 
 export default class AktiviatetHilfe extends React.Component {
@@ -83,29 +84,15 @@ export default class AktiviatetHilfe extends React.Component {
                         <p>Trage drei Wege ein, auf denen dir {this.state.text} gerade helfen kann:</p>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <input id="comment1" placeholder='...' onChange={this.textChange} type="text"></input>
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Col>
-                        <input id="comment2" placeholder='...' onChange={this.textChange} type="text"></input>
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Col>
-                        <input id="comment3" placeholder='...' onChange={this.textChange} type="text"></input>
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Col>
-                        <Button onClick={this.ressourceKommentiert}>Dann los!</Button>
-                    </Col>
-                </Row>
+                <Form>
+                    <Form.Control id="comment1" onChange={this.textChange} type="text" placeholder="1 ..." />
+                    <br></br>
+                    <Form.Control id="comment2" onChange={this.textChange} type="text" placeholder="2 ..." />
+                    <br></br>
+                    <Form.Control id="comment3" onChange={this.textChange} type="text" placeholder="3 ..." />
+                    <br></br>
+                    <Button onClick={this.ressourceKommentiert}>Dann los!</Button>
+                </Form>
             </Container>
         )
     }

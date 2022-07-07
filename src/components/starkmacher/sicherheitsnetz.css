@@ -26,3 +26,36 @@ image.ressource {
 #deleteActivity {
     float: right;
 }
+
+/* Übernommen und leicht angepasst aus: https://stackoverflow.com/questions/38023932/custom-scrollbar-only-in-one-div */
+.scrollbar {
+	float: left;
+	height: 300px;
+	width: 100%;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.force-overflow {
+	min-height: 450px;
+}
+
+h2 {
+    display: none;
+}
+
+@media print {
+    h3, p, h1, img {
+        display: none;
+    }
+    svg {
+        position: absolute;
+        top: 0px;
+    }
+
+    h2 {
+        display:block;
+        position: absolute;
+        top: 0px;
+    }
+}

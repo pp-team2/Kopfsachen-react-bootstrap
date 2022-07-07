@@ -4,7 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Form from 'react-bootstrap/Form';
 
 export default class Aktiviatet extends React.Component {
     constructor(props) {
@@ -82,28 +84,65 @@ export default class Aktiviatet extends React.Component {
                 </Row>
                 <Row>
                     <Col>
-                        <input onChange={this.textChange} type="text"></input>
+                        <Form>
+                            <Form.Control type="email" placeholder="..." onChange={this.textChange} />
+                            <Form.Text className="text-muted">
+                            Gebe in das Textfeld z.B. eine Aktivität oder einen Namen einer Person ein, die dir eine Freude bereitet.
+                            </Form.Text>
+                        </Form>
                     </Col>
                 </Row>
+                <br></br>
                 <Row>
                     <Col>
                         <p>Zu welcher Kategorie gehört diese Ressource?</p>
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Personen" />
+                    <Col md={4} sm={6} xl={3}>
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Person oder Gruppe
+                                </Tooltip>
+                            }>
+                            <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Personen" />
+                        </OverlayTrigger>
                     </Col>
-                    <Col>
+                    <Col md={4} sm={6} xl={3}>
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Tier
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_2" onClick={this.pictureChange} src="/tier.png" alt="Tier" />
+                        </OverlayTrigger>
                     </Col>
-                    <Col>
+                    <Col md={4} sm={6} xl={3}>
+                    <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Kreativität
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_3" onClick={this.pictureChange} src="/kreativ.png" alt="Kreative Aktivität" />
+                        </OverlayTrigger>
                     </Col>    
-                </Row>
-                <Row>
-                    <Col>
+                
+                    <Col md={12} sm={6} xl={3}>
+                    <OverlayTrigger
+                            placement='right'
+                            overlay={
+                                <Tooltip>
+                                Sonstiges
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_4" onClick={this.pictureChange} src="/sonstiges.png" alt="Sonstige Aktivität" />
+                        </OverlayTrigger>
                     </Col>
                    {/*  <Col>
                         <img className="ressource" id="p_5" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
@@ -112,6 +151,8 @@ export default class Aktiviatet extends React.Component {
                         <img className="ressource" id="p_6" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                     </Col> */}  
                 </Row>
+                <br></br>
+                <br></br>
                 <Row>
                     <Col>
                         <Button id="weitereRessource" onClick={this.selectNewActivity} className="disabled">Weitere Ressource hinzufügen</Button>

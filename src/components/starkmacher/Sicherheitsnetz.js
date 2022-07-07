@@ -85,15 +85,30 @@ export default class Sicherheitsnetz extends React.Component {
                                 <Button onClick={this.deleteActivity} className={line.id + " " + line.placeID} id="deleteActivity" variant="danger">X</Button>
                             </Popover.Header>
                             <Popover.Body>
-                                
-                                <ul>
-                                    {line.strategies.map((strategy, index) => {  
-                                        return (<li key={index}>{strategy}</li>)
-                                    })}
-                                </ul>
+                                {line.strategies.length >= 12 &&
+                                <div className="scrollbar commentArea">
+				                    <div className="force-overflow">
+                                        <ul id="test">
+                                            {line.strategies.map((strategy, index) => {  
+                                                return (<li key={index}>{strategy}</li>)
+                                            })}
+                                        </ul>
+                                    </div>
+                                </div>
+                                }
+                                {line.strategies.length < 12 &&
+                                <div className="commentArea">
+                                        <ul id="test">
+                                            {line.strategies.map((strategy, index) => {  
+                                                return (<li key={index}>{strategy}</li>)
+                                            })}
+                                        </ul>
+                                </div>
+                                }
                                 {this.props.alsStarkmacher &&
                                     <Button id={line.id} onClick={this.commentActivity}>Bearbeiten</Button>
                                 }
+                            
                             </Popover.Body>
                         </Popover>
                     )
@@ -101,12 +116,13 @@ export default class Sicherheitsnetz extends React.Component {
                     let idForPicture = "showImage_" + line.id;
                     // JSX-Element des Bildes mit Tooltip für den Text und Popover beim raufklicken
                     let newImageElement = 
-                    <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
-                        <image x={x} y={y} id={idForPicture} transform='translate(-40,-40)' href={line.picture} 
-                            height='80' width='80' className="ressource">
-                            <title>{line.text}</title>
-                        </image>
-                    </OverlayTrigger>
+                        <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
+                            
+                                <image x={x} y={y} id={idForPicture} transform='translate(-40,-40)' href={line.picture} 
+                                    height='80' width='80' className="ressource">
+                                    <title>{line.text}</title>
+                                </image>
+                        </OverlayTrigger>
 
                     // neuen State setzen
                     let images = this.state.images;
@@ -150,15 +166,16 @@ export default class Sicherheitsnetz extends React.Component {
             <Container fluid>
                 <Row>
                     <Col>
-                            <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
-                            <p>Klicke auf einen der leeren Kreise und füge eine Aktivität hinzu!</p>
+                        <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
+                        <p>Klicke auf einen der leeren Kreise und füge eine Aktivität hinzu!</p>
+                            
                         {this.props.alsStarkmacher &&
                             <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button></LinkContainer>}
                         {!this.props.alsStarkmacher &&
                             <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Weiter)</Button></LinkContainer>}
-                        
                     </Col>
                 </Row>
+                <h2>Kopfsachen Sicherheitsnetz</h2>
                 <Row>
                     <Col>
                         {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}

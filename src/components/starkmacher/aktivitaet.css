@@ -3,9 +3,29 @@ img.ressource {
     height: 90%;
 }
 
-img#p_4 {
-    width: 15%;
-    height: 90%;
+@media screen and (max-width: 576px) {
+    img#p_4 {
+        width: 36%;
+        height: 96%;
+    }
+}
+@media screen and (min-width: 576px) {
+    img#p_4 {
+        width: 50%;
+        height: 96%;
+    }
+}
+@media screen and (min-width: 768px) {
+    img#p_4 {
+        width: 15%;
+        height: 90%;
+    }
+}
+@media screen and (min-width: 1200px) {
+    img#p_4 {
+        width: 40%;
+        height: 90%;
+    }
 }
 
 input {
