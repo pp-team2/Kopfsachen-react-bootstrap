@@ -3,10 +3,11 @@ import Sicherheitsnetz from './Sicherheitsnetz';
 import Aktiviatet from './Aktivitaet';
 import Feedback from './Feedack';
 import AktiviatetHilfe from './AktivitaetHilfe';
+import apiCalls from '../API';
 
 export default class SicherheitsnetzController extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         let activities = [{id: 0, text: '', picture: '', placeID: '', strategies: [''],
         feedback: [{timestamp: '', comment: '', itHelped: false}]}];
@@ -14,6 +15,7 @@ export default class SicherheitsnetzController extends React.Component {
 
         // Lädt die abgespeicherten Aktivitäten (synchron)
         let xhr = new XMLHttpRequest();
+        //http://127.0.0.1:4010/safetyNet
         xhr.open("GET",'http://127.0.0.1:4010/safetyNet', false);
         xhr.send();
         let data = JSON.parse(xhr.responseText);
@@ -55,9 +57,12 @@ export default class SicherheitsnetzController extends React.Component {
             lastID = activities[activities.length-1].id;
         });
  
+        // Wie das Sicherheitsnetz geladen wurde (Zum ersten Mal beim Öffnen der App oder als Starkmacher)
+        let alsStarkmacher = this.props.alsStarkmacher;
+
         // Setzt den State
         this.state = {site: null, clickID: 0, 
-            activities: activities}; 
+            activities: activities, alsStarkmacher: alsStarkmacher}; 
 
         this.addNewActivity = this.addNewActivity.bind(this);
         this.selectNewActivity = this.selectNewActivity.bind(this);
@@ -70,6 +75,8 @@ export default class SicherheitsnetzController extends React.Component {
 
     // Sendet eine Aktivität an die API
     postActivity(activity) {
+        console.log(activity);
+        //this.postActivity(this.transformActivitiy(this.state.activities.filter(line => line.id === +id)[0]));
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
         fetch('http://127.0.0.1:4010/safetyNet/172', {
             method: 'POST',
@@ -128,10 +135,11 @@ export default class SicherheitsnetzController extends React.Component {
         let alte = this.state.activities;
         // Schaut sich die ID der letzten Aktivität an und setzt sie dann eins hoch
         let lastID = alte[alte.length-1].id;
-        alte.push({id: lastID+1, text: text, picture: picture, placeID: placeID, strategies: [], feedback: []});
+        alte.push({id: lastID+1, text: text, picture: picture, placeID: placeID, strategies: [''], feedback: [{timestamp: '', comment: '', itHelped: false}]});
         this.setState({activities: alte});
 
         console.log(this.state.activities);
+        this.postActivity(this.transformActivitiy(this.state.activities.filter(line => line.id === lastID+1)[0]));
     }
 
     addStrategy(id, comments) {
@@ -155,10 +163,8 @@ export default class SicherheitsnetzController extends React.Component {
 
     // Löscht eine Aktivität aus dem Array im State
     deleteActivity(id) {
-        this.postActivity(this.transformActivitiy(this.state.activities.filter(line => line.id === +id)[0]));
         let activities = this.state.activities;
         activities = activities.filter(line => line.id !== +id);
-        console.log(activities);
         this.setState({activities: activities});
     }
 
@@ -187,15 +193,15 @@ export default class SicherheitsnetzController extends React.Component {
         let toShow;
         
         switch (this.state.site) {
-            case 0: toShow = <Sicherheitsnetz uebungBeenden={this.uebungBeenden} activities={this.state.activities} addNewActivity={this.addNewActivity} deleteActivity={this.deleteActivity} commentActivity={this.commentActivity}></Sicherheitsnetz>
+            case 0: toShow = <Sicherheitsnetz uebungBeenden={this.uebungBeenden} activities={this.state.activities} addNewActivity={this.addNewActivity} deleteActivity={this.deleteActivity} commentActivity={this.commentActivity} alsStarkmacher={this.state.alsStarkmacher}></Sicherheitsnetz>
                 break;
-            case 1: toShow = <Aktiviatet selectNewActivity={this.selectNewActivity} saveActivity={this.saveActivity} clickID={this.state.clickID}></Aktiviatet>
+            case 1: toShow = <Aktiviatet selectNewActivity={this.selectNewActivity} saveActivity={this.saveActivity} clickID={this.state.clickID} postActivity={this.postActivity}></Aktiviatet>
                 break;
             case 2: toShow = <AktiviatetHilfe activity={this.state.activities.filter(line => line.id === this.state.clickID)} addStrategy={this.addStrategy} selectNewActivity={this.selectNewActivity}></AktiviatetHilfe>
                 break;
             case 3: toShow = <Feedback></Feedback>
                 break;
-            default: toShow = <Sicherheitsnetz addNewActivity={this.addNewActivity} activities={this.state.activities} deleteActivity={this.deleteActivity} commentActivity={this.commentActivity}></Sicherheitsnetz>
+            default: toShow = <Sicherheitsnetz addNewActivity={this.addNewActivity} activities={this.state.activities} deleteActivity={this.deleteActivity} commentActivity={this.commentActivity} alsStarkmacher={this.state.alsStarkmacher}></Sicherheitsnetz>
         }
         return (
             <div>

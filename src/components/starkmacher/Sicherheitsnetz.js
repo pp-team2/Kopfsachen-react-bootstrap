@@ -91,8 +91,9 @@ export default class Sicherheitsnetz extends React.Component {
                                         return (<li key={index}>{strategy}</li>)
                                     })}
                                 </ul>
-                                
-                                <Button id={line.id} onClick={this.commentActivity}>Bearbeiten</Button>
+                                {this.props.alsStarkmacher &&
+                                    <Button id={line.id} onClick={this.commentActivity}>Bearbeiten</Button>
+                                }
                             </Popover.Body>
                         </Popover>
                     )
@@ -146,11 +147,16 @@ export default class Sicherheitsnetz extends React.Component {
         let images = this.state.images;
 
         return (
-            <Container>
+            <Container fluid>
                 <Row>
                     <Col>
-                        <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
-                        <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button></LinkContainer>
+                            <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
+                            <p>Klicke auf einen der leeren Kreise und füge eine Aktivität hinzu!</p>
+                        {this.props.alsStarkmacher &&
+                            <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button></LinkContainer>}
+                        {!this.props.alsStarkmacher &&
+                            <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Weiter)</Button></LinkContainer>}
+                        
                     </Col>
                 </Row>
                 <Row>

@@ -126,7 +126,7 @@ const routes = [{
 },
   {
   path: "/starkmacher/sicherheitsnetz",
-  component: <SicherheitsnetzController />,
+  component: <SicherheitsnetzController alsStarkmacher={true} />,
   color: "#eeebea",
   text: "Sicherheitsnetz",
   img: "/sicherheitsnetz.png",
