@@ -9,5 +9,6 @@ describe('The Home Page', () => {
     cy.contains('Mit Accountkey anmelden:')
     cy.contains('Neues Benutzerkonto erstellen').click()
     cy.contains('Meine Starkmacher')
+    cy.contains('ABCDEF')
   })
 })
