@@ -4,6 +4,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { FiArrowLeft } from "react-icons/fi";
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 
 
 export default class Aktiviatet extends React.Component {
@@ -44,9 +48,9 @@ export default class Aktiviatet extends React.Component {
 
     pictureChange(elem) {
         // Entfernt alle Border von den Bildern die zur Auswahl stehen
-        document.querySelectorAll('img').forEach(element => element.style.border = '');
+        document.querySelectorAll('img').forEach(element => element.style.opacity = '0.5');
         // Setzt den Border wieder an dem Bild was ausgewählt wurde
-        document.querySelector('#'+elem.target.getAttribute('id')).style.border = "black solid";
+        document.querySelector('#'+elem.target.getAttribute('id')).style.opacity = "1";
         // Speichert das ausgewählte Bild im state
         this.setState({picture: document.querySelector('#'+elem.target.getAttribute('id')).getAttribute('src')});
 
@@ -69,24 +73,32 @@ export default class Aktiviatet extends React.Component {
 
     render() {
         return (
-            <Container id="aktivitaetsAuswahl" style={{textAlign: 'center'}}>
+            <Container id="aktivitaetsAuswahl">
+                <Card>
+                <Card.Body>
                 <Row>
                     <Col>
-                        <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                        <Button id="backButton" variant="success" onClick={this.backButtonClicked}><FiArrowLeft/>Zurück</Button>
+                       
                     </Col>
                 </Row>
                 <Row>
                     <Col>
+                    <br></br>
                         <p>Das bereitet mir eine Freude:</p>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <input onChange={this.textChange} type="text"></input>
+                    <InputGroup >
+                        <Form.Control  onChange={this.textChange} type="text" />
+                    </InputGroup>
+                       
                     </Col>
                 </Row>
                 <Row>
                     <Col>
+                    <br></br>
                         <p>Zu welcher Kategorie gehört diese Ressource?</p>
                     </Col>
                 </Row>
@@ -114,7 +126,7 @@ export default class Aktiviatet extends React.Component {
                 </Row>
                 <Row>
                     <Col>
-                        <Button id="weitereRessource" onClick={this.selectNewActivity} className="disabled">Weitere Ressource hinzufügen</Button>
+                        <Button id="weitereRessource" variant="success" onClick={this.selectNewActivity} className="disabled">Ressource zum Sicherheitsnetz hinzufügen</Button>
                     </Col>
                     {/* <Col>
                         <LinkContainer to="/home">
@@ -122,7 +134,8 @@ export default class Aktiviatet extends React.Component {
                         </LinkContainer>
                     </Col> */}
                 </Row>
-                
+                </Card.Body>
+                </Card>
             </Container>
         )
     }
