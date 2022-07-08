@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {Button } from 'react-bootstrap';
 import API from "./API";
+import { FiArrowRight } from "react-icons/fi";
 
 export default function Registration(props) {
   
@@ -33,13 +34,14 @@ export default function Registration(props) {
                             "SessionToken": registration.session_token + " (expiring: " + session.expires_at + ")"
                          })
     props.check()
+
   };
 
 
   return (
     <>
-      <Button variant="success" size="lg" onClick={register} style={{display: props.sessionActive ? "none" : "block"}}>
-      Neues Benutzerkonto erstellen
+      <Button variant="link"  size="lg" onClick={register} style={{display: props.sessionActive ? "none" : "block", color: "#198754", fontSize:"14px"}}>
+      Neues Benutzerkonto erstellen 
       </Button>
     </>
   );

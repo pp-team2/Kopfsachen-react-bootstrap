@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import {Button } from 'react-bootstrap';
 import API from "./API";
+import { FiArrowRightCircle } from "react-icons/fi";
 
 export default function Logout(props) {
   
-
-
   const logout = async() => {
       const out = await API.initLogout();
       const token = out.logout_token;
@@ -20,8 +19,8 @@ export default function Logout(props) {
 
   return (
     <>
-      <Button variant="success" size="lg" onClick={logout}  style={{display: !props.sessionActive ? "none" : "block"}}>
-      Ausloggen
+      <Button variant="success" onClick={logout}  style={{display: !props.sessionActive ? "none" : "block"}}>
+      Ausloggen <FiArrowRightCircle/>
       </Button>
     </>
   );

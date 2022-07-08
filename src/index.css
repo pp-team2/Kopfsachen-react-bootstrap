@@ -22,21 +22,6 @@ code {
     box-shadow: 0 2px 12px 0px rgba(36, 50, 66, .08) !important;
 }
 
-.card {
-    border-width: 0 !important;
-    box-shadow: none !important;
-    box-shadow: 0px 7px 20px 0px rgb(71 71 72 / 10%) !important;
-    font-weight: normal !important
-}
-
-.card-header {
-    padding: 1.1rem 1.2rem !important;
-    margin-bottom: 0 !important;
-    background-color: rgb(249 246 246) !important;
-    border: none !important;
-    color: black;
-}
-
 .btn-fill-black {
     font-weight: 500 !important;
     color: white !important;
@@ -69,6 +54,7 @@ code {
     padding-left: 0 !important;
     padding-bottom: 0px !important;
     transition: none !important;
+    border-bottom: 2px solid rgb(0, 0, 0, 0);
 }
 
 .navbar .row {
@@ -79,4 +65,33 @@ code {
 .navLabel {
     font-size: 12px;
     font-weight: 500;
+}
+
+.row>* {
+    padding-right: 0px !important;
+}
+
+.pdd {
+    padding: 20px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #6c757d !important;
+    padding: 10px !important;
+}
+
+.nav-pills .nav-link.active:hover {
+    border: 1px solid #6c757d !important;
+}
+
+.nav-pills .nav-link {
+    color: #6c757d;
+    border: 1px solid #6c757d !important;
+    padding: 10px !important;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #6c757d !important;
+    padding: 10px !important;
+    color: white;
 }

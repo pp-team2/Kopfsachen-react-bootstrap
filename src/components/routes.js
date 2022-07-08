@@ -10,6 +10,7 @@ import Wikientry from './wikientry'
 import App from '../App'
 import Starkmacher from './starkmacher';
 import NeueStarkmacher from './neueStarkmacher';
+import {StarkmacherOptimismus } from './starkmacher/Optimismus';
 import Reframing from './starkmacher/reframing';
 import SicherheitsnetzController from './starkmacher/SicherheitsnetzController';
 import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzungController';
@@ -30,11 +31,15 @@ const Routes = () => {
 
   const [expertView, setExpertView] = useState([])
   const [sessionActive, setSessionActive] = useState(false);
+  const [accountKey, setAccountKey] = useState("");
 
   const checkSession = async () => {
       const jsonRes = await API.checkSession();
       const isSessionActive = !(jsonRes.hasOwnProperty("error"));
       setSessionActive(isSessionActive);
+      setAccountKey(jsonRes.identity.traits.accountKey)
+
+      console.log(jsonRes.identity.traits.accountKey)
 
       console.log(jsonRes)
       console.log(sessionActive)
@@ -70,7 +75,7 @@ useEffect(() => {
 
 const routes = [{
   path: ["/", "/home"],
-  component: <App sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView} />,
+  component: <App  accountKey={accountKey} sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView} />,
   color: "#eeebea",
   text: "Herzlich Willkommen!",
   img: "./logoBig.png",
@@ -117,6 +122,14 @@ const routes = [{
   requiresSession: true
 },
 {
+  path: "/starkmacher/optimismus",
+  component: <StarkmacherOptimismus/>,
+  color: "#fde802",
+  text: "Optimismus",
+  img: "/optimismus.png",
+  requiresSession: true
+},
+{
   path: "/starkmacher/SozialeUnterstuetzung",
   component: <SozialeUnterstuetzungController />,
   color: "#eeebea",
@@ -159,7 +172,7 @@ const routes = [{
 
     return (
     <Router>
-      <Nav sessionActive={sessionActive}/>
+      <Nav accountKey={accountKey} sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView}/>
       <Switch>
         {
           wikii.filter(a => a.id !== '').map(wikiEntry => {
