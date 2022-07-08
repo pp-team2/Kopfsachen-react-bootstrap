@@ -5,6 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './aktivitaet.css';
 import Form from 'react-bootstrap/Form';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 
 export default class AktiviatetHilfe extends React.Component {
@@ -76,7 +78,9 @@ export default class AktiviatetHilfe extends React.Component {
             <Container style={{textAlign: 'center'}}>
                 <Row>
                     <Col>
-                        <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                        <OverlayTrigger placement='right' overlay={<Tooltip>Zur Übersicht</Tooltip>}>
+                            <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                        </OverlayTrigger>
                     </Col>
                 </Row>
                 <Row>

@@ -74,7 +74,9 @@ export default class Aktiviatet extends React.Component {
             <Container id="aktivitaetsAuswahl" style={{textAlign: 'center'}}>
                 <Row>
                     <Col>
-                        <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                        <OverlayTrigger placement='right' overlay={<Tooltip>Zur Übersicht</Tooltip>}>
+                            <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                        </OverlayTrigger>
                     </Col>
                 </Row>
                 <Row>

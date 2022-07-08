@@ -23,8 +23,11 @@ image.ressource {
     height: 11%;
 }
 
+/* Button im Popover der die Aktivität löscht */
 #deleteActivity {
-    float: right;
+    display: inline-block;
+    margin-left: 10px;
+    
 }
 
 /* Übernommen und leicht angepasst aus: https://stackoverflow.com/questions/38023932/custom-scrollbar-only-in-one-div */
@@ -39,13 +42,14 @@ image.ressource {
 .force-overflow {
 	min-height: 450px;
 }
-
 /* Verweis Ende */
 
+/* Diese Texte sollen nur beim Drucken zu sehen sein */
 h2.printText, p.printText {
     display: none;
 }
 
+/* Je nach Länge der Texte wird die Textgröße angepasst */
 .ressourceText1 {
     font-size: 9px;
 }
@@ -56,10 +60,12 @@ h2.printText, p.printText {
     font-size: 7px;
 }
 
+/* Hintergrundfarbe für die Texte die in der SVG-Grafik eingefügt werden zu den Bildern */
 .backgroundForText {
     fill: white;
 }
 
+/* Button "Drucken / als PDF speichern" */
 #openPrintDialog {
     float: right;
 }

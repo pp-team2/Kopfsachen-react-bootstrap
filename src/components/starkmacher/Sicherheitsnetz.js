@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Components } from 'antd/lib/date-picker/generatePicker';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 
 export default class Sicherheitsnetz extends React.Component {
@@ -86,7 +86,9 @@ export default class Sicherheitsnetz extends React.Component {
                         <Popover>
                             <Popover.Header>
                                 {line.text}
-                                <Button onClick={this.deleteActivity} className={line.id + " " + line.placeID} id="deleteActivity" variant="danger">X</Button>
+                                <OverlayTrigger placement='right' overlay={<Tooltip>Löschen</Tooltip>}>
+                                    <Button onClick={this.deleteActivity} className={line.id + " " + line.placeID} id="deleteActivity" variant="danger">X</Button>
+                                </OverlayTrigger>
                             </Popover.Header>
                             <Popover.Body>
                                 {line.strategies.length >= 12 &&
@@ -110,7 +112,9 @@ export default class Sicherheitsnetz extends React.Component {
                                 </div>
                                 }
                                 {this.props.alsStarkmacher &&
+                                <OverlayTrigger placement='right' overlay={<Tooltip>Trage ein, wie dir diese Aktivität helfen kann!</Tooltip>}>
                                     <Button id={line.id} onClick={this.commentActivity}>Bearbeiten</Button>
+                                </OverlayTrigger>
                                 }
                             
                             </Popover.Body>
@@ -189,6 +193,7 @@ export default class Sicherheitsnetz extends React.Component {
 
     // Fügt für die Texte einen Hintergrundelement hinzu, damit der Text gut lesbar ist
     makeBG() {
+        // Mit Änderungen übernommen von: https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg (Antwort von sluijs am 14.11.2015)
         let toRender = this.state.background;
 
         document.querySelectorAll('text').forEach(elem => {
@@ -221,9 +226,18 @@ export default class Sicherheitsnetz extends React.Component {
                         <p>Klicke auf einen der leeren Kreise und füge eine Aktivität hinzu!</p>
                             
                         {this.props.alsStarkmacher &&
-                            <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button></LinkContainer>}
+                                <LinkContainer to='/home'>
+                                    <OverlayTrigger placement='right' overlay={<Tooltip>Zur Startseite</Tooltip>}>
+                                        <Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button>
+                                    </OverlayTrigger>
+                                </LinkContainer>}
                         {!this.props.alsStarkmacher &&
-                            <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Weiter)</Button></LinkContainer>}
+                                <LinkContainer to='/home'>
+                                    <OverlayTrigger placement='right' overlay={<Tooltip>Weiter</Tooltip>}>
+                                        <Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Weiter)</Button>
+                                    </OverlayTrigger>
+                                </LinkContainer>
+                           }
                     </Col>
                 </Row>
                 <h2 className="printText">Kopfsachen Sicherheitsnetz</h2>
