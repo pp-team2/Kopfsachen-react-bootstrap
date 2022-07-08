@@ -14,13 +14,12 @@ export default class Sicherheitsnetz extends React.Component {
      constructor(props) {
         super(props);
 
-        this.state = {images: [], text: [], background: [], mapIDtoPicture: [{id: '', placeID: '', pictureID: ''}]};
+        this.state = {images: [], text: [], mapIDtoPicture: [{id: '', placeID: '', pictureID: ''}]};
 
         this.addActivities = this.addActivities.bind(this);
         this.uebungBeenden = this.uebungBeenden.bind(this);
         this.commentActivity = this.commentActivity.bind(this);
         this.deleteActivity = this.deleteActivity.bind(this);
-        this.makeBG = this.makeBG.bind(this);
         //this.openPrintDialog = this.openPrintDialog.bind(this);
     } 
 
@@ -131,23 +130,27 @@ export default class Sicherheitsnetz extends React.Component {
                                     <title>{line.text}</title>
                                 </image>
                             </OverlayTrigger>
-                            {/* {line.text.length <= 15 &&
-                            <text x={x-40} y={y-35} className="ressourceText1">{line.text}</text>}
-                            {line.text.length <= 25 && line.text.length > 15 &&
-                            <text x={x-40} y={y-35} className="ressourceText2">{line.text}</text>}
-                            {line.text.length > 25 &&
-                            <text x={x-40} y={y-35} className="ressourceText3">{line.text}</text>} */}
                         </g>
 
-                    // JSX-Element für Text die unter jedem Bild angezeigt werden sollen
+                    // JSX-Element für Text die über jedem Bild angezeigt werden sollen mit background color white damit der Text gut lesbar ist
+                    // Filter mit Änderungen übernommen von: https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg (Antwort von Robert Longson und CasperX (bearbeitet 07.01.2021))
                     let newTextElement = 
                         <g>
+                             <defs>
+                                <filter x="0" y="0" width="1" height="1" id="solid">
+                                <feFlood floodColor="white" result="bg" />
+                                <feMerge>
+                                    <feMergeNode in="bg"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                                </filter>
+                            </defs>
                             {line.text.length <= 15 &&
-                            <text x={x-40} y={y-40} className="ressourceText1">{line.text}</text>}
+                            <text x={x-40} y={y-40} filter="url(#solid)" className="ressourceText1">{line.text}</text>}
                             {line.text.length <= 25 && line.text.length > 15 &&
-                            <text x={x-40} y={y-40} className="ressourceText2">{line.text}</text>}
+                            <text x={x-40} y={y-40} filter="url(#solid)" className="ressourceText2">{line.text}</text>}
                             {line.text.length > 25 &&
-                            <text x={x-40} y={y-40} className="ressourceText3">{line.text}</text>}
+                            <text x={x-40} y={y-40} filter="url(#solid)" className="ressourceText3">{line.text}</text>}
                         </g>
                     
                     // neuen State setzen
@@ -174,8 +177,7 @@ export default class Sicherheitsnetz extends React.Component {
         // Versteckt das Bild, weil es gelöscht wurde (aber noch nicht neu gerendert wurde)
         document.getElementById(this.state.mapIDtoPicture.filter(line => +line.id === +id).map(line => line.pictureID)[0]).setAttribute('visibility','hidden');
         // Löscht den Text zu dem Bild
-        this.setState({text: this.state.text.filter(line => line.id !== +id), background: []});
-        //this.makeBG();
+        this.setState({text: this.state.text.filter(line => line.id !== +id)});
 
         // Damit das Popover verschwindet
         document.body.click();
@@ -191,22 +193,6 @@ export default class Sicherheitsnetz extends React.Component {
         //this.props.uebungBeenden(); 
     }
 
-    // Fügt für die Texte einen Hintergrundelement hinzu, damit der Text gut lesbar ist
-    makeBG() {
-        // Mit Änderungen übernommen von: https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg (Antwort von sluijs am 14.11.2015 (bearbeitet))
-        let toRender = this.state.background;
-
-        document.querySelectorAll('text').forEach(elem => {
-            let SVGRect = elem.getBBox();
-
-            // Element was hinter dem Text gerendert werden soll
-            let rect = <rect x={SVGRect.x} y={SVGRect.y} width={SVGRect.width} height={SVGRect.height} className="backgroundForText"></rect>
-
-            toRender.push(rect);
-        });
-        this.setState({background: toRender});
-    }
-
     openPrintDialog() {
         window.print();
     }
@@ -215,7 +201,6 @@ export default class Sicherheitsnetz extends React.Component {
     render() {
         let images = this.state.images;
         let text = this.state.text.map(line => line.elem);
-        let background = this.state.background;
         
         return (
             <Container fluid>
@@ -227,15 +212,12 @@ export default class Sicherheitsnetz extends React.Component {
                             
                         {this.props.alsStarkmacher &&
                                 <LinkContainer to='/home'>
-                                    <OverlayTrigger placement='right' overlay={<Tooltip>Zur Startseite</Tooltip>}>
-                                        <Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button>
-                                    </OverlayTrigger>
-                                </LinkContainer>}
+                                    <Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button>
+                                </LinkContainer>
+                               }
                         {!this.props.alsStarkmacher &&
                                 <LinkContainer to='/home'>
-                                    <OverlayTrigger placement='right' overlay={<Tooltip>Weiter</Tooltip>}>
                                         <Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Weiter)</Button>
-                                    </OverlayTrigger>
                                 </LinkContainer>
                            }
                     </Col>
@@ -285,9 +267,7 @@ export default class Sicherheitsnetz extends React.Component {
                                 <line id="svg_23" x1="81" x2="562" y1="137" y2="138.5"/>
                                 <line id="svg_19" x1="319" x2="319" y1="50" y2="440.5"/>
                                 <line id="svg_20" x1="59.999999" x2="576.000009" y1="346" y2="348.5"/>
-                                {/* <image x="285.000001" y="52" transform="translate(-50,-50)" href='/tagebuch.jpg' width="100" height="100">
-                                                                    <title>Das ist ein ganz tolles Bild</title>
-                                                                </image> */}
+
                                 <circle cx="318" cy="47" id="svg_3" r="43.46263" transform="matrix(1 0 0 1 0 0)"/>
                                 <circle cx="318" cy="144" id="svg_4" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
                                 <circle cx="265" cy="241" id="svg_1" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
@@ -309,9 +289,6 @@ export default class Sicherheitsnetz extends React.Component {
                             </g>
                             <g>
                                 { images }
-                            </g>
-                            <g>
-                                { background }
                             </g>
                             <g>
                                 { text }

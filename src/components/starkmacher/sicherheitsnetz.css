@@ -71,7 +71,7 @@ h2.printText, p.printText {
 }
 
 @media print {
-    h3, h2, p, h1, img, button, nav {
+    h3, h2, p, h1, img, button, nav, a {
         display: none;
         visibility: hidden;
     }
