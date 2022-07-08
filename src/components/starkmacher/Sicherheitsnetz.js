@@ -21,11 +21,13 @@ export default class Sicherheitsnetz extends React.Component {
         this.commentActivity = this.commentActivity.bind(this);
         this.deleteActivity = this.deleteActivity.bind(this);
         this.makeBG = this.makeBG.bind(this);
+        //this.openPrintDialog = this.openPrintDialog.bind(this);
     } 
 
     componentDidMount() {
         // Gespeicherte Aktivitäten hinzufügen
         this.addActivities();
+        
         // Wenn auf ein Kreis geklickt wird, dann soll man zum Aktivitätsbildschirm kommen
         let addNewActivity = this.props.addNewActivity;
         // Alle Kreise des SVG-Elements
@@ -43,8 +45,6 @@ export default class Sicherheitsnetz extends React.Component {
         if (!this.props.uebungBeenden) {
              document.querySelector('#beendenBtn').style.visibility = 'hidden';
         }
-
-        //this.makeBG();
     }
 
 
@@ -143,11 +143,11 @@ export default class Sicherheitsnetz extends React.Component {
                     let newTextElement = 
                         <g>
                             {line.text.length <= 15 &&
-                            <text x={x-40} y={y-38} className="ressourceText1">{line.text}</text>}
+                            <text x={x-40} y={y-40} className="ressourceText1">{line.text}</text>}
                             {line.text.length <= 25 && line.text.length > 15 &&
-                            <text x={x-40} y={y-38} className="ressourceText2">{line.text}</text>}
+                            <text x={x-40} y={y-40} className="ressourceText2">{line.text}</text>}
                             {line.text.length > 25 &&
-                            <text x={x-40} y={y-38} className="ressourceText3">{line.text}</text>}
+                            <text x={x-40} y={y-40} className="ressourceText3">{line.text}</text>}
                         </g>
                     
                     // neuen State setzen
@@ -193,7 +193,7 @@ export default class Sicherheitsnetz extends React.Component {
 
     // Fügt für die Texte einen Hintergrundelement hinzu, damit der Text gut lesbar ist
     makeBG() {
-        // Mit Änderungen übernommen von: https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg (Antwort von sluijs am 14.11.2015)
+        // Mit Änderungen übernommen von: https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg (Antwort von sluijs am 14.11.2015 (bearbeitet))
         let toRender = this.state.background;
 
         document.querySelectorAll('text').forEach(elem => {
