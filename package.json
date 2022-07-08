@@ -16,9 +16,10 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "build": "react-scripts build",
+        "build": "CI=false && react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "cypress:open": "cypress open"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -36,6 +37,8 @@
         ]
     },
     "devDependencies": {
-        "http-proxy-middleware": "^2.0.6"
+        "cypress": "^10.3.0",
+        "http-proxy-middleware": "^2.0.6",
+        "start-server-and-test": "^1.14.0"
     }
 }
