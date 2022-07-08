@@ -41,10 +41,10 @@ export default class SicherheitsnetzController extends React.Component {
                     imgSrc = "/personen.png";
                     break;
                 case 'situationControl':
-                    imgSrc = "/situationskontrolle.png";
+                    imgSrc = "/personen.png";
                     break;
                 case 'relaxation':
-                    imgSrc = "/tagebuch.jpg";
+                    imgSrc = "/kreativ.png";
                     break;
                 case 'other':
                     imgSrc = "/sonstiges.png";

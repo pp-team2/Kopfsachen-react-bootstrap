@@ -40,22 +40,51 @@ image.ressource {
 	min-height: 450px;
 }
 
-h2 {
+/* Verweis Ende */
+
+h2.printText, p.printText {
     display: none;
 }
 
+.ressourceText1 {
+    font-size: 9px;
+}
+.ressourceText2 {
+    font-size: 8px;
+}
+.ressourceText3 {
+    font-size: 7px;
+}
+
+.backgroundForText {
+    fill: white;
+}
+
+#openPrintDialog {
+    float: right;
+}
+
 @media print {
-    h3, p, h1, img {
+    h3, h2, p, h1, img, button, nav {
         display: none;
+        visibility: hidden;
     }
     svg {
         position: absolute;
         top: 0px;
     }
 
-    h2 {
+    h2.printText {
         display:block;
         position: absolute;
-        top: 0px;
+        top: 20px;
+        visibility: visible;
+    }
+
+    p.printText {
+        display: block;
+        position: absolute;
+        top: 80px;
+        visibility: visible;
     }
 }

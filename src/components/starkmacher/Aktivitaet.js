@@ -135,7 +135,7 @@ export default class Aktiviatet extends React.Component {
                 
                     <Col md={12} sm={6} xl={3}>
                     <OverlayTrigger
-                            placement='right'
+                            placement='top'
                             overlay={
                                 <Tooltip>
                                 Sonstiges

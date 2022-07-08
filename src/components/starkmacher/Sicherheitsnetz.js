@@ -7,18 +7,20 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Components } from 'antd/lib/date-picker/generatePicker';
 
 
 export default class Sicherheitsnetz extends React.Component {
      constructor(props) {
         super(props);
 
-        this.state = {images: [], mapIDtoPicture: [{id: '', placeID: '', pictureID: ''}]};
+        this.state = {images: [], text: [], background: [], mapIDtoPicture: [{id: '', placeID: '', pictureID: ''}]};
 
         this.addActivities = this.addActivities.bind(this);
         this.uebungBeenden = this.uebungBeenden.bind(this);
         this.commentActivity = this.commentActivity.bind(this);
         this.deleteActivity = this.deleteActivity.bind(this);
+        this.makeBG = this.makeBG.bind(this);
     } 
 
     componentDidMount() {
@@ -34,7 +36,6 @@ export default class Sicherheitsnetz extends React.Component {
             elem.addEventListener("click", function(evt) {
                 let id = evt.target.getAttribute("id");
                 addNewActivity(id);
-                
             }); 
         });
 
@@ -42,7 +43,10 @@ export default class Sicherheitsnetz extends React.Component {
         if (!this.props.uebungBeenden) {
              document.querySelector('#beendenBtn').style.visibility = 'hidden';
         }
+
+        //this.makeBG();
     }
+
 
     addActivities() {
         // Alle gespeicherten Aktivitäten abrufen
@@ -73,7 +77,7 @@ export default class Sicherheitsnetz extends React.Component {
                         document.getElementById(line.placeID).setAttribute('visibility', 'hidden');
                     } else {
                        // Bilder die nicht mehr ins Netz passen werden unter dem Netz dargestellt
-                        x = 48 + ((extraImages*2)*48);
+                        x = 48 + ((extraImages*2)*60);
                         y = 525;
                         extraImages = extraImages + 1;
                     }
@@ -116,20 +120,41 @@ export default class Sicherheitsnetz extends React.Component {
                     let idForPicture = "showImage_" + line.id;
                     // JSX-Element des Bildes mit Tooltip für den Text und Popover beim raufklicken
                     let newImageElement = 
-                        <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
-                            
+                        <g>
+                            <OverlayTrigger key={line.id} trigger="click" overlay={popover} rootClose>
                                 <image x={x} y={y} id={idForPicture} transform='translate(-40,-40)' href={line.picture} 
                                     height='80' width='80' className="ressource">
                                     <title>{line.text}</title>
                                 </image>
-                        </OverlayTrigger>
+                            </OverlayTrigger>
+                            {/* {line.text.length <= 15 &&
+                            <text x={x-40} y={y-35} className="ressourceText1">{line.text}</text>}
+                            {line.text.length <= 25 && line.text.length > 15 &&
+                            <text x={x-40} y={y-35} className="ressourceText2">{line.text}</text>}
+                            {line.text.length > 25 &&
+                            <text x={x-40} y={y-35} className="ressourceText3">{line.text}</text>} */}
+                        </g>
 
+                    // JSX-Element für Text die unter jedem Bild angezeigt werden sollen
+                    let newTextElement = 
+                        <g>
+                            {line.text.length <= 15 &&
+                            <text x={x-40} y={y-38} className="ressourceText1">{line.text}</text>}
+                            {line.text.length <= 25 && line.text.length > 15 &&
+                            <text x={x-40} y={y-38} className="ressourceText2">{line.text}</text>}
+                            {line.text.length > 25 &&
+                            <text x={x-40} y={y-38} className="ressourceText3">{line.text}</text>}
+                        </g>
+                    
                     // neuen State setzen
                     let images = this.state.images;
                     images.push(newImageElement);
+                    let text = this.state.text;
+                    text.push({id: line.id, elem: newTextElement});
+
                     let mapIDtoPicture = this.state.mapIDtoPicture;
                     mapIDtoPicture.push({id: line.id, placeID: line.placeID, pictureID: idForPicture});
-                    this.setState({images: images, mapIDtoPicture: mapIDtoPicture});
+                    this.setState({images: images, text: text, mapIDtoPicture: mapIDtoPicture});
 
                     return;
                 }
@@ -144,6 +169,10 @@ export default class Sicherheitsnetz extends React.Component {
         this.props.deleteActivity(id);
         // Versteckt das Bild, weil es gelöscht wurde (aber noch nicht neu gerendert wurde)
         document.getElementById(this.state.mapIDtoPicture.filter(line => +line.id === +id).map(line => line.pictureID)[0]).setAttribute('visibility','hidden');
+        // Löscht den Text zu dem Bild
+        this.setState({text: this.state.text.filter(line => line.id !== +id), background: []});
+        //this.makeBG();
+
         // Damit das Popover verschwindet
         document.body.click();
         // Kreis wieder sichtbar schalten
@@ -158,14 +187,36 @@ export default class Sicherheitsnetz extends React.Component {
         //this.props.uebungBeenden(); 
     }
 
+    // Fügt für die Texte einen Hintergrundelement hinzu, damit der Text gut lesbar ist
+    makeBG() {
+        let toRender = this.state.background;
+
+        document.querySelectorAll('text').forEach(elem => {
+            let SVGRect = elem.getBBox();
+
+            // Element was hinter dem Text gerendert werden soll
+            let rect = <rect x={SVGRect.x} y={SVGRect.y} width={SVGRect.width} height={SVGRect.height} className="backgroundForText"></rect>
+
+            toRender.push(rect);
+        });
+        this.setState({background: toRender});
+    }
+
+    openPrintDialog() {
+        window.print();
+    }
+
 
     render() {
         let images = this.state.images;
-
+        let text = this.state.text.map(line => line.elem);
+        let background = this.state.background;
+        
         return (
             <Container fluid>
                 <Row>
                     <Col>
+                        <Button onClick={this.openPrintDialog} id="openPrintDialog" variant='secondary'>Drucken / als PDF speichern</Button>
                         <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
                         <p>Klicke auf einen der leeren Kreise und füge eine Aktivität hinzu!</p>
                             
@@ -175,7 +226,10 @@ export default class Sicherheitsnetz extends React.Component {
                             <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Weiter)</Button></LinkContainer>}
                     </Col>
                 </Row>
-                <h2>Kopfsachen Sicherheitsnetz</h2>
+                <h2 className="printText">Kopfsachen Sicherheitsnetz</h2>
+                <p className="printText">Angegeben sind die Personen und Aktivitäten, die du in deinem Leben hast und die dir gut tun.
+                Das können Menschen, Hobbies, Haustiere oder auch Persönlichkeitseigenschaften von dir sein.
+                Konkret wurde danach gefragt, welche Personen oder Aktivitäten dir im Alltag Freude bereiten und Antrieb geben.</p>
                 <Row>
                     <Col>
                         {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
@@ -241,6 +295,12 @@ export default class Sicherheitsnetz extends React.Component {
                             </g>
                             <g>
                                 { images }
+                            </g>
+                            <g>
+                                { background }
+                            </g>
+                            <g>
+                                { text }
                             </g>
                         </svg>
                     </Col>
