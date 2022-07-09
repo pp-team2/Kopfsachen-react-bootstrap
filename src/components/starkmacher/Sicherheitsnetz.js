@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import Card from 'react-bootstrap/Card';
 import { LinkContainer } from 'react-router-bootstrap';
 
 
@@ -82,7 +83,7 @@ export default class Sicherheitsnetz extends React.Component {
                         <Popover>
                             <Popover.Header>
                                 {line.text}
-                                <Button onClick={this.deleteActivity} className={line.id + " " + line.placeID} id="deleteActivity" variant="danger">X</Button>
+                                <Button onClick={this.deleteActivity} size="sm" className={line.id + " " + line.placeID} id="deleteActivity" variant="danger">X</Button>
                             </Popover.Header>
                             <Popover.Body>
                                 
@@ -92,7 +93,7 @@ export default class Sicherheitsnetz extends React.Component {
                                     })}
                                 </ul>
                                 {this.props.alsStarkmacher &&
-                                    <Button id={line.id} onClick={this.commentActivity}>Bearbeiten</Button>
+                                    <Button id={line.id} variant="secondary" onClick={this.commentActivity}>Bearbeiten</Button>
                                 }
                             </Popover.Body>
                         </Popover>
@@ -147,20 +148,23 @@ export default class Sicherheitsnetz extends React.Component {
         let images = this.state.images;
 
         return (
-            <Container fluid>
+            <Container >
+                <Card>
+                <Card.Body>
                 <Row>
                     <Col>
-                            <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
-                            <p>Klicke auf einen der leeren Kreise und füge eine Aktivität hinzu!</p>
+                    <Card.Title>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</Card.Title>
+                            
+                    <Card.Text>Klicke auf einen der leeren Kreise und füge eine Aktivität hinzu!</Card.Text>
                         {this.props.alsStarkmacher &&
-                            <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Übung beenden)</Button></LinkContainer>}
+                            <LinkContainer to='/starkmacher'><Button id="beendenBtn" variant="success" onClick={this.uebungBeenden}>Das sind alle Ressourcen (Übung beenden)</Button></LinkContainer>}
                         {!this.props.alsStarkmacher &&
-                            <LinkContainer to='/home'><Button id="beendenBtn" onClick={this.uebungBeenden}>Das sind alle Ressourcen <br />(Weiter)</Button></LinkContainer>}
+                            <LinkContainer to='/starkmacher'><Button id="beendenBtn" variant="success" onClick={this.uebungBeenden}>Das sind alle Ressourcen (Weiter)</Button></LinkContainer>}
                         
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
+                <Row style={{justifyContent:"center"}}>
+                    <Col xs="12" md="6" lg="5">
                         {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
                         <svg id='svgNetz' width="98%" height="100%" viewBox='0 0 640 600'>
                             <g id='gNetz'>
@@ -228,6 +232,8 @@ export default class Sicherheitsnetz extends React.Component {
                         </svg>
                     </Col>
                 </Row>
+                </Card.Body>
+                </Card>
             </Container>
         )
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, ListGroup } from 'react-bootstrap'
+import { Button, Container, ListGroup, Card } from 'react-bootstrap'
 import {LinkContainer} from 'react-router-bootstrap'
 import { useState } from 'react';
 
@@ -19,22 +19,27 @@ const Starkmacher = (props) => {
     
     return (
         <Container>
-            <b>Du hast schon so viele Starkmacher für dich entdeckt.</b><br/>
-            <b>Wenn du an deinen bestehenden Starkmachern arbeiten willst, klicke einfach auf das entsprechende Symbol! Ansonsten bekommst du nach einem Klick auf “Neue Starkmacher entdecken” eine Auswahl an neuen Übungen vorgeschlagen.</b>
-            <br/>
-            <ListGroup>
-            {starkmacherListe.map((item,key)=>
-                <LinkContainer to={item.link} style={{cursor:"pointer"}}>
-                <ListGroup.Item key={item.key}>
-                    <img style={{width:"100px"}} src={item.logo}/>&nbsp;
-                    <b>{item.label}</b>
-                </ListGroup.Item>
-                </LinkContainer>
-            )}
-            </ListGroup>
-            <br/>
-            <LinkContainer to="/neueStarkmacher"><Button>Neue Starkmacher entdecken</Button></LinkContainer>
-
+            <Card>
+                <Card.Body>
+                <Card.Title>Du hast schon so viele Starkmacher für dich entdeckt.</Card.Title>
+                <Card.Text>
+                    Wenn du an deinen bestehenden Starkmachern arbeiten willst, klicke einfach auf das entsprechende Symbol! Ansonsten bekommst du nach einem Klick auf “Neue Starkmacher entdecken” eine Auswahl an neuen Übungen vorgeschlagen.
+                </Card.Text>
+                        <ListGroup>
+                        {starkmacherListe.map((item,key)=>
+                            <LinkContainer to={item.link} style={{cursor:"pointer"}}>
+                            <ListGroup.Item key={item.key}>
+                                <img style={{width:"100px"}} src={item.logo}/>&nbsp;
+                                <b>{item.label}</b>
+                            </ListGroup.Item>
+                            </LinkContainer>
+                        )}
+                        </ListGroup>
+                        <br/>
+                        
+                        <LinkContainer to="/neueStarkmacher"><Button variant="success" className="my-2">Neue Starkmacher entdecken</Button></LinkContainer>
+                </Card.Body>
+            </Card>
         </Container>
     )
 }

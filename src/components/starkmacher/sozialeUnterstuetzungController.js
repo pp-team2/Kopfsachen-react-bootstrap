@@ -2,6 +2,7 @@ import React from 'react';
 import SozialeUnterstuetzung from './SozialeUnterstuetzung';
 import SozialeUnterstuetzungInfoText from './sozialeUnterstuetzungInfoText';
 
+
 export default class SozialeUnterstuetzungController extends React.Component {
     constructor() {
         super();

@@ -3,7 +3,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './sozialeUnterstuetzung.css';
-
+import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert';
 
 export default class SozialeUnterstuetzungInfoText extends React.Component {
      constructor(props) {
@@ -14,11 +15,13 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
     render() {
         let level = this.props.level;
         let lvl1Text = <Container>
+            <Card>
+                <Card.Body>
                         <Row>
-                            <Col>
-                                <p>Um dir diesen Starkmacher genauer anzuschauen, überlege dir erst einmal welche Menschen es in deinem Umfeld gibt – 
-                                    wer weiß immerhin, wer von ihnen dir in Zukunft vielleicht einmal in irgendeiner Form unterstützend zur Seite stehen kann? </p>
-                            </Col>
+                            <b>
+                               Um dir diesen Starkmacher genauer anzuschauen, überlege dir erst einmal welche Menschen es in deinem Umfeld gibt – 
+                                    wer weiß immerhin, wer von ihnen dir in Zukunft vielleicht einmal in irgendeiner Form unterstützend zur Seite stehen kann?
+                            </b>
                         </Row>
                         <Row>
                             <Col>
@@ -30,13 +33,14 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                                 <p><b>Der äußere Kreis</b> – Trage hier Bekannte und eher entferntere Personen ein, mit denen du aber auch ab und zu zu tun hast.</p>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col>
-                                <p>
+                        </Card.Body>
+                        </Card>
+
+                <br></br>
+                            <Alert>
                                 Klicke einfach auf einen leeren Kreis, um Personen dem jeweiligen Kreis hinzuzufügen.
-                                </p>
-                            </Col>
-                        </Row>
+                            </Alert>
+                      
                     </Container>
 
         let lvl2Text = <Container>

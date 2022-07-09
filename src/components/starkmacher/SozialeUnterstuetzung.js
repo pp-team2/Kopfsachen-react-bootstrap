@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert';
 
 export default class SozialeUnterstuetzung extends React.Component {
     constructor(props) {
@@ -484,8 +486,8 @@ export default class SozialeUnterstuetzung extends React.Component {
 
         return (
             <Container>
-                <Row>
-                    <Col>
+                    <Card>
+                        <Card.Body>
                         {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
                         <svg id='svgNetz' width="100%" height="100%" viewBox='0 0 600 600'>
                             <g id='gNetz' className="layer">
@@ -505,9 +507,9 @@ export default class SozialeUnterstuetzung extends React.Component {
                                 { angezeigteBilder }
                             </g>
                         </svg>
-                        
-                    </Col>
-                </Row>
+                        </Card.Body>
+                        </Card>
+            
             </Container>
         )
     }

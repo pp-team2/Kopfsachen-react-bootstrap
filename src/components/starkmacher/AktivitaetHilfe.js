@@ -3,7 +3,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import './aktivitaet.css';
+import { FiArrowLeft } from "react-icons/fi";
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 
 
 export default class AktiviatetHilfe extends React.Component {
@@ -72,12 +76,15 @@ export default class AktiviatetHilfe extends React.Component {
 
     render() {
         return (
-            <Container style={{textAlign: 'center'}}>
+            <Container>
+            <Card>
+                <Card.Body>
                 <Row>
                     <Col>
-                        <Button id="backButton" variant="secondary" onClick={this.backButtonClicked}>Zurück</Button>
+                        <Button id="backButton" variant="success" onClick={this.backButtonClicked}><FiArrowLeft/> Zurück</Button> 
                     </Col>
                 </Row>
+                <br></br>
                 <Row>
                     <Col>
                         <p>Trage drei Wege ein, auf denen dir {this.state.text} gerade helfen kann:</p>
@@ -85,27 +92,37 @@ export default class AktiviatetHilfe extends React.Component {
                 </Row>
                 <Row>
                     <Col>
-                        <input id="comment1" placeholder='...' onChange={this.textChange} type="text"></input>
+                        
+                        <InputGroup >
+                             <Form.Control  id="comment1" placeholder='...' onChange={this.textChange} type="text" />
+                         </InputGroup>
                     </Col>
                 </Row>
                 <br></br>
                 <Row>
                     <Col>
-                        <input id="comment2" placeholder='...' onChange={this.textChange} type="text"></input>
+                        <InputGroup >
+                             <Form.Control  id="comment2" placeholder='...' onChange={this.textChange} type="text" />
+                         </InputGroup>
+                    
                     </Col>
                 </Row>
                 <br></br>
                 <Row>
                     <Col>
-                        <input id="comment3" placeholder='...' onChange={this.textChange} type="text"></input>
+                    <InputGroup >
+                             <Form.Control  id="comment3" placeholder='...' onChange={this.textChange} type="text" />
+                         </InputGroup>
                     </Col>
                 </Row>
                 <br></br>
                 <Row>
                     <Col>
-                        <Button onClick={this.ressourceKommentiert}>Dann los!</Button>
+                        <Button  variant="success" onClick={this.ressourceKommentiert}>Dann los!</Button>
                     </Col>
                 </Row>
+                </Card.Body>
+                </Card>
             </Container>
         )
     }
