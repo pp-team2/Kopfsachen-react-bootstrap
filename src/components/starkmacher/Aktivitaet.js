@@ -7,8 +7,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FiArrowLeft } from "react-icons/fi";
 import InputGroup from 'react-bootstrap/InputGroup';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Form from 'react-bootstrap/Form';
-
 
 export default class Aktiviatet extends React.Component {
     constructor(props) {
@@ -61,7 +62,7 @@ export default class Aktiviatet extends React.Component {
     }
 
 
-    save() {  
+    save() {
         // Ruft die saveActitivty-Funktion in SicherheitsnetzController auf um die Aktivität zu speichern
         this.props.saveActivity(this.state.text, this.state.picture, this.props.clickID);
     }
@@ -78,8 +79,9 @@ export default class Aktiviatet extends React.Component {
                 <Card.Body>
                 <Row>
                     <Col>
-                        <Button id="backButton" variant="success" onClick={this.backButtonClicked}><FiArrowLeft/>Zurück</Button>
-                       
+                        <OverlayTrigger placement='right' overlay={<Tooltip>Zur Übersicht</Tooltip>}>
+                            <Button id="backButton" variant="success" onClick={this.backButtonClicked}>Zurück</Button>
+                        </OverlayTrigger>
                     </Col>
                 </Row>
                 <Row>
@@ -90,40 +92,74 @@ export default class Aktiviatet extends React.Component {
                 </Row>
                 <Row>
                     <Col>
-                    <InputGroup >
-                        <Form.Control  onChange={this.textChange} type="text" />
-                    </InputGroup>
-                       
+                        <Form>
+                            <Form.Control type="email" placeholder="..." onChange={this.textChange} />
+                            <Form.Text className="text-muted">
+                            Gebe in das Textfeld z.B. eine Aktivität oder einen Namen einer Person ein, die dir eine Freude bereitet.
+                            </Form.Text>
+                        </Form>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                    <br></br>
                         <p>Zu welcher Kategorie gehört diese Ressource?</p>
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Personen" />
+                    <Col md={4} sm={6} xl={3}>
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Person oder Gruppe
+                                </Tooltip>
+                            }>
+                            <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Personen" />
+                        </OverlayTrigger>
                     </Col>
-                    <Col>
+                    <Col md={4} sm={6} xl={3}>
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Tier
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_2" onClick={this.pictureChange} src="/tier.png" alt="Tier" />
+                        </OverlayTrigger>
                     </Col>
-                    <Col>
+                    <Col md={4} sm={6} xl={3}>
+                    <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Kreativität
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_3" onClick={this.pictureChange} src="/kreativ.png" alt="Kreative Aktivität" />
-                    </Col>    
-                </Row>
-                <Row>
-                    <Col>
+                        </OverlayTrigger>
+                    </Col>
+
+                    <Col md={12} sm={6} xl={3}>
+                    <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Sonstiges
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_4" onClick={this.pictureChange} src="/sonstiges.png" alt="Sonstige Aktivität" />
+                        </OverlayTrigger>
                     </Col>
                    {/*  <Col>
                         <img className="ressource" id="p_5" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                     </Col>
                     <Col>
                         <img className="ressource" id="p_6" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
-                    </Col> */}  
+                    </Col> */}
                 </Row>
+                <br></br>
+                <br></br>
                 <Row>
                     <Col>
                         <Button id="weitereRessource" variant="success" onClick={this.selectNewActivity} className="disabled">Ressource zum Sicherheitsnetz hinzufügen</Button>

@@ -8,6 +8,8 @@ import './aktivitaet.css';
 import { FiArrowLeft } from "react-icons/fi";
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 
 export default class AktiviatetHilfe extends React.Component {
@@ -15,8 +17,8 @@ export default class AktiviatetHilfe extends React.Component {
         super(props);
 
         let activity = this.props.activity[0];
-        this.state = {id: activity.id, text: activity.text, picture: activity.picture, placeID: activity.placeID, 
-            feedback: [{timestamp: '', comment: '', itHelped: false}], 
+        this.state = {id: activity.id, text: activity.text, picture: activity.picture, placeID: activity.placeID,
+            feedback: [{timestamp: '', comment: '', itHelped: false}],
             comment1: '', comment2: '', comment3: '',
             timestamp1: '', timestamp2: '', timestamp3: ''};
 
@@ -35,7 +37,7 @@ export default class AktiviatetHilfe extends React.Component {
         let timestamp2 = this.state.timestamp2;
         let timestamp3 = this.state.timestamp3;
 
-        // Prüfe für jedes Kommentarfeld, ob etwas eingegeben wurde 
+        // Prüfe für jedes Kommentarfeld, ob etwas eingegeben wurde
         if (comment1.length > 0) {
             newComments.push({timestamp: timestamp1, comment: comment1, itHelped: undefined});
         }
@@ -50,7 +52,7 @@ export default class AktiviatetHilfe extends React.Component {
 
         // Funktion in SicherheitsnetzController die die alten und neuen Kommentare zusammenfügt
         this.props.addStrategy(+this.state.id, newComments.map(line => line.comment));
-        
+
     }
 
     textChange(elem) {
@@ -81,7 +83,9 @@ export default class AktiviatetHilfe extends React.Component {
                 <Card.Body>
                 <Row>
                     <Col>
-                        <Button id="backButton" variant="success" onClick={this.backButtonClicked}><FiArrowLeft/> Zurück</Button> 
+                        <OverlayTrigger placement='right' overlay={<Tooltip>Zur Übersicht</Tooltip>}>
+                            <Button id="backButton" variant="success" onClick={this.backButtonClicked}>Zurück</Button>
+                        </OverlayTrigger>
                     </Col>
                 </Row>
                 <br></br>
@@ -90,39 +94,15 @@ export default class AktiviatetHilfe extends React.Component {
                         <p>Trage drei Wege ein, auf denen dir {this.state.text} gerade helfen kann:</p>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        
-                        <InputGroup >
-                             <Form.Control  id="comment1" placeholder='...' onChange={this.textChange} type="text" />
-                         </InputGroup>
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Col>
-                        <InputGroup >
-                             <Form.Control  id="comment2" placeholder='...' onChange={this.textChange} type="text" />
-                         </InputGroup>
-                    
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Col>
-                    <InputGroup >
-                             <Form.Control  id="comment3" placeholder='...' onChange={this.textChange} type="text" />
-                         </InputGroup>
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Col>
-                        <Button  variant="success" onClick={this.ressourceKommentiert}>Dann los!</Button>
-                    </Col>
-                </Row>
-                </Card.Body>
-                </Card>
+                <Form>
+                    <Form.Control id="comment1" onChange={this.textChange} type="text" placeholder="1 ..." />
+                    <br></br>
+                    <Form.Control id="comment2" onChange={this.textChange} type="text" placeholder="2 ..." />
+                    <br></br>
+                    <Form.Control id="comment3" onChange={this.textChange} type="text" placeholder="3 ..." />
+                    <br></br>
+                    <Button onClick={this.ressourceKommentiert}>Dann los!</Button>
+                </Form>
             </Container>
         )
     }

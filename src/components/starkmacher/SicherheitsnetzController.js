@@ -41,10 +41,10 @@ export default class SicherheitsnetzController extends React.Component {
                     imgSrc = "/personen.png";
                     break;
                 case 'situationControl':
-                    imgSrc = "/situationskontrolle.png";
+                    imgSrc = "/personen.png";
                     break;
                 case 'relaxation':
-                    imgSrc = "/tagebuch.jpg";
+                    imgSrc = "/kreativ.png";
                     break;
                 case 'other':
                     imgSrc = "/sonstiges.png";
@@ -135,7 +135,7 @@ export default class SicherheitsnetzController extends React.Component {
         let alte = this.state.activities;
         // Schaut sich die ID der letzten Aktivität an und setzt sie dann eins hoch
         let lastID = alte[alte.length-1].id;
-        alte.push({id: lastID+1, text: text, picture: picture, placeID: placeID, strategies: [''], feedback: [{timestamp: '', comment: '', itHelped: false}]});
+        alte.push({id: lastID+1, text: text, picture: picture, placeID: placeID, strategies: [], feedback: []});
         this.setState({activities: alte});
 
         console.log(this.state.activities);
