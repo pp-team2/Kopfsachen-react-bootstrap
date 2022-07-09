@@ -153,7 +153,7 @@ const routes = [{
   component: <SozialeUnterstuetzungController level={1} />,
   color: "#eeebea",
   text: "Soziale Unterstützung",
-  img: "./logoBig.png",
+  img: "/sozialeUnterstuetzungLvl1.png",
   requiresSession: true
 },
 {
@@ -161,7 +161,7 @@ const routes = [{
   component: <SozialeUnterstuetzungController level={2} />,
   color: "#eeebea",
   text: "Soziale Unterstützung",
-  img: "./logoBig.png",
+  img: "/sozialeUnterstuetzungLvl2.png",
   requiresSession: true
 },
 {
@@ -169,7 +169,7 @@ const routes = [{
   component: <SozialeUnterstuetzungController level={3} />,
   color: "#eeebea",
   text: "Soziale Unterstützung",
-  img: "./logoBig.png",
+  img: "/sozialeUnterstuetzungLvl3.png",
   requiresSession: true
 },
   {

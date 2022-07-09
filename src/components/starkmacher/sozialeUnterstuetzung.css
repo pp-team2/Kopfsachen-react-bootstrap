@@ -36,4 +36,5 @@ input[type=checkbox] {
 
 #uebungBeenden {
     float: left;
+    visibility: hidden;
 }

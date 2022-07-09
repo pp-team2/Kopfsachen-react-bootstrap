@@ -140,6 +140,7 @@ export default class SozialeUnterstuetzung extends React.Component {
         
         let kreisTyp = belegterkreis.classList[1];
         this.kollisionsAbfrage(kreisTyp);
+        document.getElementById('uebungBeenden').style.visibility = 'visible'
     }
 
     newPerson() {

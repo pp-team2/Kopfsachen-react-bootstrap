@@ -23,6 +23,7 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                                                 wer weiß immerhin, wer von ihnen dir in Zukunft vielleicht einmal in irgendeiner Form unterstützend zur Seite stehen kann?
                                         </b>
                                     </Row>
+                                    <br></br>
                                     <Row>
                                         <Col>
                                             <p>Skizziere dazu dein persönliches Netzwerk in folgendem Schema mit dir selbst als gedachtem Mittelpunkt:</p>
@@ -55,6 +56,7 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                                             </p>
                                         </Col>
                                     </Row>
+                                    <br></br>
                                     <Row>
                                         <Col>
                                             <p>
