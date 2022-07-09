@@ -79,30 +79,32 @@ export default class AktiviatetHilfe extends React.Component {
     render() {
         return (
             <Container>
-            <Card>
-                <Card.Body>
-                <Row>
-                    <Col>
-                        <OverlayTrigger placement='right' overlay={<Tooltip>Zur Übersicht</Tooltip>}>
-                            <Button id="backButton" variant="success" onClick={this.backButtonClicked}>Zurück</Button>
-                        </OverlayTrigger>
-                    </Col>
-                </Row>
-                <br></br>
-                <Row>
-                    <Col>
-                        <p>Trage drei Wege ein, auf denen dir {this.state.text} gerade helfen kann:</p>
-                    </Col>
-                </Row>
-                <Form>
-                    <Form.Control id="comment1" onChange={this.textChange} type="text" placeholder="1 ..." />
-                    <br></br>
-                    <Form.Control id="comment2" onChange={this.textChange} type="text" placeholder="2 ..." />
-                    <br></br>
-                    <Form.Control id="comment3" onChange={this.textChange} type="text" placeholder="3 ..." />
-                    <br></br>
-                    <Button onClick={this.ressourceKommentiert}>Dann los!</Button>
-                </Form>
+              <Card>
+                  <Card.Body>
+                  <Row>
+                      <Col>
+                          <OverlayTrigger placement='right' overlay={<Tooltip>Zur Übersicht</Tooltip>}>
+                              <Button id="backButton" variant="success" onClick={this.backButtonClicked}>Zurück</Button>
+                          </OverlayTrigger>
+                      </Col>
+                  </Row>
+                  <br></br>
+                  <Row>
+                      <Col>
+                          <p>Trage drei Wege ein, auf denen dir {this.state.text} gerade helfen kann:</p>
+                      </Col>
+                  </Row>
+                  <Form>
+                      <Form.Control id="comment1" onChange={this.textChange} type="text" placeholder="1 ..." />
+                      <br></br>
+                      <Form.Control id="comment2" onChange={this.textChange} type="text" placeholder="2 ..." />
+                      <br></br>
+                      <Form.Control id="comment3" onChange={this.textChange} type="text" placeholder="3 ..." />
+                      <br></br>
+                      <Button onClick={this.ressourceKommentiert}>Dann los!</Button>
+                  </Form>
+                  </Card.Body>
+              </Card>
             </Container>
         )
     }
