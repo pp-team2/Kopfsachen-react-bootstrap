@@ -113,7 +113,7 @@ const routes = [{
   component: <Wiki list={wikii} />,
   color: "#eeebea",
   text: "Wiki",
-  img: "./tagebuch.svg",
+  img: "./wiki.png",
   requiresSession: false
 },
 {
