@@ -1,7 +1,9 @@
 import {React , useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from './navigator'
-import Tagebuch from './tagebuch'
+import Tagebuch from './mood-diary/tagebuch'
+import Positiv from './mood-diary/positive-stimmung-uebersicht'
+import Stimmungsverlauf from './mood-diary/stimmungsverlauf'
 import Header from './header'
 import Missing from './missing'
 import Zugriff from './zugriff';
@@ -46,21 +48,21 @@ const Routes = () => {
   }
 
   useEffect(checkSession);
-  
-  
+
+
 
 const [wikii, setWiki] = useState([])
 
 useEffect(() => {
   async function fetchData() {
     const jsonRes = await API.getWiki();
-   
+
     setWiki(jsonRes.entries)
 
     console.log(jsonRes)
   }
   fetchData();
-}, []); 
+}, []);
 
 
 useEffect(() => {
@@ -71,7 +73,7 @@ useEffect(() => {
     console.log(jsonRes)
   }
   fetchData();
-}); 
+});
 
 const routes = [{
   path: ["/", "/home"],
@@ -90,13 +92,30 @@ const routes = [{
   requiresSession: true
 },
 {
+  path: "/positiv",
+  component: <Positiv/>,
+  color: "#eeebea",
+  text: "Stimmungstagebuch",
+  img: "./smiley-positive.png",
+  requiresSession: true
+},
+
+{
+  path: "/stimmungsverlauf",
+  component: <Stimmungsverlauf/>,
+  color: "#eeebea",
+  text: "Stimmungsverlauf",
+  img: "",
+  requiresSession: true
+},
+{
   path: "/wikilist",
   component: <Wiki list={wikii} />,
   color: "#eeebea",
   text: "Wiki",
   img: "./tagebuch.svg",
   requiresSession: false
-}, 
+},
 {
   path: "/starkmacher",
   component: <Starkmacher/>,
@@ -177,7 +196,7 @@ const routes = [{
         {
           wikii.filter(a => a.id !== '').map(wikiEntry => {
             return(
-                <Route key={wikiEntry.id} path={`/wikientry/${wikiEntry.title.replace(/\s+/g, '')}`}>   
+                <Route key={wikiEntry.id} path={`/wikientry/${wikiEntry.title.replace(/\s+/g, '')}`}>
                   <Header color="#f6efe9" text={wikiEntry.title} img=""/>
                   <Wikientry object={wikiEntry} />
                 </Route>

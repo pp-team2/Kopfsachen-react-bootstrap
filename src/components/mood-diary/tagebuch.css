@@ -1,0 +1,56 @@
+.center-tagebuch {
+  text-align: center;
+}
+
+.button-tagebuch {
+  width: 90%;
+  height: 4em;
+  margin-top: 0.7em;
+}
+
+.negative {
+  background-color: rgba(166, 0, 255, 0.96) !important;
+  border-color: rgba(166, 0, 255, 0.96) !important;
+}
+.neutral {
+  background-color: rgb(0, 153, 255) !important;
+  border-color: rgb(0, 153, 255) !important;
+}
+
+.positive {
+  background-color: rgb(32, 187, 43) !important;
+  border-color: rgb(32, 187, 43) !important;
+}
+
+.emoji {
+  font-size: 2em;
+}
+
+.center-positive-stimmung-uebersicht {
+  text-align: center;
+  margin-top: 6em;
+}
+
+.button-left-positive-stimmung-uebersicht {
+  margin-top: 9em;
+  width: 9em;
+  height: 3.5em;
+  margin-right: 3em;
+  background-color: rgb(196, 129, 98) !important;
+  border-color: black !important;
+  color: black !important;
+}
+
+.button-right-positive-stimmung-uebersicht {
+  margin-top: 9em;
+  width: 9em;
+  height: 3.5em;
+  margin-left: 3em;
+  background-color: rgb(196, 129, 98) !important;
+  border-color: black !important;
+  color: black !important;
+}
+
+.btn-text-positive-stimmung-uebersicht {
+  margin-top: 0.55em !important;
+}
