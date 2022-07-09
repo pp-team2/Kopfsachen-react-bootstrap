@@ -95,3 +95,12 @@ code {
     padding: 10px !important;
     color: white;
 }
+
+.carousel-inner {
+    border-radius: .25rem;
+    margin-bottom: 20px !important;
+}
+
+.carousel {
+    margin-bottom: 20px !important;
+}

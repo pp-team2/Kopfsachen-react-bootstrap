@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button, Container, ListGroup,Carousel } from 'react-bootstrap'
+import { Button, Container,Carousel, Alert} from 'react-bootstrap'
 import { useState } from 'react';
 import {LinkContainer} from 'react-router-bootstrap'
+import { FiArrowLeft } from "react-icons/fi";
 
 const NeueStarkmacher = (props) => {
 	const [neueStarkmacherListe, setNeueStarkmacherListe] = useState([
@@ -30,11 +31,14 @@ const NeueStarkmacher = (props) => {
 
     return (
         <Container>
-        <LinkContainer to="/starkmacher"><Button variant="secondary">Zurück zu den Starkmachern</Button></LinkContainer>
-            <br/><br/>
-            <b>Welchen neuen Starkmacher möchtest du heute ausprobieren?</b>
-            <br/>
-            <Carousel>
+        <LinkContainer to="/starkmacher"><Button variant="success"><FiArrowLeft/>Zurück zu den Starkmachern</Button></LinkContainer>
+        
+
+        <Alert variant="success" style={{marginTop: "15px"}}>
+            Welchen neuen Starkmacher möchtest du heute ausprobieren?
+        </Alert>
+
+            <Carousel variant="dark" style={{borderRadius: "5px", marginBottom: "20px"}}>
             {neueStarkmacherListe.map((item,key)=>                
                 <Carousel.Item key={item.key}>
                 	<Carousel.Caption  style={{backgroundColor:item.color,position:"static",color:"black",minHeight:"500px"}}>
@@ -42,14 +46,16 @@ const NeueStarkmacher = (props) => {
                         <h2>{item.label}</h2>
                         <b>{item.description}</b>
                         <br/><br/>
-                        <div><img style={{maxWidth:"100%"}} src="video.png"/></div>  
+                        <div><img style={{maxWidth:"100%", borderRadius:"10px", boxShadow:"#0000001a 6px 7px 15px 8px"}} src="video.png"/></div>  
                         <br/>
-                        <LinkContainer to={item.link}><Button>Let´s go!</Button></LinkContainer>                
+                        <LinkContainer to={item.link}><Button  variant="secondary" className="my-2" >Let´s go!</Button></LinkContainer>                
                     </div>
                     </Carousel.Caption>
                 </Carousel.Item>              
             )}
         	</Carousel>
+
+            <br></br>
         </Container>
     )
 }
