@@ -75,22 +75,26 @@ h2.printText, p.printText {
         display: none;
         visibility: hidden;
     }
-    svg {
-        position: absolute;
+    div.card-body {
+        position: fixed;
         top: 0px;
+    }
+    svg {
+        position: relative;
+        top: 150px;
     }
 
     h2.printText {
         display:block;
-        position: absolute;
+        position: relative;
         top: 20px;
         visibility: visible;
     }
 
     p.printText {
         display: block;
-        position: absolute;
-        top: 80px;
+        position: relative;
+        top: 40px;
         visibility: visible;
     }
 }
