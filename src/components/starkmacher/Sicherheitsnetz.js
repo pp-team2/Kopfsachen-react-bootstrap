@@ -198,6 +198,9 @@ export default class Sicherheitsnetz extends React.Component {
         window.print();
     }
 
+    mouseEnterPrintButton() {
+        document.body.click();
+    }
 
     render() {
         let images = this.state.images;
@@ -209,7 +212,7 @@ export default class Sicherheitsnetz extends React.Component {
                     <Card.Body>
                         <Row>
                             <Col>
-                                <Button onClick={this.openPrintDialog} id="openPrintDialog" variant='secondary'>Drucken / als PDF speichern</Button>
+                                <Button onClick={this.openPrintDialog} onMouseEnter={this.mouseEnterPrintButton} id="openPrintDialog" variant='secondary'>Drucken / als PDF speichern</Button>
                                 <h3>Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?</h3>
                                 <p>Klicke auf einen der leeren Kreise und füge eine Aktivität hinzu!</p>
 
@@ -225,14 +228,14 @@ export default class Sicherheitsnetz extends React.Component {
                                 }
                             </Col>
                         </Row>
-                        <h2 className="printText">Kopfsachen Sicherheitsnetz</h2>
-                        <p className="printText">Angegeben sind die Personen und Aktivitäten, die du in deinem Leben hast und die dir gut tun.
+                        <h2 className="printTextSN">Kopfsachen Sicherheitsnetz</h2>
+                        <p className="printTextSN">Angegeben sind die Personen und Aktivitäten, die du in deinem Leben hast und die dir gut tun.
                         Das können Menschen, Hobbies, Haustiere oder auch Persönlichkeitseigenschaften von dir sein.
                         Konkret wurde danach gefragt, welche Personen oder Aktivitäten dir im Alltag Freude bereiten und Antrieb geben.</p>
                         <Row>
                             <Col>
                                 {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
-                                <svg id='svgNetz' width="98%" height="100%" viewBox='0 0 640 600'>
+                                <svg id='svgNetzSN' width="98%" height="100%" viewBox='0 0 640 600'>
                                     <g id='gNetz'>
                                         <line id="svg_56" x1="481.5" x2="560.5" y1="239.5" y2="126.5"/>
                                         <line id="svg_55" x1="80" x2="159" y1="348.5" y2="235.5"/>

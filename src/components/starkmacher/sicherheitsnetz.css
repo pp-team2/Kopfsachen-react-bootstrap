@@ -79,19 +79,21 @@ h2.printText, p.printText {
         position: fixed;
         top: 0px;
     }
-    svg {
+    svg#svgNetzSN {
+        visibility: visible;
+        display: block;
         position: relative;
         top: 150px;
     }
 
-    h2.printText {
-        display:block;
+    h2.printTextSN {
+        display: block;
         position: relative;
         top: 20px;
         visibility: visible;
     }
 
-    p.printText {
+    p.printTextSN {
         display: block;
         position: relative;
         top: 40px;

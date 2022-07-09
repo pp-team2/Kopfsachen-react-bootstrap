@@ -7,6 +7,7 @@ import Popover from 'react-bootstrap/Popover';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import { LinkContainer } from 'react-router-bootstrap';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 export default class SozialeUnterstuetzung extends React.Component {
     constructor(props) {
@@ -309,6 +310,16 @@ export default class SozialeUnterstuetzung extends React.Component {
         }
     }
 
+    openPrintDialog() {
+        document.getElementById('uebungBeenden').style.visibility = 'hidden';
+        window.print();
+        document.getElementById('uebungBeenden').style.visibility = 'visible';
+    }
+
+    mouseEnterPrintButton() {
+        document.body.click();
+    }
+
     render() {
         let clickCircle = this.clickCircle;
         let level = this.props.level;
@@ -329,9 +340,15 @@ export default class SozialeUnterstuetzung extends React.Component {
                     <p>Eintrag hinzufügen:</p>
                     <input onChange={this.textChange} type="text"></input>
                     <div>
-                        <img className="ressource" id="bild1" onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
-                        <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
-                        <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Informationale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild1" onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
+                        </OverlayTrigger>
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Emotionale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
+                        </OverlayTrigger>
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Instrumentale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
+                        </OverlayTrigger>
                     </div>
                         <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
                 </Popover.Body>
@@ -344,9 +361,15 @@ export default class SozialeUnterstuetzung extends React.Component {
                     <p>Eintrag hinzufügen:</p>
                     <input onChange={this.textChange} type="text"></input>
                     <div>
-                        <img className="ressource" id="bild1" onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
-                        <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
-                        <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Informationale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild1" onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
+                        </OverlayTrigger>
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Emotionale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
+                        </OverlayTrigger>
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Instrumentale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
+                        </OverlayTrigger>
                     </div>
                     <div>
                         <Form.Check type="checkbox" id="toggleCheck" 
@@ -363,9 +386,15 @@ export default class SozialeUnterstuetzung extends React.Component {
                 <Popover.Body>
                     <p>Symbol hinzufügen:</p>
                     <div>
-                        <img className="ressource" id="bild1" onLoad={this.hidePictures} onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
-                        <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
-                        <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Informationale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild1" onLoad={this.hidePictures} onClick={this.pictureChange} src="/buecher.png" alt="Bücherstapel" />
+                        </OverlayTrigger>
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Emotionale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild2" onClick={this.pictureChange} src="/herz.png" alt="Herz" />
+                        </OverlayTrigger>
+                        <OverlayTrigger placement='top' overlay={<Tooltip>Instrumentale Unterstützung</Tooltip>}>
+                            <img className="ressource" id="bild3" onClick={this.pictureChange} src="/oberarm.png" alt="Oberarm" />
+                        </OverlayTrigger>
                     </div>
                         <Button id="hinzufuegen" className="disabled" onClick={this.newPerson}>Hinzfügen</Button>
                 </Popover.Body>
@@ -485,11 +514,15 @@ export default class SozialeUnterstuetzung extends React.Component {
 
         return (
             <Container>
+                    <h2 className="printText">Kopfsachen Soziale Unterstützung</h2>
+                    <p className="printText">In diesem Starkmacherzu geht es darum zu überlegen welche Menschen es in deinem Umfeld gibt und wie sie dich unterstützen können.</p>
+
                     <Card>
                         <Card.Body>
                             <LinkContainer to='/home'><Button id="uebungBeenden">Fertig! <br />(Übung beenden)</Button></LinkContainer>
+                            <Button id="printButton" variant="secondary" onClick={this.openPrintDialog} onMouseEnter={this.mouseEnterPrintButton}>Drucken / als PDF speichern</Button>
                             {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
-                            <svg id='svgNetz' width="100%" height="100%" viewBox='0 0 600 600'>
+                            <svg id='svgNetzSU' width="100%" height="100%" viewBox='0 0 600 600'>
                                 <g id='gNetz' className="layer">
                                     <ellipse id="kreis3" cx="316" cy="240.000007" fill="#7F49C3" rx="230" ry="230" transform="matrix(1 0 0 1 0 0)"/>
                                     <ellipse id="kreis2" cx="316" cy="240.500004" display="inline" fill="#F2C8D0" rx="175" ry="175" />
