@@ -5,6 +5,7 @@ export default function Expertensicht(props) {
   
   const [showA, setShowA] = useState(false);
   const toggleShowA = () => setShowA(!showA);
+
   
 
 
@@ -20,7 +21,10 @@ export default function Expertensicht(props) {
         <Toast.Body>
         <pre>
           {/*props.preLines.map(x => JSON.stringify(x) + "\n")*/}
-          {JSON.stringify(props.preLines).replaceAll(',', '\n').replaceAll('}', "").replaceAll('{', "").replaceAll('"', "").replaceAll(':', ': ')}
+          {
+           JSON.stringify(props.preLines).preLines?JSON.stringify(props.preLines).replaceAll(',', '\n').replaceAll('}', "").replaceAll('{', "").replaceAll('"', "").replaceAll(':', ': '): JSON.stringify({"AccountKey" : props.accountKey})
+          
+          }
         </pre>
         </Toast.Body>
       </Toast>

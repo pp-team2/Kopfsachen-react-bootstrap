@@ -18,7 +18,7 @@ const Access = (props) => {
         <Logout sessionActive={props.sessionActive} check={props.check} setExpertView={props.setExpertView} />
         <LoginModal accountKey={props.accountKey} preLines={props.expertView} sessionActive={props.sessionActive} setExpertView={props.setExpertView} />
 
-        <Expertensicht preLines={props.expertView} sessionActive={props.sessionActive} />
+        <Expertensicht accountKey={props.accountKey} preLines={props.expertView} sessionActive={props.sessionActive} />
 
         
         </Stack>
