@@ -22,7 +22,7 @@ export default function Expertensicht(props) {
         <pre>
           {/*props.preLines.map(x => JSON.stringify(x) + "\n")*/}
           {
-           JSON.stringify(props.preLines).preLines?JSON.stringify(props.preLines).replaceAll(',', '\n').replaceAll('}', "").replaceAll('{', "").replaceAll('"', "").replaceAll(':', ': '): JSON.stringify({"AccountKey" : props.accountKey})
+           JSON.stringify(props.preLines) != "[]"?JSON.stringify(props.preLines).replaceAll(',', '\n').replaceAll('}', "").replaceAll('{', "").replaceAll('"', "").replaceAll(':', ': '): JSON.stringify({"AccountKey" : props.accountKey})
           
           }
         </pre>
