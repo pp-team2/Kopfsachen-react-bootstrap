@@ -1,14 +1,12 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import './sozialeUnterstuetzung.css';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import Alert from 'react-bootstrap/Alert';
+import { LinkContainer } from 'react-router-bootstrap';
 
 export default class SozialeUnterstuetzung extends React.Component {
     constructor(props) {
@@ -488,28 +486,28 @@ export default class SozialeUnterstuetzung extends React.Component {
             <Container>
                     <Card>
                         <Card.Body>
-                        {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
-                        <svg id='svgNetz' width="100%" height="100%" viewBox='0 0 600 600'>
-                            <g id='gNetz' className="layer">
-                                <ellipse id="kreis3" cx="316" cy="240.000007" fill="#7F49C3" rx="230" ry="230" transform="matrix(1 0 0 1 0 0)"/>
-                                <ellipse id="kreis2" cx="316" cy="240.500004" display="inline" fill="#F2C8D0" rx="175" ry="175" />
-                                <ellipse id="kreis1" cx="316" cy="241.999996" fill="#F3903E" rx="120" ry="120" transform="matrix(1 0 0 1 0 0)"/>
-                                <circle id="kreis0" cx="316" cy="236.5" fill="#FDE802" r="40" />
-                                <text id="textICH" fill="#000000" fontFamily="serif" fontSize="24" fontWeight="bold" stroke="#000000" strokeWidth="0" textAnchor="middle" x="316" y="243.5">ICH</text>
-                            </g>
-                            <g>
-                                { circlesArrayWithOverlay }
-                            </g>
-                            <g>
-                                { angezeigteTexte }
-                            </g>
-                            <g>
-                                { angezeigteBilder }
-                            </g>
-                        </svg>
+                            <LinkContainer to='/home'><Button id="uebungBeenden">Fertig! <br />(Übung beenden)</Button></LinkContainer>
+                            {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
+                            <svg id='svgNetz' width="100%" height="100%" viewBox='0 0 600 600'>
+                                <g id='gNetz' className="layer">
+                                    <ellipse id="kreis3" cx="316" cy="240.000007" fill="#7F49C3" rx="230" ry="230" transform="matrix(1 0 0 1 0 0)"/>
+                                    <ellipse id="kreis2" cx="316" cy="240.500004" display="inline" fill="#F2C8D0" rx="175" ry="175" />
+                                    <ellipse id="kreis1" cx="316" cy="241.999996" fill="#F3903E" rx="120" ry="120" transform="matrix(1 0 0 1 0 0)"/>
+                                    <circle id="kreis0" cx="316" cy="236.5" fill="#FDE802" r="40" />
+                                    <text id="textICH" fill="#000000" fontFamily="serif" fontSize="24" fontWeight="bold" stroke="#000000" strokeWidth="0" textAnchor="middle" x="316" y="243.5">ICH</text>
+                                </g>
+                                <g>
+                                    { circlesArrayWithOverlay }
+                                </g>
+                                <g>
+                                    { angezeigteTexte }
+                                </g>
+                                <g>
+                                    { angezeigteBilder }
+                                </g>
+                            </svg>
                         </Card.Body>
-                        </Card>
-            
+                    </Card>
             </Container>
         )
     }

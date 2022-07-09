@@ -4,10 +4,10 @@ import SozialeUnterstuetzungInfoText from './sozialeUnterstuetzungInfoText';
 
 
 export default class SozialeUnterstuetzungController extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {level: 1, personas: [{name: '', circleID: '', symbols: [], markiert: false}]};
+    constructor(props) {
+        super(props);
+        let level = this.props.level;
+        this.state = {level: level, personas: [{name: '', circleID: '', symbols: [], markiert: false}]};
 
         this.newPerson = this.newPerson.bind(this);
     }

@@ -7,6 +7,13 @@ import { FiArrowLeft } from "react-icons/fi";
 const NeueStarkmacher = (props) => {
 	const [neueStarkmacherListe, setNeueStarkmacherListe] = useState([
     {
+        label:"Soziale Unterstützung",
+        link:"/starkmacher/sozialeUnterstuetzungLvl1",
+        description:"In diesem Starkmacher geht es daum, zu überlegen welche Menschen es in deinem Umfeld gibt und wie sie dich unterstützen können.",
+        logo:"situationskontrolle.png",
+        color:"#cae2e2"
+    },
+    {
         label:"Reframing",
         link:"/starkmacher/reframing",
         description:"Beim Reframing geht es darum deine eigene Einschätzung der Situation zu überprüfen und gegebenenfalls. zu einer anderen, für dich angenehmeren Interpretation zu kommen.",
@@ -14,12 +21,12 @@ const NeueStarkmacher = (props) => {
         color:"#f2c7d0"
     },
     {
-        label:"Soziale Unterstützung",
-        link:"/starkmacher/sozialeUnterstuetzung",
-        description:"In diesem Starkmacher geht es daum, zu überlegen welche Menschen es in deinem Umfeld gibt und wie sie dich unterstützen können.",
-        logo:"situationskontrolle.png",
-        color:"#cae2e2"
-    },
+        label:"Optimismus",
+        link:"/starkmacher/optimismus",
+        description:"Optimismus heißt das Gute im Leben zu sehen. Auch, wenn es mal nicht so einfach ist.",
+        logo:"optimismus.png",
+        color:"#fde802"
+    },    
     {
         label:"Situationskontrolle",
         link:"/starkmacher/...",

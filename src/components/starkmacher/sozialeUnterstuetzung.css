@@ -33,3 +33,7 @@ image, img.symbol {
 input[type=checkbox] {
     transform: scale(1.5);
 }
+
+#uebungBeenden {
+    float: left;
+}
