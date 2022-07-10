@@ -87,7 +87,7 @@ const routes = [{
 {
   path: "/stimmungstagebuch",
   component: <Tagebuch/>,
-  color: "#eeebea",
+  color: "#00d08e",
   text: "Stimmungstagebuch",
   img: "./tagebuch.svg",
   requiresSession: true
@@ -95,7 +95,7 @@ const routes = [{
 {
   path: "/positiv",
   component: <Positiv/>,
-  color: "#eeebea",
+  color: "#fde802",
   text: "Stimmungstagebuch",
   img: "./smiley-positive.png",
   requiresSession: true
@@ -104,15 +104,15 @@ const routes = [{
 {
   path: "/stimmungsverlauf",
   component: <Stimmungsverlauf/>,
-  color: "#eeebea",
+  color: "#18d57c",
   text: "Stimmungsverlauf",
-  img: "",
+  img: "./frauLangeHaare.png",
   requiresSession: true
 },
 {
   path: "/wikilist",
   component: <Wiki list={wikii} />,
-  color: "#eeebea",
+  color: "#ead5b6",
   text: "Wiki",
   img: "./wiki.png",
   header_width:300,
@@ -121,7 +121,7 @@ const routes = [{
 {
   path: "/starkmacher",
   component: <Starkmacher/>,
-  color: "#eeebea",
+  color: "#f2c7d0",
   text: "Meine Starkmacher",
   img: "./starkmacher.png",
   requiresSession: true
@@ -129,7 +129,7 @@ const routes = [{
 {
   path: "/neueStarkmacher",
   component: <NeueStarkmacher/>,
-  color: "#eeebea",
+  color: "#f2c7d0",
   text: "Neue Starkmacher",
   img: "./starkmacher.png",
   requiresSession: true
@@ -137,7 +137,7 @@ const routes = [{
 {
   path: "/starkmacher/reframing",
   component: <Reframing/>,
-  color: "#eeebea",
+  color: "#f2c7d0",
   text: "Reframing",
   img: "/reframing.png",
   requiresSession: true
@@ -153,7 +153,7 @@ const routes = [{
 {
   path: "/starkmacher/SozialeUnterstuetzungLvl1",
   component: <SozialeUnterstuetzungController level={1} />,
-  color: "#eeebea",
+  color: "#f3803e",
   text: "Soziale Unterstützung",
   img: "/sozialeUnterstuetzungLvl1.png",
   requiresSession: true
@@ -161,7 +161,7 @@ const routes = [{
 {
   path: "/starkmacher/SozialeUnterstuetzungLvl2",
   component: <SozialeUnterstuetzungController level={2} />,
-  color: "#eeebea",
+  color: "#f3803e",
   text: "Soziale Unterstützung",
   img: "/sozialeUnterstuetzungLvl2.png",
   requiresSession: true
@@ -169,7 +169,7 @@ const routes = [{
 {
   path: "/starkmacher/SozialeUnterstuetzungLvl3",
   component: <SozialeUnterstuetzungController level={3} />,
-  color: "#eeebea",
+  color: "#f3803e",
   text: "Soziale Unterstützung",
   img: "/sozialeUnterstuetzungLvl3.png",
   requiresSession: true
@@ -177,7 +177,7 @@ const routes = [{
   {
   path: "/starkmacher/sicherheitsnetz",
   component: <SicherheitsnetzController alsStarkmacher={true} />,
-  color: "#eeebea",
+  color: "#ecf9ff",
   text: "Sicherheitsnetz",
   img: "/sicherheitsnetz.png",
   requiresSession: true
@@ -185,7 +185,7 @@ const routes = [{
 {
   path: "/notfall",
   component: <Help />,
-  color: "#eeebea",
+  color: "#e55c5b",
   text: "Externe Hilfe",
   img: "./notfall.svg",
   requiresSession: false
@@ -193,9 +193,9 @@ const routes = [{
 {
   path: "/profil",
   component: <Profil />,
-  color: "#eeebea",
+  color: "#18d57c",
   text: "Profil",
-  img: "./tagebuch.svg",
+  img: "./account.png",
   requiresSession: true
 },
 {

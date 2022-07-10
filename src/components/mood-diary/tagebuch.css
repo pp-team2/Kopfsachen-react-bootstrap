@@ -9,17 +9,17 @@
 }
 
 .negative {
-  background-color: rgba(166, 0, 255, 0.96) !important;
-  border-color: rgba(166, 0, 255, 0.96) !important;
+  background-color: #bb9af3 !important;
+  border-color: #bb9af3 !important;
 }
 .neutral {
-  background-color: rgb(0, 153, 255) !important;
-  border-color: rgb(0, 153, 255) !important;
+  background-color: #f3803e !important;
+  border-color: #f3803e !important;
 }
 
 .positive {
-  background-color: rgb(32, 187, 43) !important;
-  border-color: rgb(32, 187, 43) !important;
+  background-color: #fde802 !important;
+  border-color: #fde802 !important;
 }
 
 .emoji {
@@ -59,15 +59,15 @@
 .calendar-emojis-positive {
   font-size: 3em;
   text-align: center;
-  color: #198754;
+  color: #fde802;
 }
 .calendar-emojis-neutral {
   font-size: 3em;
   text-align: center;
-  color: #ffc107;
+  color: #f3803e;
 }
 .calendar-emojis-negative {
   font-size: 3em;
   text-align: center;
-  color: #dc3545;
+  color: #bb9af3;
 }

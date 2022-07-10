@@ -17,7 +17,7 @@ function App(props) {
 
         <Stack gap={2}>
         <h1 className="center">Schön, dass du da bist!</h1>
-        <LinkContainer to="/tagebuch">
+        <LinkContainer to="/stimmungstagebuch">
           <Button variant="outline-secondary" size="lg">
           Ab zum Stimmungstagebuch!
           </Button>
