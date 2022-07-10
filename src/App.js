@@ -1,22 +1,22 @@
 import './App.css';
 import React from 'react'
 import {LinkContainer} from 'react-router-bootstrap'
-import { Button, ButtonGroup, Stack } from 'react-bootstrap';
-import Registration from './components/Registration';
-import Login from './components/Login';
-import Expertensicht from "./components/Expertensicht"
-import Logout from './components/Logout';
+import { Button, ButtonGroup, Container, Row, Col, Stack } from 'react-bootstrap';
 import Access from './components/Access';
 
 function App(props) {
 
 
   return (
-    <div className="App">
-      <h1>Schön, dass du da bist!</h1>
+    <Container>
+      <Row className="justify-content-center">
+        <Col xs="10" lg="8" className='d-flex justify-content-center'>
+    
 
-      <ButtonGroup className="mb-2">
-        <Stack gap={2} className="col-md-5 mx-auto">
+      <ButtonGroup>
+      
+        <Stack gap={2}>
+        <h1>Schön, dass du da bist!</h1>
         <LinkContainer to="/tagebuch">
           <Button variant="outline-secondary" size="lg">
           Ab zum Stimmungstagebuch!
@@ -31,7 +31,9 @@ function App(props) {
 
         </Stack>
       </ButtonGroup>
-    </div>
+      </Col>
+      </Row>
+      </Container>
   );
 }
 
