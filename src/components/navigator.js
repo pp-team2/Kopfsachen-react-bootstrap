@@ -10,30 +10,30 @@ import LoginModal from "./LoginModal"
 import Logout from "./Logout"
 
 const navItems = [{
-  route: "/Home",
+  route: "/home",
   icon: <FiHome size={18} />,
   label: "Home",
   requiresSession: false
 },{
-  route: "/tagebuch",
+  route: "/stimmungstagebuch",
   icon: <FiBookOpen size={18} />,
   label: "Stimmungstagebuch",
-  requiresSession: true     
+  requiresSession: true
 },{
   route: "/wikilist",
   icon: <BiBrain size={18}  />,
   label: "Wiki",
-  requiresSession: false  
+  requiresSession: false
 },{
   route: "/starkmacher",
   icon: <GiWeightLiftingUp size={18}  />,
   label: "Starkmacher",
-  requiresSession: true      
+  requiresSession: true
 },{
   route: "/notfall",
   icon: <MdOutlineLocalHospital size={18} />,
   label: "Notfallnummern",
-  requiresSession: false      
+  requiresSession: false
 },{
   route: "/profil",
   icon: <FiUser size={18} />,
@@ -57,7 +57,7 @@ const Navigator = (props) => {
   }, []);
 
 
-  
+
     return (
       <Navbar fixed="top" style={{ position: "sticky", transition: "0.5s", backgroundColor: "#fff"}} expand="lg" className={scrolled ? 'shadowNav' : ''}>
         <Container>
@@ -78,7 +78,7 @@ const Navigator = (props) => {
                 </Row>
 
 
-        
+
                 </Nav.Link>
               </LinkContainer>)
               })

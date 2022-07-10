@@ -23,7 +23,7 @@
 			"name": "Stimmungstagebuch",
 			"short_name": "Tagebuch",
 			"description": "Verfolge deine tägliche Stimmung",
-			"url": "/tagebuch",
+			"url": "/stimmungstagebuch",
 			"icons": [{
 				"src": "/logoSquare192.png",
 				"type": "image/png",

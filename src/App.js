@@ -11,12 +11,12 @@ function App(props) {
     <Container>
       <Row className="justify-content-center">
         <Col xs="10" lg="8" className='d-flex justify-content-center'>
-    
+
 
       <ButtonGroup>
-      
+
         <Stack gap={2}>
-        <h1>Schön, dass du da bist!</h1>
+        <h1 className="center">Schön, dass du da bist!</h1>
         <LinkContainer to="/tagebuch">
           <Button variant="outline-secondary" size="lg">
           Ab zum Stimmungstagebuch!

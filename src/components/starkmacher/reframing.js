@@ -45,7 +45,7 @@ const Reframing = () => {
            	<>
            	<InputGroup>
 		    <InputGroup.Text id={'basic-addon'+key}>Situation {key+1}</InputGroup.Text>
-		    <FormControl value={item} onChange={(ele)=>handleChangeSituation(ele,key)} aria-describedby={'basic-addon'+key}/ >
+		    <FormControl value={item} onChange={(ele)=>handleChangeSituation(ele,key)} aria-describedby={'basic-addon'+key}/>
 		  	</InputGroup>
 		  	<br/>
 		  	</>
@@ -58,7 +58,7 @@ const Reframing = () => {
 			  <br/>
 			 <Button variant="secondary" onClick={() => setCurrentTab("1")}><FiArrowLeft/>Ein schritt zurück</Button>
 			  <br/>
-			 
+
 			 <br/> <Card><Card.Body>
 			    	<b>Nun geht es darum die Perspektive zu wechseln und die Situationen in einen neuen Rahmen zu stellen. Es ist dabei nicht zwingend nötig eine positive Interpretation der Situation zu finden, auch eine neutrale Interpretation kann dir helfen die negative Stimmung zu bessern.</b>
 			</Card.Body></Card><br/>

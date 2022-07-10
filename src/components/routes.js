@@ -85,7 +85,7 @@ const routes = [{
   requiresSession: false
 },
 {
-  path: "/tagebuch",
+  path: "/stimmungstagebuch",
   component: <Tagebuch/>,
   color: "#eeebea",
   text: "Stimmungstagebuch",
