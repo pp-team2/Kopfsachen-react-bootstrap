@@ -1,6 +1,6 @@
-import React from 'react'
-import { Button, Container, ListGroup, Card } from 'react-bootstrap'
-import {LinkContainer} from 'react-router-bootstrap'
+import React from 'react';
+import { Button, Container, ListGroup, Card } from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 import { useState } from 'react';
 
 const Starkmacher = (props) => {
@@ -28,7 +28,7 @@ const Starkmacher = (props) => {
                         <ListGroup>
                         {starkmacherListe.map((item,key)=>
                             <LinkContainer to={item.link} style={{cursor:"pointer"}}>
-                            <ListGroup.Item key={item.key}>
+                            <ListGroup.Item action key={item.key}>
                                 <img style={{width:"100px"}} src={item.logo}/>&nbsp;
                                 <b>{item.label}</b>
                             </ListGroup.Item>
