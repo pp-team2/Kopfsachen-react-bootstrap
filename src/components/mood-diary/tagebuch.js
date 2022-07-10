@@ -1,7 +1,14 @@
-import React from 'react'
-import {Button, Container} from 'react-bootstrap'
-import './tagebuch.css'
+import React from 'react';
+import {Button, Container} from 'react-bootstrap';
+import './tagebuch.css';
 import Card from "react-bootstrap/Card";
+// import { BsEmojiExpressionless } from "react-icons/bs";
+import { FaRegSmile, FaRegGrinHearts, FaRegLaughBeam, FaRegMeh, FaRegFrown, FaRegAngry, FaRegSadCry } from "react-icons/fa";
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faFaceAngry } from '@fortawesome/free-solid-svg-icons';
+
+
+
 
 const Tagebuch = () => {
     return (
@@ -13,13 +20,13 @@ const Tagebuch = () => {
           <Card.Body>
             <div>
               <Button href="/positiv" className="button-tagebuch" variant="success" size="lg">
-                <div className="emoji">&#128513; &#129303; &#128578;</div>
+                <div className="emoji">< FaRegSmile /> <FaRegLaughBeam /> <FaRegGrinHearts /></div>
               </Button>
               <Button href="" className="button-tagebuch" variant="warning" size="lg">
-                <div className="emoji">&#128529; &#128531; &#128530;</div>
+                <div className="emoji"><FaRegMeh /></div>
               </Button>
               <Button href="" className="button-tagebuch" variant="danger" size="lg">
-                <div className="emoji">&#128545; &#128546; &#128577;</div>
+                <div className="emoji"><FaRegFrown /> <FaRegAngry /> <FaRegSadCry /></div>
               </Button>
             </div>
           </Card.Body>
