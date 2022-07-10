@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, Alert, Tab,Tabs,Container,ButtonGroup,ProgressBar , ListGroup ,InputGroup,FormControl} from 'react-bootstrap';
+import { Button, Alert, Tab,Tabs,Container,ButtonGroup,ProgressBar , ListGroup ,InputGroup,FormControl,Card} from 'react-bootstrap';
 import { useState,useRef } from 'react';
 import { useHistory } from "react-router-dom";
 import { Rate ,Space ,message,Input,Tag} from 'antd';
 import 'antd/dist/antd.css';
 import { FiArrowLeft } from "react-icons/fi";
 import {LinkContainer} from 'react-router-bootstrap'
+import { FaRegSmile, FaRegGrinHearts, FaRegLaughBeam, FaRegMeh, FaRegFrown, FaRegAngry, FaRegSadCry } from "react-icons/fa";
 
 const ALLOWED_TIME_MINUTES = 10;
 
@@ -100,19 +101,24 @@ export const  StarkmacherOptimismus = (props)=>{
 		  transition={true}
 		>
  		 <Tab eventKey="1" disabled>
-		<Space direction="vertical">
+	
 		<LinkContainer to="/neueStarkmacher"><Button variant="success"><FiArrowLeft/> Andere Starkmacher entdecken</Button></LinkContainer>
-		
-		<b>Wenn du Optimismus üben möchtest, kann dir die folgende Aufgabe helfen:</b>
+			<br/><br/>
+			<Alert>Wenn du Optimismus üben möchtest, kann dir die folgende Aufgabe helfen:</Alert>
+		<Card><Card.Body>
+	
 		<p>Lege dir mehrere Zettel für diese Übung bereit. Stell dir einen Timer auf 10 Minuten. Denke während dieser Zeit an dein bestmögliches zukünftiges Selbst und schreibe es auf einem Zettel auf. Stell dir dein Leben so vor, wie du es dir immer ausgemalt hast. Stell dir vor du hättest dein Bestes gegeben und all die Dinge erreicht, die du im Leben immer erreichen wolltest. Mache dir beim Schreiben keine Gedanken über Grammatik oder Rechtschreibung. Konzentriere dich nur darauf all deine Gedanken und Emotionen in einer lebhaften Weise auszudrücken.</p>
-		</Space>
+		
+		</Card.Body></Card><br/>
 		<Button variant="success"  onClick={handleGo}>Let`s go</Button>
 		</Tab>
 		  <Tab eventKey="2" disabled>
 		<Space direction="vertical" size="large" style={{width:"100%"}}>
 		<Button variant="secondary" onClick={handleBack}><FiArrowLeft/>Ein schritt zurück</Button>
+		<Card><Card.Body>
 		<div style={{textAlign:"center"}}><h1>{time}</h1></div>
-		<Space><b>Notizen</b><i>Klicke auf die Notiz, um diese zu löschen</i></Space>
+		
+		<Space><h2>Notizen:</h2></Space>
 		<ListGroup>
 		{notes.map((note,key)=>
 			<ListGroup.Item action key={key} onClick={()=>handleDeleteNote(key)}>
@@ -120,11 +126,14 @@ export const  StarkmacherOptimismus = (props)=>{
 			</ListGroup.Item>
 		)}
 		</ListGroup>
-		<div style={{display:"flex",width:"100%"}}>
+		<br/>
+		<div style={{display:"flex"}}>
 		
-		<Input placeholder="Notiz..." value={note} onChange={handleInputChange} onPressEnter={handleAddNote} block/>
+		<Input placeholder="Notiz..." style={{width:"auto"}} value={note} onChange={handleInputChange} onPressEnter={handleAddNote}/>
 		<Button variant="secondary" onClick={handleAddNote}>Hinzufügen</Button>
 		</div>
+		<i>Klicke auf die Notiz, um diese zu löschen</i>
+		</Card.Body></Card>
 		<Button variant="success"  onClick={(handleDone)}>Done</Button>
 		</Space>
 		</Tab>
@@ -133,9 +142,13 @@ export const  StarkmacherOptimismus = (props)=>{
 		</Tab>
 		 <Tab eventKey="4" disabled>
 			  <Space style={{width:"100%"}} direction="vertical" size="large">
-			   <div><b>Wie hat dir die Übung gefallen?</b></div>
-		    <Input placeholder="Bewertung" />
-			<p style={{textAlign:"center"}}><Rate /></p>
+			   <div style={{textAlign:"center"}}>
+			   <h1>Wie hat dir die Übung gefallen?</h1>
+	   <Button variant="success"><FaRegSmile size="60"/></Button>
+			<Button variant="danger"><FaRegFrown size="60"/></Button>
+			   </div>
+		    <Input.TextArea placeholder="Bewertung" rows={5}/>
+			
 			<Button variant="success" onClick={() => finish()}>Done</Button>
 			</Space>
 			  </Tab>
