@@ -35,7 +35,7 @@ const header = (props) => {
                 <h1 style = { titleStyle } > { props.text } </h1> 
                 <img src = { props.img }
                 alt = { props.txt }
-                width = "200px" 
+                width = {props.width}
                 style={imgStyle}
                 />
             </Container> 

@@ -81,6 +81,7 @@ const routes = [{
   color: "#eeebea",
   text: "Herzlich Willkommen!",
   img: "./logoBig.png",
+  header_width:200,
   requiresSession: false
 },
 {
@@ -114,6 +115,7 @@ const routes = [{
   color: "#eeebea",
   text: "Wiki",
   img: "./wiki.png",
+  header_width:300,
   requiresSession: false
 },
 {
@@ -224,7 +226,7 @@ const routes = [{
           routes.map((route, index) => {
             return(
               <Route key={index} exact path={route.path} >
-                <Header color={route.color} text={route.text} img={route.img}/>
+                <Header color={route.color} text={route.text} img={route.img} width={route.header_width} />
                 {
                 (route.requiresSession && !sessionActive)? <Zugriff sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView} /> : route.component
                 }
