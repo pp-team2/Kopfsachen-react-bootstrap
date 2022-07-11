@@ -17,13 +17,13 @@ function App(props) {
 
         <Stack gap={2}>
         <h1 className="center">Schön, dass du da bist!</h1>
-        <LinkContainer to="/stimmungstagebuch">
+        <LinkContainer to="/stimmungstagebuch"  style={{display: props.sessionActive ? "block" : "none"}}>
           <Button variant="outline-secondary" size="lg">
           Ab zum Stimmungstagebuch!
           </Button>
         </LinkContainer>
 
-        <Button variant="outline-secondary" size="lg">
+        <Button variant="outline-secondary" size="lg"  style={{display: props.sessionActive ? "block" : "none"}}>
         Ich möchte an meinen offenen Aufgaben weiterarbeiten
         </Button>
 
