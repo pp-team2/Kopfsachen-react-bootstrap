@@ -67,6 +67,10 @@
   margin-top: 0.55em !important;
 }
 
+.btn-negative-stimmung {
+  margin: 6em 4em 4em 4em;
+}
+
 .calendar-emojis-positive {
   font-size: 3em;
   text-align: center;

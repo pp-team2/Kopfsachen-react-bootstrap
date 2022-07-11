@@ -4,6 +4,7 @@ import Nav from './navigator'
 import Tagebuch from './mood-diary/tagebuch'
 import Positiv from './mood-diary/positive-stimmung-uebersicht'
 import Neutral from './mood-diary/neutrale-stimmung-uebersicht'
+import Negativ from './mood-diary/negative-stimmung-uebersicht'
 import Stimmungsverlauf from './mood-diary/stimmungsverlauf'
 import Header from './header'
 import Missing from './missing'
@@ -109,8 +110,7 @@ const routes = [{
   img: "./emoji-positive.png",
   requiresSession: true
 },
-
-  {
+{
   path: "/neutral",
   component: <Neutral/>,
   color: "#f3803e",
@@ -118,7 +118,14 @@ const routes = [{
   img: "./emoji-neutral.png",
   requiresSession: true
 },
-
+{
+  path: "/negativ",
+  component: <Negativ/>,
+  color: "#bb9af3",
+  text: "Stimmungstagebuch",
+  img: "./emoji-negative.png",
+  requiresSession: true
+},
 {
   path: "/stimmungsverlauf",
   component: <Stimmungsverlauf/>,
