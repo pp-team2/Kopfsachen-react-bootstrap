@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from './navigator'
 import Tagebuch from './mood-diary/tagebuch'
 import Positiv from './mood-diary/positive-stimmung-uebersicht'
+import Neutral from './mood-diary/neutrale-stimmung-uebersicht'
 import Stimmungsverlauf from './mood-diary/stimmungsverlauf'
 import Header from './header'
 import Missing from './missing'
@@ -20,6 +21,14 @@ import  Help  from './help';
 import Profil from './profil';
 import { message} from 'antd';
 import API from "./API";
+import { ConfigProvider } from 'antd';
+import deDE from 'antd/lib/locale/de_DE';
+import moment from 'moment';
+import 'moment/locale/de';
+
+moment.locale("de");
+
+
 message.config({
   top: 50
 });
@@ -97,7 +106,16 @@ const routes = [{
   component: <Positiv/>,
   color: "#fde802",
   text: "Stimmungstagebuch",
-  img: "./smiley-positive.png",
+  img: "./emoji-positive.png",
+  requiresSession: true
+},
+
+  {
+  path: "/neutral",
+  component: <Neutral/>,
+  color: "#f3803e",
+  text: "Stimmungstagebuch",
+  img: "./emoji-neutral.png",
   requiresSession: true
 },
 
@@ -208,35 +226,37 @@ const routes = [{
 }]
 
     return (
-    <Router>
-      <Nav accountKey={accountKey} sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView}/>
-      <Switch>
-        {
-          wikii.filter(a => a.id !== '').map(wikiEntry => {
-            return(
-                <Route key={wikiEntry.id} path={`/wikientry/${wikiEntry.title.replace(/\s+/g, '')}`}>
-                  <Header color="#f6efe9" text={wikiEntry.title} img=""/>
-                  <Wikientry object={wikiEntry} />
-                </Route>
-              )
-          })
-        }
+      <ConfigProvider locale={deDE}>
+        <Router>
+          <Nav accountKey={accountKey} sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView}/>
+          <Switch>
+            {
+              wikii.filter(a => a.id !== '').map(wikiEntry => {
+                return(
+                    <Route key={wikiEntry.id} path={`/wikientry/${wikiEntry.title.replace(/\s+/g, '')}`}>
+                      <Header color="#f6efe9" text={wikiEntry.title} img=""/>
+                      <Wikientry object={wikiEntry} />
+                    </Route>
+                  )
+              })
+            }
 
-        {
-          routes.map((route, index) => {
-            return(
-              <Route key={index} exact path={route.path} >
-                <Header color={route.color} text={route.text} img={route.img} width={route.header_width} />
-                {
-                (route.requiresSession && !sessionActive)? <Zugriff sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView} /> : route.component
-                }
-              </Route>
-            )
-          })
-        }
+            {
+              routes.map((route, index) => {
+                return(
+                  <Route key={index} exact path={route.path} >
+                    <Header color={route.color} text={route.text} img={route.img} width={route.header_width} />
+                    {
+                    (route.requiresSession && !sessionActive)? <Zugriff sessionActive={sessionActive} check={checkSession} expertView={expertView} setExpertView={setExpertView} /> : route.component
+                    }
+                  </Route>
+                )
+              })
+            }
 
-      </Switch>
-    </Router>
+          </Switch>
+        </Router>
+      </ConfigProvider>
     )
 }
 

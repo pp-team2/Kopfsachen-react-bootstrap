@@ -1,58 +1,57 @@
 import React from 'react';
-import {Button, Container} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import './tagebuch.css';
 import Card from "react-bootstrap/Card";
 import 'antd/dist/antd.css';
-import { Calendar, Badge } from 'antd';
-import { FaRegSmile, FaRegGrinHearts, FaRegLaughBeam, FaRegMeh, FaRegFrown, FaRegAngry, FaRegSadCry } from "react-icons/fa";
+import { Calendar } from 'antd';
+import { FaRegSmile, FaRegMeh, FaRegFrown } from "react-icons/fa";
 
 
 
 const getListData = (value) => {
   let listData;
-
-  switch (value.date()) {
-    case 1:
+  switch (value.format('MMDD')) {
+    case '0701':
       listData = [<FaRegSmile />, 'positive'];
       break;
 
-    case 2:
+    case '0702':
       listData = [<FaRegSmile />, 'positive'];
       break;
 
-    case 3:
+    case '0703':
       listData = [<FaRegSmile />, 'positive'];
       break;
 
-    case 4:
+    case '0704':
       listData = [<FaRegMeh />, 'neutral'];
       break;
 
-    case 5:
+    case '0705':
       listData = [<FaRegMeh />, 'neutral'];
       break;
 
-    case 6:
+    case '0706':
       listData = [<FaRegFrown />, 'negative'];
       break;
 
-    case 7:
+    case '0707':
       listData = [<FaRegMeh />, 'neutral'];
       break;
 
-    case 8:
+    case '0708':
       listData = [<FaRegSmile />, 'positive'];
       break;
 
-    case 9:
+    case '0709':
       listData = [<FaRegSmile />, 'positive'];
       break;
 
-    case 10:
+    case '0710':
       listData = [<FaRegSmile />, 'positive'];
       break;
 
-     case 11:
+    case '0711':
       listData = [<FaRegSmile />, 'positive'];
       break;
 
@@ -62,25 +61,13 @@ const getListData = (value) => {
   return listData || [];
 };
 
-const getMonthData = (value) => {
-  if (value.month() === 8) {
-    return 1394;
-  }
-};
+
 
 const Stimmungsverlauf = () => {
   const onPanelChange = (value, mode) => {
     console.log(value.format('YYYY-MM-DD'), mode);
   };
-  const monthCellRender = (value) => {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
-  };
+
 
   const dateCellRender = (value) => {
     const listData = getListData(value);
@@ -106,7 +93,7 @@ const Stimmungsverlauf = () => {
       <Card>
         <div className="site-calendar-demo-card center-tagebuch">
           <Calendar className="calendar-stimmungsverlauf" fullscreen={true} onPanelChange={onPanelChange}
-                    dateCellRender={dateCellRender} monthCellRender={monthCellRender}/>
+                    dateCellRender={dateCellRender} />
         </div>
       </Card>
     </Container>

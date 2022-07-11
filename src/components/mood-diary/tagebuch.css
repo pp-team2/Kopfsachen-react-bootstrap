@@ -52,6 +52,17 @@
   /*color: black !important;*/
 }
 
+.button-left-neutrale-stimmung-uebersicht {
+  margin-top: 9em;
+  margin-right: 3em;
+  width: 14em;
+}
+
+.button-right-neutrale-stimmung-uebersicht {
+  margin-top: 9em;
+  margin-left: 3em;
+}
+
 .btn-text-positive-stimmung-uebersicht {
   margin-top: 0.55em !important;
 }
