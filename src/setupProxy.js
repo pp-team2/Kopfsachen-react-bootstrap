@@ -29,4 +29,11 @@ module.exports = function(app) {
             changeOrigin: true,
         })
     );
+
+    app.use("/safetyNet",
+        createProxyMiddleware({
+            target: 'https://motivator.api.live.mindtastic.lol',
+            changeOrigin: true,
+        })
+    );
 }

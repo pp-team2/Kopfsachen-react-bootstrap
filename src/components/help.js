@@ -43,7 +43,7 @@ const Help = () => {
                         <Card.Header>
                         {entry.title}
                         </Card.Header>
-                        <div class="pdd">
+                        <div className="pdd">
                         {        
                         entry.bulletpoints.map((bullet, index) =>
                                                  <li key={index}>{bullet}</li>

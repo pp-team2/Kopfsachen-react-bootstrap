@@ -44,12 +44,14 @@ const Routes = () => {
   const [expertView, setExpertView] = useState([])
   const [sessionActive, setSessionActive] = useState(false);
   const [accountKey, setAccountKey] = useState("");
+  const [sessionToken, setSessionToken] = useState("");
 
   const checkSession = async () => {
       const jsonRes = await API.checkSession();
       const isSessionActive = !(jsonRes.hasOwnProperty("error"));
       setSessionActive(isSessionActive);
       setAccountKey(jsonRes.identity.traits.accountKey)
+      setSessionToken(jsonRes.id);
 
       console.log(jsonRes.identity.traits.accountKey)
 
@@ -77,10 +79,10 @@ useEffect(() => {
 
 useEffect(() => {
   async function fetchData() {
-    const jsonRes = await API.getUser();
+    const jsonRes = await API.getUser(sessionToken);
 
-    console.log("Test: ")
-    console.log(jsonRes)
+    console.log("Test Userdata: ");
+    console.log(jsonRes);
   }
   fetchData();
 });
@@ -201,7 +203,7 @@ const routes = [{
 },
   {
   path: "/starkmacher/sicherheitsnetz",
-  component: <SicherheitsnetzController alsStarkmacher={true} />,
+  component: <SicherheitsnetzController alsStarkmacher={true} sessionToken={sessionToken} />,
   color: "#ecf9ff",
   text: "Sicherheitsnetz",
   img: "/sicherheitsnetz.png",

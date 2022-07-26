@@ -46,10 +46,21 @@ const apiCalls = {
         return _fetchGET(baseUrl + '/wiki', true)
     },
 
-    getUser: async() => {
-        return _fetchGET(baseUrl + '/user', true)
+    getUser: async(sessionToken) => {
+        return _fetchGETWithAuthorization(baseUrl + '/user', true, sessionToken)
     },
 
+    getSafetyNet: async(sessionToken) => {
+        return _fetchGETWithAuthorization(baseUrl + '/safetyNet', true, sessionToken)
+    },
+
+    postSafetyNet: async(sessionToken, name, type, strategies) => {
+        return _fetchPOSTWithAuthorization(baseUrl + '/safetyNet', {
+            "name": name,
+            "type": type,
+            "strategies": strategies
+        }, sessionToken)
+    }
 };
 
 export default apiCalls
@@ -70,6 +81,23 @@ async function _fetchGET(path, res) {
     }
 };
 
+async function _fetchGETWithAuthorization(path, res, sessionToken) {
+    const response = await fetch(baseUrl + path, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionToken}`
+        },
+    });
+
+    if (res) {
+        const r = await response.json();
+        console.log(r)
+        return r;
+    }
+};
+
 
 async function _fetchPOST(path, bodyobj) {
     const response = await fetch(baseUrl + path, {
@@ -80,6 +108,21 @@ async function _fetchPOST(path, bodyobj) {
 
         },
         body: JSON.stringify(bodyobj)
+    });
+    const r = await response.json();
+    console.log(r)
+    return r
+};
+
+async function _fetchPOSTWithAuthorization(path, bodyobj, sessionToken) {
+    const response = await fetch(baseUrl + path, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${sessionToken}`
+        },
+        body: bodyobj
     });
     const r = await response.json();
     console.log(r)

@@ -137,13 +137,13 @@ export default class Sicherheitsnetz extends React.Component {
                     // Filter mit Änderungen übernommen von: https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg (Antwort von Robert Longson und CasperX (bearbeitet 07.01.2021))
                     let newTextElement =
                         <g>
-                             <defs>
+                            <defs>
                                 <filter x="0" y="0" width="1" height="1" id="solid">
                                 <feFlood floodColor="white" result="bg" />
-                                <feMerge>
-                                    <feMergeNode in="bg"/>
-                                    <feMergeNode in="SourceGraphic"/>
-                                </feMerge>
+                                    <feMerge>
+                                        <feMergeNode in="bg"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
                                 </filter>
                             </defs>
                             {line.text.length <= 15 &&
@@ -235,7 +235,7 @@ export default class Sicherheitsnetz extends React.Component {
                         <Row>
                             <Col>
                                 {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
-                                <svg id='svgNetzSN' width="98%" height="100%" viewBox='0 0 640 600'>
+                                <svg id='svgNetzSN' width="98%" height="100%" viewBox='0 -5 640 600'>
                                     <g id='gNetz'>
                                         <line id="svg_56" x1="481.5" x2="560.5" y1="239.5" y2="126.5"/>
                                         <line id="svg_55" x1="80" x2="159" y1="348.5" y2="235.5"/>

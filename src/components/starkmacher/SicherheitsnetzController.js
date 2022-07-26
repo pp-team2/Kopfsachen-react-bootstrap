@@ -3,7 +3,7 @@ import Sicherheitsnetz from './Sicherheitsnetz';
 import Aktiviatet from './Aktivitaet';
 import Feedback from './Feedack';
 import AktiviatetHilfe from './AktivitaetHilfe';
-import apiCalls from '../API';
+import API from '../API';
 
 export default class SicherheitsnetzController extends React.Component {
     constructor(props) {
@@ -11,12 +11,66 @@ export default class SicherheitsnetzController extends React.Component {
 
         let activities = [{id: 0, text: '', picture: '', placeID: '', strategies: [''],
         feedback: [{timestamp: '', comment: '', itHelped: false}]}];
-        let lastID = 0;
+        //let lastID = 0;
+
+        // Aktuelle Antwort (26.07.2022 - 12:30 Uhr): 404 (Not Found)
+        // Wird aber so auch noch nicht funktionieren, weil die Anfrage asnychron verläuft. Wir brauche aber eine synchrone Anfrage bzw. äquivalente Lösungen
+        async function fetchDataGET() {
+            const jsonRes = await API.getSafetyNet(props.sessionToken);
+
+            console.log("Test GET Sicherheitsnetz: ");
+            console.log(jsonRes);
+            
+            if (jsonRes) {
+                // Transformiert die Daten in das Format welches hier verwendet wird
+                jsonRes.forEach(line => {
+                    // Die Symboltypen in die source-Adresse übersetzen
+                    let imgSrc;
+                    switch (line.type) {
+                        case 'friends':
+                            imgSrc = "/personen.png";
+                            break;
+                        case 'sport':
+                            imgSrc = "/kreativ.png";
+                            break;
+                        case 'pet':
+                            imgSrc = "/tier.png";
+                            break;
+                        case 'music':
+                            imgSrc = "/kreativ.png";
+                            break;
+                        case 'personality':
+                            imgSrc = "/personen.png";
+                            break;
+                        case 'situationControl':
+                            imgSrc = "/personen.png";
+                            break;
+                        case 'relaxation':
+                            imgSrc = "/kreativ.png";
+                            break;
+                        case 'other':
+                            imgSrc = "/sonstiges.png";
+                            break;
+                        default:
+                            imgSrc = "/sonstiges.png";
+                    }
+        
+                    activities.push({id: line.id, text: line.name, picture: imgSrc, placeID: 'svg_'+line.id, strategies: line.strategies, feedback: line.feedback});
+                    //lastID = activities[activities.length-1].id; 
+            });
+            }
+            
+        }
+        fetchDataGET();
 
         // Lädt die abgespeicherten Aktivitäten (synchron)
-        let xhr = new XMLHttpRequest();
+        /* let xhr = new XMLHttpRequest();
         //http://127.0.0.1:4010/safetyNet
-        xhr.open("GET",'http://127.0.0.1:4010/safetyNet', false);
+        console.log(props.sessionToken);
+        xhr.open("GET",'https://motivator.api.live.mindtastic.lol/safetyNet', false);
+        xhr.setRequestHeader('Access-Control-Allow-Origin','*');
+        xhr.setRequestHeader('Authorization',`Bearer ${props.sessionToken}`);
+        xhr.setRequestHeader('RequestMode', 'no-cors');
         xhr.send();
         let data = JSON.parse(xhr.responseText);
 
@@ -54,8 +108,8 @@ export default class SicherheitsnetzController extends React.Component {
             }
 
             activities.push({id: lastID+1, text: line.name, picture: imgSrc, placeID: 'svg_'+(lastID+1), strategies: line.strategies, feedback: line.feedback});
-            lastID = activities[activities.length-1].id;
-        });
+            lastID = activities[activities.length-1].id; 
+        });*/
  
         // Wie das Sicherheitsnetz geladen wurde (Zum ersten Mal beim Öffnen der App oder als Starkmacher)
         let alsStarkmacher = this.props.alsStarkmacher;
@@ -71,26 +125,21 @@ export default class SicherheitsnetzController extends React.Component {
         this.commentActivity = this.commentActivity.bind(this);
         this.addStrategy = this.addStrategy.bind(this);
         this.deleteActivity = this.deleteActivity.bind(this);
+        this.postActivity = this.postActivity.bind(this);
     }
 
+    // Aktuelle Antwort (26.07.2022 - 12:30 Uhr): 500 (Internal Server Error)
     // Sendet eine Aktivität an die API
     postActivity(activity) {
         console.log(activity);
-        //this.postActivity(this.transformActivitiy(this.state.activities.filter(line => line.id === +id)[0]));
-        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-        fetch('http://127.0.0.1:4010/safetyNet/172', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(activity),
-        })
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+        
+        let sessionToken = this.props.sessionToken;
+        async function fetchDataPOST(name, type, strategies) {
+            let test = await API.postSafetyNet(sessionToken, name, type, strategies);
+            console.log("Test POST Sicherheitsnetz: ");
+            console.log(test);
+        }
+        fetchDataPOST(activity.name, activity.type, activity.strategies);
     }
 
     // Transformiert das Format der Aktivitätsobjekte in das Format für die API
@@ -99,19 +148,13 @@ export default class SicherheitsnetzController extends React.Component {
         let type;
         switch (activity.picture) {
             case '/personen.png':
-                type = "friends";
+                type = "people";
                 break;
             case '/kreativ.png':
-                type = "sport";
+                type = "activities";
                 break;
             case '/tier.png':
-                type = "pet";
-                break;
-            case '/kreativ.png':
-                type = "music";
-                break;
-            case '/personen.png':
-                type = "personality";
+                type = "pets";
                 break;
             case '/situationskontrolle.png':
                 type = "situationControl";
@@ -122,12 +165,13 @@ export default class SicherheitsnetzController extends React.Component {
             case '/sonstiges.png':
                 type = "other";
                 break;
+            // TODO: Es fehlt noch der Typ personalStrengths! 
             default:
                 type = "other";
         }
         let strategies = activity.strategies;
         let feedback = activity.feedback;
-        return {name: name, type: type, strategies: strategies, feedback, feedback};
+        return {name: name, type: type, strategies: strategies, feedback: feedback};
     }
 
     saveActivity(text, picture, placeID) {

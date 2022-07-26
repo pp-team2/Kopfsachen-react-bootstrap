@@ -27,7 +27,7 @@ const Starkmacher = (props) => {
                 </Card.Text>
                         <ListGroup>
                         {starkmacherListe.map((item,key)=>
-                            <LinkContainer to={item.link} style={{cursor:"pointer"}}>
+                            <LinkContainer key={key} to={item.link} style={{cursor:"pointer"}}>
                             <ListGroup.Item action key={item.key}>
                                 <img style={{width:"100px"}} src={item.logo}/>&nbsp;
                                 <b>{item.label}</b>
