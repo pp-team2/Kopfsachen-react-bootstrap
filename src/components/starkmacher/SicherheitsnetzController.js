@@ -126,6 +126,7 @@ export default class SicherheitsnetzController extends React.Component {
         this.addStrategy = this.addStrategy.bind(this);
         this.deleteActivity = this.deleteActivity.bind(this);
         this.postActivity = this.postActivity.bind(this);
+        this.deleteActivityAPI = this.deleteActivityAPI.bind(this);
     }
 
     // Aktuelle Antwort (26.07.2022 - 12:30 Uhr): 500 (Internal Server Error)
@@ -140,6 +141,18 @@ export default class SicherheitsnetzController extends React.Component {
             console.log(test);
         }
         fetchDataPOST(activity.name, activity.type, activity.strategies);
+    }
+
+    // Sendet DELETE Anfrage an den Server damit die Aktivität gelöscht wird im Backend
+    deleteActivityAPI(id) {
+        console.log("Zu löschende ID: " + id);
+
+        async function fetchDELETE() {
+            let answer = await API.deleteSafetyNet(sessionToken, id);
+            console.log("DELETE Activity in Sicherheitsnetz: ");
+            console.log(answer);
+        }
+        fetchDELETE();
     }
 
     // Transformiert das Format der Aktivitätsobjekte in das Format für die API
@@ -210,6 +223,8 @@ export default class SicherheitsnetzController extends React.Component {
         let activities = this.state.activities;
         activities = activities.filter(line => line.id !== +id);
         this.setState({activities: activities});
+
+        this.deleteActivityAPI(id);
     }
 
     addNewActivity(id) {
