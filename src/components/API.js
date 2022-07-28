@@ -60,7 +60,12 @@ const apiCalls = {
             "type": type,
             "strategies": strategies
         }, sessionToken)
+    },
+
+    deleteSafetyNet: async(sessionToken, id) => {
+        return _fetchDELETEWithAuthorization(baseUrl + '/safetyNet/' + id, true, sessionToken)
     }
+      
 };
 
 export default apiCalls
@@ -127,4 +132,21 @@ async function _fetchPOSTWithAuthorization(path, bodyobj, sessionToken) {
     const r = await response.json();
     console.log(r)
     return r
+};
+
+async function _fetchDELETEWithAuthorization(path, res, sessionToken) {
+    const response = await fetch(baseUrl + path, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionToken}`
+        },
+    });
+
+    if (res) {
+        const r = await response.json();
+        console.log(r)
+        return r;
+    }
 };
