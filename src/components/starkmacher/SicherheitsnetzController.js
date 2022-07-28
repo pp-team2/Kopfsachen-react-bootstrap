@@ -127,6 +127,7 @@ export default class SicherheitsnetzController extends React.Component {
         this.deleteActivity = this.deleteActivity.bind(this);
         this.postActivity = this.postActivity.bind(this);
         this.deleteActivityAPI = this.deleteActivityAPI.bind(this);
+        this.replaceActivityAPI = this.replaceActivityAPI.bind(this);
     }
 
     // Aktuelle Antwort (26.07.2022 - 12:30 Uhr): 500 (Internal Server Error)
@@ -143,16 +144,32 @@ export default class SicherheitsnetzController extends React.Component {
         fetchDataPOST(activity.name, activity.type, activity.strategies);
     }
 
-    // Sendet DELETE Anfrage an den Server damit die Aktivität gelöscht wird im Backend
+    // Sendet DELETE Anfrage an den Server damit die Aktivität gelöscht wird
     deleteActivityAPI(id) {
         console.log("Zu löschende ID: " + id);
 
+        let sessionToken = this.props.sessionToken;
         async function fetchDELETE() {
             let answer = await API.deleteSafetyNet(sessionToken, id);
             console.log("DELETE Activity in Sicherheitsnetz: ");
             console.log(answer);
+            // TODO: Antwort überprüfen
         }
         fetchDELETE();
+    }
+
+    // Sendet PUT Anfrage an den Server damit Strategien zu der Aktivtität hinzugefügt werden
+    replaceActivityAPI(id, activity) {
+        console.log("Zu ändernde ID: " + id);
+
+        let sessionToken = this.props.sessionToken
+        async function fetchPUT() {
+            let answer = await API.replaceSafetyNet(sessionToken, id, activity.name, activity.type, activity.strategies);
+            console.log("PUT Activity in Sicherheitsnetz: ");
+            console.log(answer);
+            // TODO: Antwort überprüfen
+        }
+        fetchPUT();
     }
 
     // Transformiert das Format der Aktivitätsobjekte in das Format für die API
@@ -201,6 +218,7 @@ export default class SicherheitsnetzController extends React.Component {
 
     addStrategy(id, comments) {
         let activities = this.state.activities;
+        let activity;
 
         activities = activities.map(line => {
         // Suche nach der richtigen ID
@@ -209,11 +227,16 @@ export default class SicherheitsnetzController extends React.Component {
             let newOldStrategies = line.strategies;
             comments.forEach(line => newOldStrategies.push(line));
             line.strategies = newOldStrategies;
+
+            // Speichere die Aktivität für die API-Anfrage
+            activity = this.transformActivitiy(line);
          }   
          return line;
         });
 
         this.setState({activities: activities});
+
+        this.replaceActivityAPI(id, activity);
 
         this.selectNewActivity();
     }
