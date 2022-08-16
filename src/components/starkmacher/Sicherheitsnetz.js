@@ -269,29 +269,29 @@ export default class Sicherheitsnetz extends React.Component {
                                         <line id="svg_27" x1="448" x2="487" y1="54.5" y2="243.5"/>
                                         <line id="svg_26" x1="488" x2="458" y1="236" y2="426"/>
                                         <line id="svg_25" x1="183" x2="153" y1="58.5" y2="248.5"/>
-                                        <line id="svg_24" transform="matrix(1 0 0 1 0 0)" x1="79.5" x2="560.5" y1="239.25" y2="240.75"/>
+                                        <line id="svg_24" x1="79.5" x2="560.5" y1="239.25" y2="240.75"/>
                                         <line id="svg_23" x1="81" x2="562" y1="137" y2="138.5"/>
                                         <line id="svg_19" x1="319" x2="319" y1="50" y2="440.5"/>
-                                        <line id="svg_20" x1="59.999999" x2="576.000009" y1="346" y2="348.5"/>
+                                        <line id="svg_20" x1="60" x2="576" y1="346" y2="348.5"/>
 
-                                        <circle cx="318" cy="47" id="svg_3" r="43.46263" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="318" cy="144" id="svg_4" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="265" cy="241" id="svg_1" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="318" cy="338" id="svg_2" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
+                                        <circle cx="318" cy="47" id="svg_3" r="43.46263" />
+                                        <circle cx="318" cy="144" id="svg_4" r="43.462631" />
+                                        <circle cx="265" cy="241" id="svg_1" r="43.462631" />
+                                        <circle cx="318" cy="338" id="svg_2" r="43.462631" />
                                         <circle cx="318" cy="435" id="svg_5" r="43.462631" />
-                                        <circle cx="48" cy="241" id="svg_6" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="593" cy="241" id="svg_7" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
+                                        <circle cx="48" cy="241" id="svg_6" r="43.462631" />
+                                        <circle cx="593" cy="241" id="svg_7" r="43.462631" />
                                         <circle cx="157" cy="241" id="svg_8" r="43.462631" />
-                                        <circle cx="484" cy="241" id="svg_9" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="84" cy="134" id="svg_10" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="184" cy="60" id="svg_11" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="452" cy="60" id="svg_12" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="552" cy="134" id="svg_13" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="184" cy="422" id="svg_14" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="84" cy="348" id="svg_15" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
-                                        <circle cx="452" cy="422" id="svg_16" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
+                                        <circle cx="484" cy="241" id="svg_9" r="43.462631" />
+                                        <circle cx="84" cy="134" id="svg_10" r="43.462631" />
+                                        <circle cx="184" cy="60" id="svg_11" r="43.462631" />
+                                        <circle cx="452" cy="60" id="svg_12" r="43.462631" />
+                                        <circle cx="552" cy="134" id="svg_13" r="43.462631" />
+                                        <circle cx="184" cy="422" id="svg_14" r="43.462631" />
+                                        <circle cx="84" cy="348" id="svg_15" r="43.462631" />
+                                        <circle cx="452" cy="422" id="svg_16" r="43.462631" />
                                         <circle cx="552" cy="348" id="svg_17" r="43.462631" />
-                                        <circle cx="375" cy="241" id="svg_18" r="43.462631" transform="matrix(1 0 0 1 0 0)"/>
+                                        <circle cx="375" cy="241" id="svg_18" r="43.462631" />
                                     </g>
                                     <g>
                                         { images }
