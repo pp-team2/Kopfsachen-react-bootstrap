@@ -19,7 +19,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
             {textAufgabe: 'Aufräumen', textLaenge: '', textPuffer: '', markiert: false},
             {textAufgabe: 'Wäsche waschen', textLaenge: '', textPuffer: '', markiert: false},
             {textAufgabe: 'Hausaufgaben machen', textLaenge: '', textPuffer: '', markiert: false}],
-            time: {}, seconds: 900, screen: 8};
+            time: {}, seconds: 10, timerStop: false, btnTimerSwitch: false, screen: 8};
         this.timer = 0;
 
         this.textChange = this.textChange.bind(this);
@@ -30,6 +30,12 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         this.countDown = this.countDown.bind(this);
         this.aufgabenPriorisiert = this.aufgabenPriorisiert.bind(this);
         this.erinnerungSetzen = this.erinnerungSetzen.bind(this);
+        this.starkmacherGestartet = this.starkmacherGestartet.bind(this);
+    }
+
+    // Ersten Info-Text gelesen
+    starkmacherGestartet() {
+        this.setState({screen: 9});
     }
 
     textChange(elem) {
@@ -79,7 +85,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         this.props.setErinnerung();
     }
 
-    // https://stackoverflow.com/questions/40885923/countdown-timer-in-react (Fabian Schultz und Brynner Ferreira)
+    // https://stackoverflow.com/questions/40885923/countdown-timer-in-react (Fabian Schultz (30.11.2016) und Brynner Ferreira (21.09.2018))
     componentDidMount() {
         let timeLeftVar = this.secondsToTime(this.state.seconds);
         this.setState({time: timeLeftVar});
@@ -92,6 +98,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         let minutes = Math.floor(divisor_for_minutes / 60);
         let divisor_for_seconds = divisor_for_minutes % 60;
         let seconds = Math.ceil(divisor_for_seconds);
+        if (seconds < 10) {seconds = "0" + seconds;}
         let obj = {
             "h": hours,
             "m": minutes,
@@ -101,19 +108,41 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
     }
 
     // Startet den Timer
-    startTimer() {
-        if (this.timer == 0 && this.state.seconds > 0) {
+    startTimer(elem) {
+        // Wenn der Timer zum ersten Mal gestartet wird
+        if (this.timer === 0 && this.state.seconds > 0 && this.state.btnTimerSwitch === false) {
+            this.setState({btnTimerSwitch: true});
             this.timer = setInterval(this.countDown, 1000);
+            elem.target.innerHTML = "Timer stoppen";
+            document.getElementById('timerStartBtn').className = 'btn btn-danger';
+            
+        // Wenn der Timer wieder gestartet wird
+        } else if (this.state.seconds > 0 && this.state.btnTimerSwitch === false) {
+            this.setState({timerStop: false, btnTimerSwitch: true});
+            elem.target.innerHTML = "Timer stoppen";
+            document.getElementById('timerStartBtn').className = 'btn btn-danger';
+        }
+
+        // Wenn der Timer gestoppt wird
+        if (this.state.btnTimerSwitch === true) {
+            this.setState({timerStop: true, btnTimerSwitch: false});
+            elem.target.innerHTML = "Timer fortsetzen";
+            document.getElementById('timerStartBtn').className = 'btn btn-primary';
         }
     }
 
     // Zählt jede Sekunden runter, bis der Timer bei 0 angekommen ist
     countDown() {
+        // Stoppt den Timer wenn timerStop true ist
+        if (this.state.timerStop) {
+            return;
+        }
         let seconds = this.state.seconds - 1;
         this.setState({time: this.secondsToTime(seconds), seconds: seconds});
         if (seconds == 0) {
             clearInterval(this.timer);
         }
+        
     }
 
     render() {
@@ -138,7 +167,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                     <p><span className="alpenHighlight">N</span> achkontrolle</p>
                 </Row>
                 <Row>
-                    <Button>Let's go!</Button>
+                    <Button onClick={this.starkmacherGestartet}>Let's go!</Button>
                 </Row>
             </Container>
 
@@ -147,7 +176,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                     <Row>
                         <Col sm="8" >
                                 <p>Stell dir einen Timer auf 15 Minuten.</p>
-                                <Button onClick={this.startTimer}>Timer starten</Button> <span>{this.state.time.m}:{this.state.time.s}</span>
+                                <Button id="timerStartBtn" onClick={this.startTimer}>Timer starten</Button> <span>{this.state.time.m}:{this.state.time.s}</span>
                                 <br /><br />
                                 <p>Die folgenden Schritte durchläufst du für jede Aufgabe, die du zu tun hast.</p>
                                 <br />
