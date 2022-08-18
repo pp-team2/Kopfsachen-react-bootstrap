@@ -57,10 +57,10 @@ export default class SicherheitsnetzController extends React.Component {
         
                     activities.push({id: line.id, text: line.name, picture: imgSrc, placeID: 'svg_'+line.id, strategies: line.strategies, feedback: line.feedback});
                     //lastID = activities[activities.length-1].id; 
-            });
+                });
             }
-            
         }
+
         fetchDataGET();
 
         // Lädt die abgespeicherten Aktivitäten (synchron)
@@ -131,6 +131,7 @@ export default class SicherheitsnetzController extends React.Component {
     }
 
     // Aktuelle Antwort (26.07.2022 - 12:30 Uhr): 500 (Internal Server Error)
+    // TypeError: Cannot read properties of undefined (reading 'status')
     // Sendet eine Aktivität an die API
     postActivity(activity) {
         console.log(activity);
@@ -162,7 +163,7 @@ export default class SicherheitsnetzController extends React.Component {
     replaceActivityAPI(id, activity) {
         console.log("Zu ändernde ID: " + id);
 
-        let sessionToken = this.props.sessionToken
+        let sessionToken = this.props.sessionToken;
         async function fetchPUT() {
             let answer = await API.replaceSafetyNet(sessionToken, id, activity.name, activity.type, activity.strategies);
             console.log("PUT Activity in Sicherheitsnetz: ");

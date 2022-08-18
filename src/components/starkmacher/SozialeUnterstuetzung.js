@@ -30,6 +30,7 @@ export default class SozialeUnterstuetzung extends React.Component {
         this.clearPicturesInState = this.clearPicturesInState.bind(this);
         this.setCircleIDOnly = this.setCircleIDOnly.bind(this);
         this.setCheckedState = this.setCheckedState.bind(this);
+        this.uebungBeenden = this.uebungBeenden.bind(this);
     }
 
     componentDidMount() {
@@ -320,6 +321,11 @@ export default class SozialeUnterstuetzung extends React.Component {
         document.body.click();
     }
 
+    uebungBeenden() {
+        let beenden = this.props.uebungBeenden;
+        beenden();
+    }
+
     render() {
         let clickCircle = this.clickCircle;
         let level = this.props.level;
@@ -460,14 +466,14 @@ export default class SozialeUnterstuetzung extends React.Component {
 
         let circlesArray = [<circle className='addPerson kreis1' cx="280" cy="164" id="svg_6" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis1' cx="331" cy="152" id="svg_7" r="22.472204" onClick={clickCircle} />,
-        <circle className='addPerson kreis1' cx="396" cy="226" id="svg_8" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis1' cx="358" cy="313" id="svg_9" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis1' cx="309" cy="322" id="svg_10" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis1' cx="261" cy="301" id="svg_11" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
+        <circle className='addPerson kreis1' cx="396" cy="226" id="svg_8" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis1' cx="358" cy="313" id="svg_9" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis1' cx="309" cy="322" id="svg_10" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis1' cx="261" cy="301" id="svg_11" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis1' cx="243" cy="200" id="svg_12" r="22.472204" onClick={clickCircle} />,
-        <circle className='addPerson kreis1' cx="233" cy="253" id="svg_13" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis1' cx="393" cy="276" id="svg_14" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis1' cx="379" cy="177" id="svg_15" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
+        <circle className='addPerson kreis1' cx="233" cy="253" id="svg_13" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis1' cx="393" cy="276" id="svg_14" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis1' cx="379" cy="177" id="svg_15" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis2' cx="246" cy="114" id="svg_18" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis2' cx="309" cy="96" id="svg_17" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis2' cx="191" cy="163" id="svg_16" r="22.472204" onClick={clickCircle} />,
@@ -476,14 +482,14 @@ export default class SozialeUnterstuetzung extends React.Component {
         <circle className='addPerson kreis2' cx="220" cy="350" id="svg_21" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis2' cx="284" cy="388" id="svg_22" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis2' cx="356" cy="385" id="svg_23" r="22.472204" onClick={clickCircle} />,
-        <circle className='addPerson kreis2' cx="411" cy="357" id="svg_24" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis2' cx="454" cy="292" id="svg_25" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis2' cx="463" cy="220" id="svg_26" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
+        <circle className='addPerson kreis2' cx="411" cy="357" id="svg_24" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis2' cx="454" cy="292" id="svg_25" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis2' cx="463" cy="220" id="svg_26" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis2' cx="378" cy="109" id="svg_27" r="22.472204" onClick={clickCircle} />,
-        <circle className='addPerson kreis2' cx="433" cy="150" id="svg_28" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis3' cx="210" cy="64" id="svg_32" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis3' cx="312" cy="38" id="svg_31" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
-        <circle className='addPerson kreis3' cx="146" cy="132" id="svg_30" r="22.472204" onClick={clickCircle} transform="matrix(1 0 0 1 0 0)"/>,
+        <circle className='addPerson kreis2' cx="433" cy="150" id="svg_28" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis3' cx="210" cy="64" id="svg_32" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis3' cx="312" cy="38" id="svg_31" r="22.472204" onClick={clickCircle} />,
+        <circle className='addPerson kreis3' cx="146" cy="132" id="svg_30" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis3' cx="114" cy="220" id="svg_29" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis3' cx="126" cy="311" id="svg_33" r="22.472204" onClick={clickCircle} />,
         <circle className='addPerson kreis3' cx="169" cy="381" id="svg_34" r="22.472204" onClick={clickCircle} />,
@@ -519,14 +525,14 @@ export default class SozialeUnterstuetzung extends React.Component {
 
                     <Card>
                         <Card.Body>
-                            <LinkContainer to='/home'><Button id="uebungBeenden">Fertig! <br />(Übung beenden)</Button></LinkContainer>
+                            <LinkContainer to='/home'><Button id="uebungBeenden" onClick={this.uebungBeenden}>Fertig! <br />(Übung beenden)</Button></LinkContainer>
                             <Button id="printButton" variant="secondary" onClick={this.openPrintDialog} onMouseEnter={this.mouseEnterPrintButton}>Drucken / als PDF speichern</Button>
                             {/* <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit--> */}
                             <svg id='svgNetzSU' width="100%" height="100%" viewBox='0 0 600 600'>
                                 <g id='gNetz' className="layer">
-                                    <ellipse id="kreis3" cx="316" cy="240.000007" fill="#7F49C3" rx="230" ry="230" transform="matrix(1 0 0 1 0 0)"/>
+                                    <ellipse id="kreis3" cx="316" cy="240.000007" fill="#7F49C3" rx="230" ry="230"  />
                                     <ellipse id="kreis2" cx="316" cy="240.500004" display="inline" fill="#F2C8D0" rx="175" ry="175" />
-                                    <ellipse id="kreis1" cx="316" cy="241.999996" fill="#F3903E" rx="120" ry="120" transform="matrix(1 0 0 1 0 0)"/>
+                                    <ellipse id="kreis1" cx="316" cy="241.999996" fill="#F3903E" rx="120" ry="120"  />
                                     <circle id="kreis0" cx="316" cy="236.5" fill="#FDE802" r="40" />
                                     <text id="textICH" fill="#000000" fontFamily="serif" fontSize="24" fontWeight="bold" stroke="#000000" strokeWidth="0" textAnchor="middle" x="316" y="243.5">ICH</text>
                                 </g>
