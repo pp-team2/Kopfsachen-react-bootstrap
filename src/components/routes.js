@@ -179,7 +179,7 @@ const routes = [{
 },
 {
   path: "/starkmacher/SozialeUnterstuetzungLvl1",
-  component: <SozialeUnterstuetzungController level={1} />,
+  component: <SozialeUnterstuetzungController level={1} sessionToken={sessionToken} />,
   color: "#f3803e",
   text: "Soziale Unterstützung",
   img: "/sozialeUnterstuetzungLvl1.png",
@@ -187,7 +187,7 @@ const routes = [{
 },
 {
   path: "/starkmacher/SozialeUnterstuetzungLvl2",
-  component: <SozialeUnterstuetzungController level={2} />,
+  component: <SozialeUnterstuetzungController level={2} sessionToken={sessionToken} />,
   color: "#f3803e",
   text: "Soziale Unterstützung",
   img: "/sozialeUnterstuetzungLvl2.png",
@@ -195,7 +195,7 @@ const routes = [{
 },
 {
   path: "/starkmacher/SozialeUnterstuetzungLvl3",
-  component: <SozialeUnterstuetzungController level={3} />,
+  component: <SozialeUnterstuetzungController level={3} sessionToken={sessionToken} />,
   color: "#f3803e",
   text: "Soziale Unterstützung",
   img: "/sozialeUnterstuetzungLvl3.png",

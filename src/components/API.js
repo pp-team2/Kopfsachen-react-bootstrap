@@ -72,6 +72,17 @@ const apiCalls = {
             "type": type,
             "strategies": strategies
         }, sessionToken)
+    },
+
+    getMotivator: async(sessionToken) => {
+        return _fetchGETWithAuthorization(baseUrl + '/motivator', true, sessionToken)
+    },
+
+    postMotivatorResult: async(motivatorId, sessionToken, timestamp, values) => {
+        return _fetchPOSTWithAuthorization(baseUrl + '/motivator/' + motivatorId + '/result', {
+            "timestamp": timestamp,
+            "values": values
+        }, sessionToken)
     }
 
 };
