@@ -1,5 +1,6 @@
 span.alpenHighlight {
     color: #53C991;
+    font-weight: bold;
 }
 
 ul {
@@ -17,4 +18,8 @@ p.listHeader {
 
 .nachkontrolleScreen {
     margin: 20px;
+}
+
+#deleteActivity {
+    margin-left: 10px;
 }
