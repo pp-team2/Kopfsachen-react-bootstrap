@@ -21,7 +21,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
             {id: 1, textAufgabe: 'Aufräumen', laenge: '60 Minuten', puffer: '20 Minuten und 0 Sekunden', markiert: false},
             {id: 2, textAufgabe: 'Wäsche waschen', laenge: '30 Minuten', puffer: '10 Minuten und 0 Sekunden', markiert: false},
             {id: 3, textAufgabe: 'Hausaufgaben machen', laenge: '45 Minuten', puffer: '15 Minuten und 0 Sekunden', markiert: false}],
-            time: {}, seconds: 900, timerStop: false, btnTimerSwitch: false, screen: 8};
+            time: {}, seconds: 900, timerStop: false, btnTimerSwitch: false, screen: 9};
         this.timer = 0;
 
         this.textChange = this.textChange.bind(this);
@@ -35,6 +35,8 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         this.starkmacherGestartet = this.starkmacherGestartet.bind(this);
         this.lengthChange = this.lengthChange.bind(this);
         this.deleteActivity = this.deleteActivity.bind(this);
+        this.buttonUp = this.buttonUp.bind(this);
+        this.buttonDown = this.buttonDown.bind(this);
     }
 
     // Ersten Info-Text gelesen
@@ -45,18 +47,25 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
     textChange(elem) {
         // Setze den Text im entsprechenden State wenn der Wert sich geändert hat in einem Textfeld
         let value = elem.target.value;
+        if (value.length > 0) {
+            document.getElementById('addActivity').classList.remove('disabled');
+        } else {
+            document.getElementById('addActivity').classList.add('disabled');
+        }
         switch(elem.target.getAttribute("id")) {
             case "textAufgabeInput":
                 this.setState({textAufgabe: value});
                 break;
-            case "laengeInput":
+            /* case "laengeInput":
                 this.setState({laenge: value});
                 break;
             case "pufferInput":
                 this.setState({puffer: value});
-                break;
+                break; */
             default: alert("Fehler beim Setzen des Textes! Bitte wiederholen");
         }
+
+
     }
 
     // Fügt eine neue Aufgabe hinzu
@@ -175,6 +184,36 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         this.setState({texte: texte});
     }
 
+    // Tauscht eine Aufgabe mit einer oberen (Priorität wird gesteigert)
+    buttonUp(elem) {
+        let index = elem.target.classList[0];
+        if (index <= 1) {
+            return;
+        }
+        let texte = this.state.texte;
+
+        let temp = texte[index];
+        texte[index] = texte[index-1];
+        texte[index-1] = temp;
+
+        this.setState({texte: texte});
+    }
+
+    // Tauscht eine Aufgabe mit einer unteren (Priorität wird verringert)
+    buttonDown(elem) {
+        let index = elem.target.classList[0];
+        let texte = this.state.texte;
+        if (index >= texte.length-1) {
+            return;
+        }
+
+        let temp = texte[index];
+        texte[index] = texte[parseInt(index)+1];
+        texte[parseInt(index)+1] = temp;
+
+        this.setState({texte: texte});
+    }
+
     render() {
         let screen8 = 
             <Container>
@@ -217,7 +256,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                                     <li>b. Was ist wichtig, was eher unwichtig?</li>
                                 </ul>
                                 <FormControl value={this.state.textAufgabe} onChange={this.textChange} id="textAufgabeInput"
-                                placeholder='...' className="textEingabe" />
+                                placeholder='Z.B. Hausaufgaben machen, Aufräumen, ...' className="textEingabe" />
                                 <br />
                             </div>
                             <br />
@@ -228,9 +267,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                                     <li>b. Wann muss ich fertig sein?</li>
                                 </ul>
                                 <Form.Range onChange={this.lengthChange} min="0" max="120" step="1" id="laengeInput" />
-                                <p>{this.state.laenge} Minuten. Das sind ungefähr {this.state.laengeInStunden} Stunden</p>
-                                {/* <FormControl value={this.state.laenge} onChange={this.textChange} id="laengeInput"
-                                placeholder='...' className="textEingabe" /> */}
+                                <p id="zeitanzeigeLaenge">{this.state.laenge} Minuten. Das sind ungefähr {this.state.laengeInStunden} Stunden</p>
                                 <br />
                             </div>
                             <br />
@@ -240,8 +277,6 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                                     <li>a. Faustregel: Etwa 1/3 des geschätzten Zeitaufwandes als Reserve einplanen.</li>
                                 </ul>
                                 <p>{this.state.puffer}</p>
-                                {/* <FormControl value={this.state.puffer} onChange={this.textChange} id="pufferInput"
-                                placeholder='...' className="textEingabe" /> */}
                                 <br />
                             </div>
                         </Col>
@@ -279,10 +314,10 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                     </Row>
                     <Row>
                         <Col>
-                            <Button onClick={this.addText}>Aufgabe hinzufügen</Button>
+                            <Button onClick={this.addText} className="disabled" id="addActivity">Aufgabe hinzufügen</Button>
                         </Col>
                         <Col>
-                            <Button onClick={this.aufgabenEingabeBeendet}>Das sind alle Aufgaben</Button>
+                            <Button onClick={this.aufgabenEingabeBeendet} id="aufgabenEingabeBeendet" variant="success">Das sind alle Aufgaben</Button>
                         </Col>
                     </Row>
             </Container>
@@ -292,21 +327,44 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                         <Row>
                             <Col>
                                 <p>Jetzt geht es darum die Aufgaben nach der Wichtigkeit zu sortieren.</p>
-                                <p>Du kannst die Aufgaben einfach in die gewünschte Reihenfolge verschieben.</p>
+                                <p>Drücke auf die Knöpfe um die Aufgaben zu verschieben.</p>
                                 <p className="listHeader"><span className="alpenHighlight">E</span> ntscheidungen treffen:</p>
                                 <ul>
                                     <li>a. Das Wichtigste zuerst</li>
                                     <li>b. Es ist okay, wenn du nicht alles schaffst!</li>
                                 </ul>
-                                <ListGroup>
+                                <ListGroup id="list">
                                     {this.state.texte.map((line, index) => {
                                          if (line.textAufgabe !== '') {
-                                            return <ListGroup.Item key={index}>{line.textAufgabe}</ListGroup.Item>
+                                            let popover2 = (
+                                                <Popover>
+                                                    <Popover.Header>
+                                                        {line.textAufgabe}
+                                                        <OverlayTrigger placement='top' overlay={<Tooltip>Löschen</Tooltip>}>
+                                                            <Button onClick={this.deleteActivity} variant="danger" id="deleteActivity" className={line.id}>X</Button>
+                                                        </OverlayTrigger>
+                                                    </Popover.Header>
+                                                    <Popover.Body>
+                                                        <p className="listHeader"><u>Länge</u></p>
+                                                        <p>{line.laenge}</p>
+                                                        <p className="listHeader"><u>Pufferzeit</u></p>
+                                                        <p>{line.puffer}</p>
+                                                    </Popover.Body>
+                                                </Popover>
+                                            )
+                                            return <ListGroup.Item key={index}>
+                                                        {line.textAufgabe}
+                                                        <Button variant="secondary" id="btnUp" className={index + " up"} onClick={this.buttonUp}>^</Button>
+                                                        <Button variant="secondary" id="btnDown" className={index + " down"} onClick={this.buttonDown}>v</Button>
+                                                        <OverlayTrigger key={index} trigger="click" overlay={popover2} rootClose>
+                                                            <Button id="btnInfo">i</Button>
+                                                        </OverlayTrigger>
+                                                    </ListGroup.Item>
                                          }
                                         })
                                     }
                                 </ListGroup>
-                                <Button onClick={this.aufgabenPriorisiert}>Meine Aufgaben sind priorisiert</Button>
+                                <Button id="btnAufgabenPriorisiert" onClick={this.aufgabenPriorisiert} variant="success">Meine Aufgaben sind priorisiert</Button>
                             </Col>
                         </Row>
                     </Container>

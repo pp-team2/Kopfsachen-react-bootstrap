@@ -11,9 +11,8 @@ p.listHeader {
     margin-bottom: 0px;
 }
 
-#textAufgabeInput, #textLaengeInput, #textPufferInput {
-    width: 80%;
-    margin: auto;
+#textAufgabeInput, #laengeInput {
+    width: 90%;
 }
 
 .nachkontrolleScreen {
@@ -22,4 +21,25 @@ p.listHeader {
 
 #deleteActivity {
     margin-left: 10px;
+}
+
+#btnUp, #btnDown, #btnInfo {
+    margin: 3px;
+}
+
+#btnUp {
+    margin-left: 8px;
+}
+
+#aufgabenEingabeBeendet, #addActivity {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#zeitanzeigeLaenge {
+    margin-bottom: 0px;
+}
+
+#btnAufgabenPriorisiert {
+    margin-top: 20px;
 }
