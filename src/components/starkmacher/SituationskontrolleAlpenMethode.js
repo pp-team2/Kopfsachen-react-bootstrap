@@ -21,7 +21,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
             {id: 1, textAufgabe: 'Aufräumen', laenge: '60 Minuten', puffer: '20 Minuten und 0 Sekunden', markiert: false},
             {id: 2, textAufgabe: 'Wäsche waschen', laenge: '30 Minuten', puffer: '10 Minuten und 0 Sekunden', markiert: false},
             {id: 3, textAufgabe: 'Hausaufgaben machen', laenge: '45 Minuten', puffer: '15 Minuten und 0 Sekunden', markiert: false}],
-            time: {}, seconds: 900, timerStop: false, btnTimerSwitch: false, screen: 9};
+            time: {}, seconds: 900, timerStop: false, btnTimerSwitch: false, screen: 8};
         this.timer = 0;
 
         this.textChange = this.textChange.bind(this);
@@ -56,16 +56,8 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
             case "textAufgabeInput":
                 this.setState({textAufgabe: value});
                 break;
-            /* case "laengeInput":
-                this.setState({laenge: value});
-                break;
-            case "pufferInput":
-                this.setState({puffer: value});
-                break; */
             default: alert("Fehler beim Setzen des Textes! Bitte wiederholen");
         }
-
-
     }
 
     // Fügt eine neue Aufgabe hinzu
@@ -80,7 +72,6 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         // Setzt alle Werte zurück und speichert die neue Aufgabe im state
         document.getElementById('textAufgabeInput').value = '';
         document.getElementById('laengeInput').value = 60;
-        //document.getElementById('pufferInput').value = '';
         this.setState({textAufgabe: '', laenge: 60, laengeInStunden: 1, laengeInSekunden: 3600,
          puffer: '20 Minuten und 0 Sekunden', texte: texte});
     }
@@ -99,6 +90,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
 
     // Es wurde auf den Button "Bitte erinner mich nachher" geklickt
     erinnerungSetzen() {
+        Notification.requestPermission(function(){});
         this.props.setErinnerung();
     }
 

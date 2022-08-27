@@ -43,3 +43,24 @@ p.listHeader {
 #btnAufgabenPriorisiert {
     margin-top: 20px;
 }
+
+#meditationBeendet {
+    margin-bottom: 30px;
+    width: 100%;
+
+}
+
+#audioVerweis {
+    text-decoration: underline;
+    color: blue;
+}
+
+#audioControl {
+    margin: 10px;
+    margin-bottom: 40px;
+}
+
+#weiterZuStarkmachern {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}

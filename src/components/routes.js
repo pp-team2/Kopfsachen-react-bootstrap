@@ -17,6 +17,7 @@ import Profil from './profil';
 import Login from './login';
 import { message} from 'antd';
 import SituationskontrolleController from './starkmacher/SituationskontrolleController';
+import SelbstbezogenesMitgefuehl from './starkmacher/SelbstbezogenesMitgefuehl';
 message.config({
   top: 50
 });
@@ -95,6 +96,13 @@ const routes = [{
   component: <SituationskontrolleController />,
   color: "#eefcf5",
   text: "Situationskontrolle",
+  img: "./situationskontrolle.png"
+},
+{
+  path: "/starkmacher/SelbstbezogenesMitgefuehl",
+  component: <SelbstbezogenesMitgefuehl />,
+  color: "#eefcf5",
+  text: "Selbstbezogenes Mitgefühl",
   img: "./situationskontrolle.png"
 },
 {
