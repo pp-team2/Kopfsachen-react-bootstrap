@@ -7,6 +7,8 @@ import './situationskontrolle.css';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import { LinkContainer } from 'react-router-bootstrap';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 export default class SituationskontrolleNachkontrolle extends React.Component {
     constructor() {
@@ -47,15 +49,23 @@ export default class SituationskontrolleNachkontrolle extends React.Component {
     render() {
         let screen12 = <Container>
                         <Row>
-                            <p className="nachkontrolleScreen">Es ist Zeit deinen Tagesplan zu kontrollieren!</p>
+                            
+                                <p className="nachkontrolleScreen">Es ist Zeit deinen Tagesplan zu kontrollieren!</p>
+                            
                         </Row>
                         <Row>
-                            <Button className="nachkontrolleScreen" onClick={this.nachkontrolleBeginnen}>Alles klar!</Button>
+                            <OverlayTrigger placement="top" overlay={<Tooltip>Weiter zur Nachkontrolle</Tooltip>}>
+                                <Button className="nachkontrolleScreen" onClick={this.nachkontrolleBeginnen}>Alles klar!</Button>
+                            </OverlayTrigger>
                         </Row>
                         <Row>
-                            <LinkContainer to="/home">
-                                <Button className="nachkontrolleScreen">Heute lieber nicht!</Button>
-                            </LinkContainer>
+                            <OverlayTrigger placement="top" overlay={<Tooltip>Zurück zur Startseite</Tooltip>}>
+                                <div className="d-inline-block">
+                                    <LinkContainer to="/home">
+                                        <Button className="nachkontrolleScreen">Heute lieber nicht!</Button>
+                                    </LinkContainer>
+                                </div>
+                            </OverlayTrigger>
                         </Row>
                     </Container>
 
@@ -95,7 +105,9 @@ export default class SituationskontrolleNachkontrolle extends React.Component {
                             </Row>
                             <Row>
                                 <Col>
-                                    <Button onClick={this.anzahlAufgabenAbgehakt}>Done</Button>
+                                    <OverlayTrigger placement="top" overlay={<Tooltip>Weiter</Tooltip>}>
+                                        <Button onClick={this.anzahlAufgabenAbgehakt} id="priorisierungBeendet">Done</Button>
+                                    </OverlayTrigger>
                                 </Col>
                             </Row>
                     </Container>
@@ -124,10 +136,18 @@ export default class SituationskontrolleNachkontrolle extends React.Component {
             </Row>
             <Row>
                 <Col>
-                    <LinkContainer to="/starkmacher/SelbstbezogenesMitgefuehl"><Button>Ich möchte die Übung ausprobieren</Button></LinkContainer>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Weiter zum Starkmacher Selbstbezogenes Mitgefühl</Tooltip>}>
+                        <div className="d-inline-block">
+                            <LinkContainer to="/starkmacher/SelbstbezogenesMitgefuehl"><Button style={{ pointerEvents: 'none' }}>Ich möchte die Übung ausprobieren</Button></LinkContainer>
+                        </div>
+                    </OverlayTrigger>
                 </Col>
                 <Col>
-                    <Button>Heute nicht</Button>
+                    <OverlayTrigger placement="top" overlay={<Tooltip>Zurück zur Startseite</Tooltip>}>
+                        <div className="d-inline-block">
+                            <LinkContainer to="/home"><Button style={{ pointerEvents: 'none' }}>Heute nicht</Button></LinkContainer>
+                        </div>
+                    </OverlayTrigger>
                 </Col>
             </Row>
         </Container>

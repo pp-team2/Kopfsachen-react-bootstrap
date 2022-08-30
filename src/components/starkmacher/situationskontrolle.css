@@ -16,7 +16,9 @@ p.listHeader {
 }
 
 .nachkontrolleScreen {
-    margin: 20px;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 30px;
 }
 
 #deleteActivity {
@@ -32,7 +34,7 @@ p.listHeader {
 }
 
 #aufgabenEingabeBeendet, #addActivity {
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 10px;
 }
 
@@ -42,6 +44,7 @@ p.listHeader {
 
 #btnAufgabenPriorisiert {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #meditationBeendet {
@@ -63,4 +66,12 @@ p.listHeader {
 #weiterZuStarkmachern {
     margin-top: 20px;
     margin-bottom: 40px;
+}
+
+#priorisierungBeendet {
+    margin-top: 20px;
+}
+
+.buttonBack {
+    margin-bottom: 10px;
 }

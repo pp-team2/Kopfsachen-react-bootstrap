@@ -93,7 +93,14 @@ const routes = [{
 },
 {
   path: "/starkmacher/Situationskontrolle",
-  component: <SituationskontrolleController />,
+  component: <SituationskontrolleController nachkontrolle={false} />,
+  color: "#eefcf5",
+  text: "Situationskontrolle",
+  img: "./situationskontrolle.png"
+},
+{
+  path: "/starkmacher/SituationskontrolleNachkontrolle",
+  component: <SituationskontrolleController nachkontrolle={true} />,
   color: "#eefcf5",
   text: "Situationskontrolle",
   img: "./situationskontrolle.png"
