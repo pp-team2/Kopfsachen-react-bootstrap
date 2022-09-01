@@ -22,7 +22,9 @@ export default class SituationskontrolleNachkontrolle extends React.Component {
 
     componentDidMount() {
         this.setState({texte: this.props.texte});
-        console.log(this.props.texte);
+
+        // Löscht die lokal gespeicherten Aufgaben
+        window.localStorage.removeItem('situationskontrolleAufgaben');
     }
 
     nachkontrolleBeginnen() {
@@ -37,10 +39,10 @@ export default class SituationskontrolleNachkontrolle extends React.Component {
         
         // Wenn über 50% der Übungen abgehakt wurde, wird die Übung abgeschlossen, ansonsten wird Selbstbezogenes Mitgefühl vorgeschlagen
         if (anzahlAbgehakt / anzahlMax > 0.5) {
-            console.log("Unterer Pfad");
+            // Übung abgeschlossen
             this.setState({screen: 14});
         } else {
-            console.log("Oberer Pfad");
+            // Selbstbezogenes Mitgefühl
             this.setState({screen: 19});
         }
         console.log(anzahlMax);
@@ -50,7 +52,7 @@ export default class SituationskontrolleNachkontrolle extends React.Component {
         let screen12 = <Container>
                         <Row>
                             
-                                <p className="nachkontrolleScreen">Es ist Zeit deinen Tagesplan zu kontrollieren!</p>
+                            <p className="nachkontrolleScreen">Es ist Zeit deinen Tagesplan zu kontrollieren!</p>
                             
                         </Row>
                         <Row>

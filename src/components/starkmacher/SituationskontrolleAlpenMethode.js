@@ -17,12 +17,15 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
     constructor(props) {
         super(props);
         this.state = {textAufgabe: '', laenge: 60, laengeInStunden: 1, laengeInSekunden: 3600, puffer: '20 Minuten und 0 Sekunden',
-            texte: [{id: 0, textAufgabe: '', laenge: '', puffer: '', markiert: false},
+            texte: [{id: 0, textAufgabe: '', laenge: '', puffer: '', markiert: false}],
+            time: {}, seconds: 900, timerStop: false, btnTimerSwitch: false, screen: 8, tooltipText: 'Benenne zuerst die Aufgabe', tooltipText2: 'Füge zuerst eine Aufgabe hinzu'};
+        this.timer = 0;
+
+        /*
             {id: 1, textAufgabe: 'Aufräumen', laenge: '60 Minuten', puffer: '20 Minuten und 0 Sekunden', markiert: false},
             {id: 2, textAufgabe: 'Wäsche waschen', laenge: '30 Minuten', puffer: '10 Minuten und 0 Sekunden', markiert: false},
-            {id: 3, textAufgabe: 'Hausaufgaben machen', laenge: '45 Minuten', puffer: '15 Minuten und 0 Sekunden', markiert: false}],
-            time: {}, seconds: 900, timerStop: false, btnTimerSwitch: false, screen: 8, tooltipText: 'Benenne zuerst die Aufgabe', tooltipText2: 'Weiter'};
-        this.timer = 0;
+            {id: 3, textAufgabe: 'Hausaufgaben machen', laenge: '45 Minuten', puffer: '15 Minuten und 0 Sekunden', markiert: false}
+        */
 
         this.textChange = this.textChange.bind(this);
         this.addText = this.addText.bind(this);
@@ -68,9 +71,6 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         let texte = this.state.texte;
         let lastId = texte[texte.length-1].id;
         texte.push({id: lastId+1,textAufgabe: this.state.textAufgabe, laenge: this.state.laenge + ' Minuten', puffer: this.state.puffer});
-        /* console.log(this.state.textAufgabe);
-        console.log(this.state.laenge);
-        console.log(this.state.puffer); */
 
         // Setzt alle Werte zurück und speichert die neue Aufgabe im state
         document.getElementById('textAufgabeInput').value = '';
@@ -89,19 +89,21 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
 
     // Alle Aufgaben wurden eingegeben
     aufgabenEingabeBeendet() {
-        console.log(this.state.texte);
         this.setState({screen: 10});
     }
 
     // Die Aufgaben wurden priorisiert
     aufgabenPriorisiert() {
-        this.props.texteSpeichern(this.state.texte);
         this.setState({screen: 11});
     }
 
     // Es wurde auf den Button "Bitte erinner mich nachher" geklickt
     erinnerungSetzen() {
+        // Speichert die Texte im lokalen Speicher
+        this.props.texteSpeichern(this.state.texte);
+        // Fragt nach Erlaubnis Benachrichtigungen zu senden
         Notification.requestPermission(function(){});
+
         this.props.setErinnerung();
     }
 
@@ -343,7 +345,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                         <Col>
                             <OverlayTrigger placement="top" overlay={<Tooltip>{this.state.tooltipText2}</Tooltip>}>
                                 <div className="d-inline-block">
-                                    <Button onClick={this.aufgabenEingabeBeendet} id="aufgabenEingabeBeendet" variant="success">Das sind alle Aufgaben</Button>
+                                    <Button onClick={this.aufgabenEingabeBeendet} className="disabled" id="aufgabenEingabeBeendet" variant="success">Das sind alle Aufgaben</Button>
                                 </div>
                             </OverlayTrigger>
                         </Col>
@@ -415,6 +417,9 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                                 <Alert variant='success'>Wenn du möchtest, erhälst Du am Ende des Tages eine Benachrichtigung, 
                                     um einzutragen was du geschafft hast. 
                                     Danach ist die Situationskontrolle Teil deiner Starkmacher!</Alert>
+                                <Alert variant='danger'>Beim klicken auf "Bitte erinner mich nachher" werden deine hinzugefügten Aufgaben bis zur Nachkontrolle im Browser gespeichert.
+                                    Danach werden sie direkt gelöscht! Stelle deshalb sicher, dass du die Nachkontrolle am selben Gerät wie jetzt machst.
+                                </Alert>
                             </Col>
                         </Row>
                         <Row>
