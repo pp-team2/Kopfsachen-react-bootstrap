@@ -18,10 +18,11 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         super(props);
         this.state = {textAufgabe: '', laenge: 60, laengeInStunden: 1, laengeInSekunden: 3600, puffer: '20 Minuten und 0 Sekunden',
             texte: [{id: 0, textAufgabe: '', laenge: '', puffer: '', markiert: false}],
-            time: {}, seconds: 900, timerStop: false, btnTimerSwitch: false, screen: 8, tooltipText: 'Benenne zuerst die Aufgabe', tooltipText2: 'Füge zuerst eine Aufgabe hinzu'};
+            time: {}, seconds: 900, timerStop: false, btnTimerSwitch: false, screen: 8, tooltipText: 'Benenne zuerst die Aufgabe', 
+            tooltipText2: 'Füge zuerst eine Aufgabe hinzu', btnEingabeBeendet: 'disabled'};
         this.timer = 0;
 
-        /*
+        /* Beispiel Aufgaben
             {id: 1, textAufgabe: 'Aufräumen', laenge: '60 Minuten', puffer: '20 Minuten und 0 Sekunden', markiert: false},
             {id: 2, textAufgabe: 'Wäsche waschen', laenge: '30 Minuten', puffer: '10 Minuten und 0 Sekunden', markiert: false},
             {id: 3, textAufgabe: 'Hausaufgaben machen', laenge: '45 Minuten', puffer: '15 Minuten und 0 Sekunden', markiert: false}
@@ -79,17 +80,23 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
          puffer: '20 Minuten und 0 Sekunden', texte: texte});
 
          if (this.state.texte.length > 1) {
-            document.getElementById('aufgabenEingabeBeendet').classList.remove('disabled');
-            this.setState({tooltipText2: 'Weiter'});
+            this.setState({tooltipText2: 'Weiter', btnEingabeBeendet: ''});
          } else {
-            document.getElementById('aufgabenEingabeBeendet').classList.add('disabled');
-            this.setState({tooltipText2: 'Füge zuerst eine Aufgabe hinzu'});
+            this.setState({tooltipText2: 'Füge zuerst eine Aufgabe hinzu', btnEingabeBeendet: 'disbaled'});
          }
+
+        document.getElementById('addActivity').classList.add('disabled');
+        this.setState({tooltipText: 'Benenne zuerst die Aufgabe'});
     }
 
     // Alle Aufgaben wurden eingegeben
     aufgabenEingabeBeendet() {
-        this.setState({screen: 10});
+        // Setzt alle Werte zurück und stoppt den Timer
+        document.getElementById('textAufgabeInput').value = '';
+        document.getElementById('laengeInput').value = 60;
+
+        this.setState({textAufgabe: '', laenge: 60, laengeInStunden: 1, laengeInSekunden: 3600,
+         puffer: '20 Minuten und 0 Sekunden', screen: 10, timerStop: true, btnTimerSwitch: false});
     }
 
     // Die Aufgaben wurden priorisiert
@@ -189,12 +196,13 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
         this.setState({texte: texte});
 
         if (texte.length > 1) {
-            document.getElementById('aufgabenEingabeBeendet').classList.remove('disabled');
-            this.setState({tooltipText2: 'Weiter'});
+            this.setState({tooltipText2: 'Weiter', btnEingabeBeendet: ''});
          } else {
-            document.getElementById('aufgabenEingabeBeendet').classList.add('disabled');
-            this.setState({tooltipText2: 'Füge zuerst eine Aufgabe hinzu'});
+            this.setState({tooltipText2: 'Füge zuerst eine Aufgabe hinzu', btnEingabeBeendet: 'disabled'});
          }
+
+        document.getElementById('addActivity').classList.add('disabled');
+        this.setState({tooltipText: 'Benenne zuerst die Aufgabe'});
     }
 
     // Tauscht eine Aufgabe mit einer oberen (Priorität wird gesteigert)
@@ -233,6 +241,12 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
             this.setState({screen: 9});
         } else if (this.state.screen == 11) {
             this.setState({screen: 10});
+        }
+
+        if (this.state.texte.length > 1) {
+            this.setState({btnEingabeBeendet: ''});
+        } else {
+            this.setState({btnEingabeBeendet: 'disabled'});
         }
     }
 
@@ -345,7 +359,7 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                         <Col>
                             <OverlayTrigger placement="top" overlay={<Tooltip>{this.state.tooltipText2}</Tooltip>}>
                                 <div className="d-inline-block">
-                                    <Button onClick={this.aufgabenEingabeBeendet} className="disabled" id="aufgabenEingabeBeendet" variant="success">Das sind alle Aufgaben</Button>
+                                    <Button onClick={this.aufgabenEingabeBeendet} className={this.state.btnEingabeBeendet} id="aufgabenEingabeBeendet" variant="success">Das sind alle Aufgaben</Button>
                                 </div>
                             </OverlayTrigger>
                         </Col>
@@ -371,9 +385,9 @@ export default class SituationskontrolleAlpenMethode extends React.Component {
                                                 <Popover>
                                                     <Popover.Header>
                                                         {line.textAufgabe}
-                                                        <OverlayTrigger placement='top' overlay={<Tooltip>Löschen</Tooltip>}>
+                                                        {/* <OverlayTrigger placement='top' overlay={<Tooltip>Löschen</Tooltip>}>
                                                             <Button onClick={this.deleteActivity} variant="danger" id="deleteActivity" className={line.id}>X</Button>
-                                                        </OverlayTrigger>
+                                                        </OverlayTrigger> */}
                                                     </Popover.Header>
                                                     <Popover.Body>
                                                         <p className="listHeader"><u>Länge</u></p>
