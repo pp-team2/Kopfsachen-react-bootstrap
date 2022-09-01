@@ -29,3 +29,46 @@ image, img.symbol {
     height: 3%;
     width: 3%;
 }
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+#uebungBeenden {
+    float: left;
+    visibility: hidden;
+}
+
+#printButton {
+    float: right;
+}
+
+.printTextSN {
+    display: none;
+}
+
+@media print {
+    div, button, a {
+        visibility: hidden;
+    }
+
+    svg#svgNetzSU {
+        visibility: visible;
+        display: block;
+        margin-top: 200px;
+    }
+
+    h2.printText {
+        display: block;
+        position: fixed;
+        top: 40px;
+        visibility: visible;
+    }
+
+    p.printText {
+        display: block;
+        position: fixed;
+        top: 80px;
+        visibility: visible;
+    } 
+}

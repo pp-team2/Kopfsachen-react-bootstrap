@@ -22,3 +22,81 @@ image.ressource {
     width: 11%;
     height: 11%;
 }
+
+/* Button im Popover der die Aktivität löscht */
+#deleteActivity {
+    display: inline-block;
+    margin-left: 10px;
+    
+}
+
+/* Übernommen und leicht angepasst aus: https://stackoverflow.com/questions/38023932/custom-scrollbar-only-in-one-div */
+.scrollbar {
+	float: left;
+	height: 300px;
+	width: 100%;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.force-overflow {
+	min-height: 450px;
+}
+/* Verweis Ende */
+
+/* Diese Texte sollen nur beim Drucken zu sehen sein */
+h2.printText, p.printText {
+    display: none;
+}
+
+/* Je nach Länge der Texte wird die Textgröße angepasst */
+.ressourceText1 {
+    font-size: 9px;
+}
+.ressourceText2 {
+    font-size: 8px;
+}
+.ressourceText3 {
+    font-size: 7px;
+}
+
+/* Hintergrundfarbe für die Texte die in der SVG-Grafik eingefügt werden zu den Bildern */
+.backgroundForText {
+    fill: white;
+}
+
+/* Button "Drucken / als PDF speichern" */
+#openPrintDialog {
+    float: right;
+}
+
+@media print {
+    h3, h2, p, h1, img, button, nav, a {
+        display: none;
+        visibility: hidden;
+    }
+    div.card-body {
+        position: fixed;
+        top: 0px;
+    }
+    svg#svgNetzSN {
+        visibility: visible;
+        display: block;
+        position: relative;
+        top: 150px;
+    }
+
+    h2.printTextSN {
+        display: block;
+        position: relative;
+        top: 20px;
+        visibility: visible;
+    }
+
+    p.printTextSN {
+        display: block;
+        position: relative;
+        top: 40px;
+        visibility: visible;
+    }
+}

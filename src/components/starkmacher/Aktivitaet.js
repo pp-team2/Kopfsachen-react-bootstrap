@@ -4,8 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import {LinkContainer} from 'react-router-bootstrap'
-
+import Card from 'react-bootstrap/Card';
+import { FiArrowLeft } from "react-icons/fi";
+import InputGroup from 'react-bootstrap/InputGroup';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+import Form from 'react-bootstrap/Form';
 
 export default class Aktiviatet extends React.Component {
     constructor(props) {
@@ -18,8 +22,12 @@ export default class Aktiviatet extends React.Component {
         this.pictureChange = this.pictureChange.bind(this);
         this.exit = this.exit.bind(this);
         this.save = this.save.bind(this);
+        this.backButtonClicked = this.backButtonClicked.bind(this);
     }
 
+    backButtonClicked() {
+        this.props.selectNewActivity();
+    }
 
     selectNewActivity() {
         // Wenn auf "Weitere Ressourcen hinzufügen" geklickt wurde
@@ -41,12 +49,11 @@ export default class Aktiviatet extends React.Component {
 
     pictureChange(elem) {
         // Entfernt alle Border von den Bildern die zur Auswahl stehen
-        document.querySelectorAll('img').forEach(element => element.style.border = '');
+        document.querySelectorAll('img').forEach(element => element.style.opacity = '0.5');
         // Setzt den Border wieder an dem Bild was ausgewählt wurde
-        document.querySelector('#'+elem.target.getAttribute('id')).style.border = "black solid";
+        document.querySelector('#'+elem.target.getAttribute('id')).style.opacity = "1";
         // Speichert das ausgewählte Bild im state
-        this.setState({picture: document.querySelector('#'+elem.target.getAttribute('id'))});
-        //console.log(document.querySelector('.'+elem.target.getAttribute('class')));
+        this.setState({picture: document.querySelector('#'+elem.target.getAttribute('id')).getAttribute('src')});
 
         // Macht den Button zu weiteren Ressourcen zugänglich (wenn Text und Bild vorhanden)
         if (this.state.text) {
@@ -55,7 +62,7 @@ export default class Aktiviatet extends React.Component {
     }
 
 
-    save() {  
+    save() {
         // Ruft die saveActitivty-Funktion in SicherheitsnetzController auf um die Aktivität zu speichern
         this.props.saveActivity(this.state.text, this.state.picture, this.props.clickID);
     }
@@ -67,15 +74,30 @@ export default class Aktiviatet extends React.Component {
 
     render() {
         return (
-            <Container id="aktivitaetsAuswahl" style={{textAlign: 'center'}}>
+            <Container id="aktivitaetsAuswahl">
+                <Card>
+                <Card.Body>
                 <Row>
                     <Col>
+                        <OverlayTrigger placement='right' overlay={<Tooltip>Zur Übersicht</Tooltip>}>
+                            <Button id="backButton" variant="success" onClick={this.backButtonClicked}>Zurück</Button>
+                        </OverlayTrigger>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    <br></br>
                         <p>Das bereitet mir eine Freude:</p>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <input onChange={this.textChange} type="text"></input>
+                        <Form>
+                            <Form.Control type="email" placeholder="..." onChange={this.textChange} />
+                            <Form.Text className="text-muted">
+                            Gebe in das Textfeld z.B. eine Aktivität oder einen Namen einer Person ein, die dir eine Freude bereitet.
+                            </Form.Text>
+                        </Form>
                     </Col>
                 </Row>
                 <Row>
@@ -84,30 +106,63 @@ export default class Aktiviatet extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Personen" />
+                    <Col md={4} sm={6} xl={3}>
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Person oder Gruppe
+                                </Tooltip>
+                            }>
+                            <img className="ressource" id="p_1" onClick={this.pictureChange} src="/personen.png" alt="Personen" />
+                        </OverlayTrigger>
                     </Col>
-                    <Col>
+                    <Col md={4} sm={6} xl={3}>
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Tier
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_2" onClick={this.pictureChange} src="/tier.png" alt="Tier" />
+                        </OverlayTrigger>
                     </Col>
-                    <Col>
+                    <Col md={4} sm={6} xl={3}>
+                    <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Kreativität
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_3" onClick={this.pictureChange} src="/kreativ.png" alt="Kreative Aktivität" />
-                    </Col>    
-                </Row>
-                <Row>
-                    <Col>
+                        </OverlayTrigger>
+                    </Col>
+
+                    <Col md={12} sm={6} xl={3}>
+                    <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                Sonstiges
+                                </Tooltip>
+                            }>
                         <img className="ressource" id="p_4" onClick={this.pictureChange} src="/sonstiges.png" alt="Sonstige Aktivität" />
+                        </OverlayTrigger>
                     </Col>
                    {/*  <Col>
                         <img className="ressource" id="p_5" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
                     </Col>
                     <Col>
                         <img className="ressource" id="p_6" onClick={this.pictureChange} src="/tagebuch.jpg" alt="Tagebuch-Bild" />
-                    </Col> */}  
+                    </Col> */}
                 </Row>
+                <br></br>
+                <br></br>
                 <Row>
                     <Col>
-                        <Button id="weitereRessource" onClick={this.selectNewActivity} className="disabled">Weitere Ressource hinzufügen</Button>
+                        <Button id="weitereRessource" variant="success" onClick={this.selectNewActivity} className="disabled">Ressource zum Sicherheitsnetz hinzufügen</Button>
                     </Col>
                     {/* <Col>
                         <LinkContainer to="/home">
@@ -115,7 +170,8 @@ export default class Aktiviatet extends React.Component {
                         </LinkContainer>
                     </Col> */}
                 </Row>
-                
+                </Card.Body>
+                </Card>
             </Container>
         )
     }

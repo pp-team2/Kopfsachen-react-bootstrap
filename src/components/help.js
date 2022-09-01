@@ -1,5 +1,7 @@
 import React from 'react'
 import {  Container, Card , Button} from 'react-bootstrap'
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 const content = [{
     title: "jugendnotmail.de",
@@ -25,30 +27,37 @@ const content = [{
 
 
 const Help = () => {
-
     return (
-        <Container className="d-grid gap-4">
-            <h2>Online-Beratung</h2>
+        <Container className="d-grid gap-4"> 
+            <Tabs
+                defaultActiveKey={content[0].title}
+               variant="pills"
+                className="mb-3"
+                
+            
+            >
             {
                 content.map(entry =>
-                    <Card key={entry.title}>
-                    <Card.Header as="h5">{entry.title}</Card.Header>
-                    <Card.Body>
-                        <Card.Text>
+                <Tab eventKey={entry.title} title={entry.title} key={entry.title}>
+                    <Card style={{ marginTop: "-20px"}}>
+                        <Card.Header>
+                        {entry.title}
+                        </Card.Header>
+                        <div className="pdd">
+                        {        
+                        entry.bulletpoints.map((bullet, index) =>
+                                                 <li key={index}>{bullet}</li>
+                                             )   
+                        }
 
-                                {
-                                    entry.bulletpoints.map((bullet, index) =>
-                                        <li key={index}>{bullet}</li>
-                                    )
-                                }
-
-                        </Card.Text>
-                        <Button href={entry.link} variant="outline-secondary">Mehr erfahren</Button>
-                    </Card.Body>
-                    </Card>
+                                 <br />               
+                        <Button href={entry.link} size="md" variant="success">Mehr erfahren</Button>
+                        </div>
+                    </Card>       
+                </Tab>
                 )
             }
-
+            </Tabs>
         </Container>
     )
 }

@@ -1,0 +1,39 @@
+{
+	"short_name": "KOPFsachen",
+	"name": "KOFPsachen PWA",
+	"icons": [
+		{
+			"src": "/logoSquare192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "/logoSquare96.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		}
+	],
+	"start_url": "/",
+	"background_color": "#00D08E",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#00D08E",
+	"shortcuts": [
+		{
+			"name": "Stimmungstagebuch",
+			"short_name": "Tagebuch",
+			"description": "Verfolge deine tägliche Stimmung",
+			"url": "/stimmungstagebuch",
+			"icons": [{
+				"src": "/logoSquare192.png",
+				"type": "image/png",
+				"sizes": "192x192"
+			},{
+				"src": "/logoSquare96.png",
+				"type": "image/png",
+				"sizes": "96x96"
+			}]
+		}
+	],
+	"description": "Kopfsachen e.V. ist ein Verein zur Förderung der mentalen Gesundheit junger Menschen. Wir vermitteln in verschiedenen Bildungsformaten die Grundlagen der psychischen Gesundheitskompetenz."
+}

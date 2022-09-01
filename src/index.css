@@ -1,8 +1,11 @@
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+* {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
 }
 
 code {
@@ -13,4 +16,91 @@ code {
     text-decoration: none;
     outline: 0;
     box-shadow: 0 0 0 0.1rem !important;
+}
+
+.shadowNav {
+    box-shadow: 0 2px 12px 0px rgba(36, 50, 66, .08) !important;
+}
+
+.btn-fill-black {
+    font-weight: 500 !important;
+    color: white !important;
+    background-color: #0d0e10d9 !important;
+    border: none !important;
+}
+
+.btn-fill-black:hover {
+    background-color: rgb(80, 144, 95) !important;
+    border: none !important;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid black;
+}
+
+.nav-link.active:hover {
+    border-bottom: 2px solid black;
+    cursor: default;
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid rgb(192, 192, 192);
+}
+
+.nav-link {
+    margin-left: 7px;
+    margin-right: 7px;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-bottom: 0px !important;
+    transition: none !important;
+    border-bottom: 2px solid rgb(0, 0, 0, 0);
+}
+
+.navbar .row {
+    text-align: center;
+    --bs-gutter-x: 0;
+}
+
+.navLabel {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.row>* {
+    padding-right: 0px !important;
+}
+
+.pdd {
+    padding: 20px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #6c757d !important;
+    padding: 10px !important;
+}
+
+.nav-pills .nav-link.active:hover {
+    border: 1px solid #6c757d !important;
+}
+
+.nav-pills .nav-link {
+    color: #6c757d;
+    border: 1px solid #6c757d !important;
+    padding: 10px !important;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: #6c757d !important;
+    padding: 10px !important;
+    color: white;
+}
+
+.carousel-inner {
+    border-radius: .25rem;
+    margin-bottom: 20px !important;
+}
+
+.carousel {
+    margin-bottom: 20px !important;
 }
