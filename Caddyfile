@@ -1,0 +1,46 @@
+http://, mindtastic.lol {
+	handle_path /api/* {
+		reverse_proxy /wiki {
+			to https://wiki.api.live.mindtastic.lol
+			header_up Host wiki.api.live.mindtastic.lol
+		}
+		reverse_proxy /self-service/* {
+			to https://auth.api.live.mindtastic.lol
+			header_up Host auth.api.live.mindtastic.lol
+		}
+		reverse_proxy /sessions/* {
+			to https://auth.api.live.mindtastic.lol
+			header_up Host auth.api.live.mindtastic.lol
+		}
+		reverse_proxy /user {
+			to https://users.api.live.mindtastic.lol
+			header_up Host users.api.live.mindtastic.lol
+		}
+		reverse_proxy /safetyNet {
+			to https://motivator.api.live.mindtastic.lol
+			header_up Host motivator.api.live.mindtastic.lol
+		}
+		reverse_proxy /motivator {
+			to https://motivator.api.live.mindtastic.lol
+			header_up Host motivator.api.live.mindtastic.lol
+		}
+		reverse_proxy /motivator/* {
+			to https://motivator.api.live.mindtastic.lol
+			header_up Host motivator.api.live.mindtastic.lol
+		}
+		reverse_proxy /result {
+			to https://motivator.api.live.mindtastic.lol
+			header_up Host motivator.api.live.mindtastic.lol
+		}
+		reverse_proxy /result/* {
+			to https://motivator.api.live.mindtastic.lol
+			header_up Host motivator.api.live.mindtastic.lol
+		}
+	}
+	handle {
+		root * ./build
+		try_files {path} /index.html
+		file_server
+	}
+	tls internal
+}
