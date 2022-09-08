@@ -78,10 +78,11 @@ const apiCalls = {
         return _fetchGETWithAuthorization(baseUrl + '/motivator', true, sessionToken)
     },
 
-    postMotivatorResult: async(motivatorId, sessionToken, timestamp, values) => {
+    postMotivatorResult: async(motivatorId, sessionToken, timestamp, values, feedback) => {
         return _fetchPOSTWithAuthorization(baseUrl + '/motivator/' + motivatorId + '/result', {
             "timestamp": timestamp,
-            "values": values
+            "values": values,
+            "feedback": {"rating": feedback}
         }, sessionToken)
     }
 
@@ -146,7 +147,7 @@ async function _fetchPOSTWithAuthorization(path, bodyobj, sessionToken) {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${sessionToken}`
         },
-        body: bodyobj
+        body: JSON.stringify(bodyobj)
     });
     const r = await response.json();
     console.log(r)
@@ -178,7 +179,7 @@ async function _fetchPUTWithAuthorization(path, bodyobj, sessionToken) {
             "Content-Type": "application/json",
             'Authorization': `Bearer ${sessionToken}`
         },
-        body: bodyobj
+        body: JSON.stringify(bodyobj)
     });
     const r = await response.json();
     console.log(r)

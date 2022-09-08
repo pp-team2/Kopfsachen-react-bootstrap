@@ -9,6 +9,14 @@ export default class SozialeUnterstuetzungController extends React.Component {
         super(props);
         let level = this.props.level;
 
+        /* async function fetchDataGET() {
+            const jsonRes = await API.getMotivator(props.sessionToken);
+
+            console.log("Test GET Motivators: ");
+            console.log(jsonRes);
+        }
+        fetchDataGET(); */
+
         this.state = {level: level, personas: [{name: '', circleID: '', symbols: [], markiert: false}]};
 
         this.newPerson = this.newPerson.bind(this);
@@ -18,7 +26,6 @@ export default class SozialeUnterstuetzungController extends React.Component {
 
     // Fügt eine neue Person dem State hinzu
     newPerson(name, circleID, symbols, markiert) {
-        //console.log(circleID);
         let personas = this.state.personas;
         if (name == undefined && symbols == undefined) {
             personas = personas.map(line => {
@@ -41,7 +48,6 @@ export default class SozialeUnterstuetzungController extends React.Component {
         }
         console.log(personas);
         this.setState({personas: personas});
-        //console.log(this.state.personas);
     }
 
     // Beendet die Übung und sendet eine API-Anfrage um die Ergebnisse zu speichern
@@ -50,21 +56,12 @@ export default class SozialeUnterstuetzungController extends React.Component {
 
         console.log(this.state.personas);
 
-        // Allgemein get Motivator
-        /* async function fetchDataGET() {
-            const jsonRes = await API.getMotivator(sessionToken);
-
-            console.log("Test GET Motivator: ");
-            console.log(jsonRes);
-        }
-        fetchDataGET(); */
-
         let values = {1: {entries: {personas: this.state.personas}}};
         console.log(values);
 
-        // TODO: Aktuelle Antwort: 500: TypeError: Cannot read properties of undefined (reading 'status')
+        // TODO: Aktuelle Antwort: 502: Bad Gateway
         async function fetchDataPOST() {
-            let jsonRes = await API.postMotivatorResult(3, sessionToken, new Date(), values);
+            let jsonRes = await API.postMotivatorResult(3, sessionToken, new Date(), values, 'positive');
             
             console.log("Test POST Soziale Unterstützung: ");
             console.log(jsonRes);

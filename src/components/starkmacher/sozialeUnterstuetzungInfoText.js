@@ -60,7 +60,7 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                                     <Row>
                                         <Col>
                                             <p>
-                                                <img className="symbol" src='/herz.png' alt='Bild vom Tagebuch'></img> = Emotionale Unterstützung 
+                                                <img className="symbol" src='/herz.png' alt='Bild vom Herz'></img> = Emotionale Unterstützung 
 
                                                 Manchmal tut es einfach nur gut über die eigenen Gefühle sprechen zu können und sich verstanden und akzeptiert zu fühlen: 
                                                 Manchmal braucht man vielleicht auch nur eine mitfühlende Umarmung, Aufmunterung oder das Wissen, dass überhaupt jemand da ist. 
@@ -82,7 +82,7 @@ export default class SozialeUnterstuetzungInfoText extends React.Component {
                                     <Row>
                                         <Col>
                                             <p>
-                                                <img className="symbol" src='/oberarm.png' alt='Bild vom Tagebuch'></img> = Instrumentale Unterstützung
+                                                <img className="symbol" src='/oberarm.png' alt='Bild vom Oberam'></img> = Instrumentale Unterstützung
 
                                                 Bei so manchem Problem, das uns Kopfzerbrechen bereitet, kann praktische Hilfe Anderer - in Form von Taten 
                                                 oder materiellen Dingen - einiges dazu beitragen die Situation zu lösen oder zumindest besser zu machen. 
