@@ -11,6 +11,11 @@ const Starkmacher = (props) => {
         logo:"sicherheitsnetz.png"
     },
     {
+        label:"Situationskontrolle",
+        link:"/starkmacher/Situationskontrolle",
+        logo:"situationskontrolle.png"
+    },
+    {
         label:"Reframing",
         link:"/starkmacher/reframing",
         logo:"reframing.png"

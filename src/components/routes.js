@@ -21,6 +21,10 @@ import SozialeUnterstuetzungController from './starkmacher/sozialeUnterstuetzung
 import  Help  from './help';
 import Profil from './profil';
 import { message} from 'antd';
+
+import SituationskontrolleController from './starkmacher/SituationskontrolleController';
+import SelbstbezogenesMitgefuehl from './starkmacher/SelbstbezogenesMitgefuehl';
+
 import API from "./API";
 import { ConfigProvider } from 'antd';
 import deDE from 'antd/lib/locale/de_DE';
@@ -176,6 +180,27 @@ const routes = [{
   text: "Optimismus",
   img: "/optimismus.png",
   requiresSession: true
+},
+{
+  path: "/starkmacher/Situationskontrolle",
+  component: <SituationskontrolleController nachkontrolle={false} />,
+  color: "#eefcf5",
+  text: "Situationskontrolle",
+  img: "./situationskontrolle.png"
+},
+{
+  path: "/starkmacher/SituationskontrolleNachkontrolle",
+  component: <SituationskontrolleController nachkontrolle={true} />,
+  color: "#eefcf5",
+  text: "Situationskontrolle",
+  img: "./situationskontrolle.png"
+},
+{
+  path: "/starkmacher/SelbstbezogenesMitgefuehl",
+  component: <SelbstbezogenesMitgefuehl />,
+  color: "#eefcf5",
+  text: "Selbstbezogenes Mitgefühl",
+  img: "./situationskontrolle.png"
 },
 {
   path: "/starkmacher/SozialeUnterstuetzungLvl1",

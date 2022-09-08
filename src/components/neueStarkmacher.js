@@ -29,8 +29,8 @@ const NeueStarkmacher = (props) => {
     },    
     {
         label:"Situationskontrolle",
-        link:"/starkmacher/...",
-        description:"Lorem ipsum dolor sit amet, consetetur sadipscing elit voluptua.",
+        link:"/starkmacher/Situationskontrolle",
+        description:"Bei der Situationskontrolle geht es darum, dir einen Plan zu machen, wie du dein aktuelles Problem lösen kannst.",
         logo:"situationskontrolle.png",
         color:"#cae2e2"
     }      

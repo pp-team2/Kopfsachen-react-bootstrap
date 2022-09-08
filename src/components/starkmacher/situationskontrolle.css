@@ -1,0 +1,81 @@
+span.alpenHighlight {
+    color: #53C991;
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+}
+
+p.listHeader {
+    margin-bottom: 0px;
+}
+
+#textAufgabeInput, #laengeInput {
+    width: 90%;
+}
+
+.nachkontrolleScreen {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+
+#deleteActivity {
+    margin-left: 10px;
+}
+
+#btnUp, #btnDown, #btnInfo {
+    margin: 3px;
+}
+
+#btnUp {
+    margin-left: 8px;
+}
+
+#aufgabenEingabeBeendet, #addActivity {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+#zeitanzeigeLaenge {
+    margin-bottom: 0px;
+}
+
+#btnAufgabenPriorisiert {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#meditationBeendet {
+    margin-bottom: 30px;
+    width: 100%;
+
+}
+
+#audioVerweis {
+    text-decoration: underline;
+    color: blue;
+}
+
+#audioControl {
+    margin: 10px;
+    margin-bottom: 40px;
+}
+
+#weiterZuStarkmachern {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#priorisierungBeendet {
+    margin-top: 20px;
+}
+
+.buttonBack {
+    margin-bottom: 10px;
+}
+
+.step {
+    margin-bottom: 10px;
+}
