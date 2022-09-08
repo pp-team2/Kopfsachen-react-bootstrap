@@ -1,12 +1,11 @@
-//const baseUrl = "https://auth.api.live.mindtastic.lol";
 import MD5 from "crypto-js/md5"
-const baseUrl = "";
+const baseUrl = "/api";
 const apiCalls = {
 
     baseUrl: baseUrl,
 
     initRegistration: async() => {
-        return _fetchGET(baseUrl + '/self-service/registration/browser', true)
+        return _fetchGET('/self-service/registration/browser', true)
     },
 
     submitRegistration: async(re) => {
@@ -18,7 +17,7 @@ const apiCalls = {
     },
 
     initLogin: async() => {
-        return _fetchGET(baseUrl + '/self-service/login/browser', true)
+        return _fetchGET('/self-service/login/browser', true)
     },
 
     submitLogin: async(re, key) => {
@@ -31,31 +30,31 @@ const apiCalls = {
     },
 
     initLogout: async() => {
-        return _fetchGET(baseUrl + '/self-service/logout/browser', true)
+        return _fetchGET('/self-service/logout/browser', true)
     },
 
     submitLogout: async(token) => {
-        return _fetchGET(baseUrl + '/self-service/logout?token=' + token, false)
+        return _fetchGET('/self-service/logout?token=' + token, false)
     },
 
     checkSession: async() => {
-        return _fetchGET(baseUrl + '/sessions/whoami', true)
+        return _fetchGET('/sessions/whoami', true)
     },
 
     getWiki: async() => {
-        return _fetchGET(baseUrl + '/wiki', true)
+        return _fetchGET('/wiki', true)
     },
 
     getUser: async(sessionToken) => {
-        return _fetchGETWithAuthorization(baseUrl + '/user', true, sessionToken)
+        return _fetchGETWithAuthorization('/user', true, sessionToken)
     },
 
     getSafetyNet: async(sessionToken) => {
-        return _fetchGETWithAuthorization(baseUrl + '/safetyNet', true, sessionToken)
+        return _fetchGETWithAuthorization('/safetyNet', true, sessionToken)
     },
 
     postSafetyNet: async(sessionToken, name, type, strategies) => {
-        return _fetchPOSTWithAuthorization(baseUrl + '/safetyNet', {
+        return _fetchPOSTWithAuthorization('/safetyNet', {
             "name": name,
             "type": type,
             "strategies": strategies
@@ -63,11 +62,11 @@ const apiCalls = {
     },
 
     deleteSafetyNet: async(sessionToken, id) => {
-        return _fetchDELETEWithAuthorization(baseUrl + '/safetyNet/' + id, true, sessionToken)
+        return _fetchDELETEWithAuthorization('/safetyNet/' + id, true, sessionToken)
     },
 
     replaceSafetyNet: async(sessionToken, id, name, type, strategies) => {
-        return _fetchPUTWithAuthorization(baseUrl + '/safetyNet/' + id, {
+        return _fetchPUTWithAuthorization('/safetyNet/' + id, {
             "name": name,
             "type": type,
             "strategies": strategies
@@ -75,11 +74,11 @@ const apiCalls = {
     },
 
     getMotivator: async(sessionToken) => {
-        return _fetchGETWithAuthorization(baseUrl + '/motivator', true, sessionToken)
+        return _fetchGETWithAuthorization('/motivator', true, sessionToken)
     },
 
     postMotivatorResult: async(motivatorId, sessionToken, timestamp, values, feedback) => {
-        return _fetchPOSTWithAuthorization(baseUrl + '/motivator/' + motivatorId + '/result', {
+        return _fetchPOSTWithAuthorization('/motivator/' + motivatorId + '/result', {
             "timestamp": timestamp,
             "values": values,
             "feedback": {"rating": feedback}

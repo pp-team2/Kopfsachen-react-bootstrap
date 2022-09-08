@@ -2,52 +2,59 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
 
-    app.use("/self-service",
+    app.use("/api/self-service",
         createProxyMiddleware({
             target: 'https://auth.api.live.mindtastic.lol',
             changeOrigin: true,
+            pathRewrite: {'^/api' : ''},
         })
     );
 
-    app.use("/sessions",
+    app.use("/api/sessions",
         createProxyMiddleware({
             target: 'https://auth.api.live.mindtastic.lol',
             changeOrigin: true,
+            pathRewrite: {'^/api' : ''},
         })
     );
 
-    app.use("/wiki",
+    app.use("/api/wiki",
         createProxyMiddleware({
             target: 'https://wiki.api.live.mindtastic.lol',
             changeOrigin: true,
+            pathRewrite: {'^/api' : ''},
         })
     );
 
-    app.use("/user",
+    app.use("/api/user",
         createProxyMiddleware({
             target: 'https://users.api.live.mindtastic.lol',
             changeOrigin: true,
+            pathRewrite: {'^/api' : ''},
         })
     );
 
-    app.use("/safetyNet",
+    app.use("/api/safetyNet",
         createProxyMiddleware({
             target: 'https://motivator.api.live.mindtastic.lol',
             changeOrigin: true,
+            pathRewrite: {'^/api' : ''},
         })
     );
 
-    app.use("/motivator",
+    app.use("/api/motivator",
         createProxyMiddleware({
             target: 'https://motivator.api.live.mindtastic.lol',
             changeOrigin: true,
+            pathRewrite: {'^/api' : ''},
         })
     );
 
-    app.use("/result",
+    app.use("/api/result",
         createProxyMiddleware({
             target: 'https://motivator.api.live.mindtastic.lol',
             changeOrigin: true,
-            })
+            pathRewrite: {'^/api' : ''},
+        })
     );
 }
