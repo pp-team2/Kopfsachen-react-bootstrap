@@ -45,9 +45,9 @@ module.exports = function(app) {
     );
 
     app.use("/result",
-    createProxyMiddleware({
-        target: 'https://motivator.api.live.mindtastic.lol',
-        changeOrigin: true,
-    })
-);
+        createProxyMiddleware({
+            target: 'https://motivator.api.live.mindtastic.lol',
+            changeOrigin: true,
+            })
+    );
 }
