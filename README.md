@@ -1,13 +1,13 @@
-# Kopfsachen Web-App
+# Kopfsachen Progressive Web-App
 
 ## Überblick
 
-Diese Web App soll, vom Verein [Kopfsachen](https://www.kopfsachen.org/) angebotene, Workshops digital unterstützen. Dazu gibt es verschiedene Übungen (sog. Starkmacher) die die mentale Gesundheit stärken sollen.
+Diese Progressive Web App soll, vom Verein [Kopfsachen](https://www.kopfsachen.org/) angebotene, Workshops digital unterstützen. Dazu gibt es verschiedene Übungen (sog. Starkmacher) die die mentale Gesundheit stärken sollen.
 
-Die Web App legt besonderen Fokus auf ein responsives und schlichtes Design. Es soll allen Menschen möglich sein, die Web App im vollem Umfang zu bedienen!
+Es wird ein besonderer Fokus auf Barrierefreiheit gelegt, was unter anderem durch ein responsives Design realisiert wird.
 
-Die Web App arbeitet mit einem Backend zusammen, dass eine API bereitstellt: [Link zur GitHub-Seite](https://github.com/kopfsachen-dev/api)
-
+Das Projekt arbeitet mit einem Backend zusammen, dass eine API bereitstellt: [Link zur GitHub-Seite](https://github.com/kopfsachen-dev/api).
+Der Trailer zeigt einen kurzen Überblick über das Projekt und seine Features.
 
 
 https://user-images.githubusercontent.com/90382780/189385386-bbce83ee-dc31-4637-b6f8-55d51b8151d5.mp4
