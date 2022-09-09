@@ -186,21 +186,24 @@ const routes = [{
   component: <SituationskontrolleController nachkontrolle={false} />,
   color: "#eefcf5",
   text: "Situationskontrolle",
-  img: "./situationskontrolle.png"
+  img: "/situationskontrolle.png",
+  requiresSession: true
 },
 {
   path: "/starkmacher/SituationskontrolleNachkontrolle",
   component: <SituationskontrolleController nachkontrolle={true} />,
   color: "#eefcf5",
   text: "Situationskontrolle",
-  img: "./situationskontrolle.png"
+  img: "/situationskontrolle.png",
+  requiresSession: true
 },
 {
   path: "/starkmacher/SelbstbezogenesMitgefuehl",
   component: <SelbstbezogenesMitgefuehl />,
   color: "#eefcf5",
   text: "Selbstbezogenes Mitgefühl",
-  img: "./situationskontrolle.png"
+  img: "/selbstbezogenesMitgefuehl.png",
+  requiresSession: true
 },
 {
   path: "/starkmacher/SozialeUnterstuetzungLvl1",

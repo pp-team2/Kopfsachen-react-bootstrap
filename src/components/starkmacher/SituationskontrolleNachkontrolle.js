@@ -122,7 +122,7 @@ export default class SituationskontrolleNachkontrolle extends React.Component {
                             <p>Du bist heute ein ganzes Stück weitergekommen mit deinen Aufgaben!</p>
                         </Row>
                         <Row>
-                            <img src="../platzhalter-1.png"></img>
+                            <img src="../faehigkeitenvermittlung.png" id="bildFaehigkeitenvermittlung" alt="Fähigkeitenvermittlung"></img>
                             <LinkContainer to="/starkmacher"><Button id="weiterZuStarkmachern" variant="success">Weiter zu meinen Starkmachern</Button></LinkContainer>
                         </Row> 
                     </Container>
