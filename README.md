@@ -9,7 +9,7 @@ Die Web App legt besonderen Fokus auf ein responsives und schlichtes Design. Es 
 Die Web App arbeitet mit einem Backend zusammen, dass eine API bereitstellt: [Link zur GitHub-Seite](https://github.com/kopfsachen-dev/api)
 
 <video width="320" height="240" controls>
-  <source src="Abschlusstrailer-pp-team2.mp4" type="video/mp4">
+  <source src="./public/Abschlusstrailer-pp-team2.mp4" type="video/mp4">
 </video>
 
 ## Installation
